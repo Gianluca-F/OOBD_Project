@@ -1,0 +1,46 @@
+.login-label {
+  -fx-font-family: "Arial";
+  -fx-font-size: 30px;  
+  -fx-text-fill: #ee1515;
+}
+
+/* text-field settings in login page */
+.text-field {
+  -fx-font-family: "Abyssinica SIL";
+  -fx-prompt-text-fill: derive(-fx-control-inner-background, -30%);
+  -fx-font-size: 14px; 
+}
+
+/* password-field settings in login page */
+.password-field {
+  -fx-font-family: "Abyssinica SIL";
+  -fx-prompt-text-fill: derive(-fx-control-inner-background, -30%);
+  -fx-font-style: normal;
+  -fx-font-size: 14px; 
+}
+
+/* button base settings*/
+.button {
+  -fx-background-color: #0D37A1;  /* Colore di sfondo principale (Blu scuro) */
+  -fx-text-fill: white;           /* Colore del testo (bianco) */
+  -fx-font-size: 16px;            /* Dimensione del font */
+  -fx-font-family: "Arial";       /* Tipo di font */
+  -fx-padding: 10px 20px;         /* Padding (spazio interno) */
+  -fx-background-radius: 5px;     /* Arrotondamento dello sfondo */
+  -fx-border-radius: 5px;         /* Arrotondamento del bordo */
+  -fx-border-color: #0B2C91;      /* Colore del bordo (Blu ancora più scuro) */
+  -fx-border-width: 2px;          /* Spessore del bordo */
+}
+
+/* Stile quando il mouse è sopra (hover) */
+.button:hover {
+  -fx-background-color: #0B2C91;  /* Blu più scuro durante l'hover */
+  -fx-border-color: #081B73;      /* Cambia il colore del bordo a un blu ancora più profondo */
+}
+
+/* Stile quando il Button è premuto */
+.button:pressed {
+  -fx-background-color: #081B73;  /* Colore ancora più scuro quando viene premuto */
+  -fx-border-color: #060E54;      /* Colore del bordo ancora più scuro */
+  -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0, 0, 1);  /* Ombra */
+}
