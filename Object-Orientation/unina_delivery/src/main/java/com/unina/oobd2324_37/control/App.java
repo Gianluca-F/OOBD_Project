@@ -5,7 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.scene.image.Image;
 
 import java.io.IOException;
 
@@ -20,7 +19,6 @@ public final class App extends Application {
 
         Scene scene = new Scene(root, 800, 500);
         firstStage.setTitle("Unina Delivery");
-        //firstStage.getIcons().add(new Image(App.class.getResourceAsStream("icon.png")));
         firstStage.setScene(scene);
         firstStage.setMinWidth(firstStage.getWidth());
         firstStage.setMinHeight(firstStage.getHeight());
