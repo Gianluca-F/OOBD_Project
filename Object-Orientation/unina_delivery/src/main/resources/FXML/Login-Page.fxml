@@ -46,14 +46,14 @@
                               <Font name="Abyssinica SIL" size="13.0" />
                            </font>
                         </PasswordField>
-                        <Label layoutX="5.0" layoutY="193.0" text="Unina" textFill="#ff9129" wrapText="true">
+                        <Label layoutX="10.0" layoutY="193.0" text="Unina" textFill="#ff9129" wrapText="true">
                            <font>
-                              <Font name="Cassandra Personal Use Regular" size="21.0" />
+                              <Font name="SansSerif Bold Italic" size="25.0" />
                            </font>
                         </Label>
-                        <Label layoutX="69.0" layoutY="229.0" text="Delivery" textFill="#ff9129" wrapText="true">
+                        <Label layoutX="59.0" layoutY="217.0" text="Delivery" textFill="#ff9129" wrapText="true">
                            <font>
-                              <Font name="Cassandra Personal Use Regular" size="21.0" />
+                              <Font name="SansSerif Bold Italic" size="25.0" />
                            </font>
                         </Label>
                         <Button fx:id="accediButton" layoutX="279.0" layoutY="199.0" mnemonicParsing="false" onAction="#buttonPressed" text="Accedi" />
