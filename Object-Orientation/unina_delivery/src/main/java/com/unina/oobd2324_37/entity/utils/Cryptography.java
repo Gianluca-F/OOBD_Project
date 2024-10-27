@@ -6,6 +6,12 @@ public class Cryptography {
         return caesarCipher(input);
     }
 
+    /**
+     * Metodo per criptare una stringa con il cifrario di Cesare.
+     *
+     * @param input stringa da criptare
+     * @return stringa criptata
+     */
     private static String caesarCipher(String input) {
         StringBuilder result = new StringBuilder();
 

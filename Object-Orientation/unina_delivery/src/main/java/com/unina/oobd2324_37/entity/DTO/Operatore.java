@@ -3,7 +3,7 @@ package com.unina.oobd2324_37.entity.DTO;
 public class Operatore {
     private String nome;
     private String cognome;
-    public String codFiscale;
+    private String codFiscale;
     private String username;
     private String password;
 
