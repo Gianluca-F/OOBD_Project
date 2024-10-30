@@ -56,7 +56,12 @@
                               <Font name="SansSerif Bold Italic" size="25.0" />
                            </font>
                         </Label>
-                        <Button fx:id="accediButton" layoutX="279.0" layoutY="199.0" mnemonicParsing="false" onAction="#buttonPressed" text="Accedi" />
+                        <Button fx:id="accediButton" layoutX="279.0" layoutY="232.0" mnemonicParsing="false" onAction="#buttonPressed" text="Accedi" />
+                        <Label fx:id="errorLabel" layoutX="247.0" layoutY="180.0" prefHeight="16.0" prefWidth="164.0" text=" " textAlignment="CENTER" textFill="#d00000">
+                           <font>
+                              <Font name="Abyssinica SIL" size="13.0" />
+                           </font>
+                        </Label>
                      </children>
                   </AnchorPane>
                   <VBox VBox.vgrow="ALWAYS" />

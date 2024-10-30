@@ -1,9 +1,3 @@
-.login-label {
-  -fx-font-family: "Arial";
-  -fx-font-size: 30px;  
-  -fx-text-fill: #ee1515;
-}
-
 /* text-field settings in login page */
 .text-field {
   -fx-font-family: "Abyssinica SIL";
@@ -21,15 +15,15 @@
 
 /* button base settings*/
 .button {
-  -fx-background-color: #0D37A1;  /* Colore di sfondo principale (Blu scuro) */
-  -fx-text-fill: white;           /* Colore del testo (bianco) */
-  -fx-font-size: 16px;            /* Dimensione del font */
-  -fx-font-family: "Arial";       /* Tipo di font */
-  -fx-padding: 10px 20px;         /* Padding (spazio interno) */
-  -fx-background-radius: 5px;     /* Arrotondamento dello sfondo */
-  -fx-border-radius: 5px;         /* Arrotondamento del bordo */
-  -fx-border-color: #0B2C91;      /* Colore del bordo (Blu ancora più scuro) */
-  -fx-border-width: 2px;          /* Spessore del bordo */
+  -fx-background-color: #0D37A1;      /* Colore di sfondo principale (Blu scuro) */
+  -fx-text-fill: white;               /* Colore del testo (bianco) */
+  -fx-font-size: 16px;                /* Dimensione del font */
+  -fx-font-family: "Abyssinica SIL";  /* Tipo di font */
+  -fx-padding: 10px 20px;             /* Padding (spazio interno) */
+  -fx-background-radius: 5px;         /* Arrotondamento dello sfondo */
+  -fx-border-radius: 5px;             /* Arrotondamento del bordo */
+  -fx-border-color: #0B2C91;          /* Colore del bordo (Blu ancora più scuro) */
+  -fx-border-width: 2px;              /* Spessore del bordo */
 }
 
 /* Stile quando il mouse è sopra (hover) */
