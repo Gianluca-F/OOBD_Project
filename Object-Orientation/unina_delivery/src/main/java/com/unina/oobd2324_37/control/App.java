@@ -10,6 +10,10 @@ import java.io.IOException;
 
 public final class App extends Application {
 
+    private static final int INITIAL_SCENE_WIDTH = 650;
+    private static final int INITIAL_SCENE_HEIGHT = 480;
+    private static final int MIN_SCENE_WIDTH = 500;
+    private static final int MIN_SCENE_HEIGHT = 420;
     private static Scene scene;
 
     @Override
@@ -17,11 +21,11 @@ public final class App extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/Login-Page.fxml"));
         Parent root = loader.load();
 
-        Scene scene = new Scene(root, 800, 500);
+        Scene scene = new Scene(root, INITIAL_SCENE_WIDTH, INITIAL_SCENE_HEIGHT);
         firstStage.setTitle("Unina Delivery");
         firstStage.setScene(scene);
-        firstStage.setMinWidth(firstStage.getWidth());
-        firstStage.setMinHeight(firstStage.getHeight());
+        firstStage.setMinWidth(MIN_SCENE_WIDTH);
+        firstStage.setMinHeight(MIN_SCENE_HEIGHT);
         firstStage.show();
     }
 
