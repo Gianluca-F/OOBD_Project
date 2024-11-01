@@ -1,5 +1,6 @@
 package com.unina.oobd2324_37.control;
 
+import com.unina.oobd2324_37.boundary.LoginController;
 import com.unina.oobd2324_37.entity.DAO.OperatoreDAO;
 import com.unina.oobd2324_37.entity.DAOimplementation.OperatoreDAOimp;
 import com.unina.oobd2324_37.entity.DTO.Operatore;
@@ -8,10 +9,15 @@ import java.sql.SQLException;
 
 public class LoginControl {
 
-    public static void login(String username, String password) {
+    private LoginController loginController;
+
+    public LoginControl(LoginController loginController) {
+        this.loginController = loginController;
+    }
+
+    public void login(String username, String password) {
         if(username.isEmpty() || password.isEmpty()) {
-            // TODO: Show error message in the GUI
-            System.out.println("Username and password cannot be empty");
+            loginController.showErrorMessage("Username e/o password\nnon possono essere vuoti!");
         } else {
             try {
                 OperatoreDAO operatoreDAO = new OperatoreDAOimp();
@@ -21,7 +27,7 @@ public class LoginControl {
                     // TODO: Show next GUI
                     System.out.println("Login successful");
                 } else {
-                    System.out.println("Login failed");
+                    loginController.showErrorMessage("Username e/o password\nnon validi!");
                 }
             } catch (SQLException e) {
                 System.err.println(e.getClass().getName()+": "+ e.getMessage());
