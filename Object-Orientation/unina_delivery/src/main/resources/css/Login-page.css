@@ -2,7 +2,7 @@
 .text-field {
   -fx-font-family: "Abyssinica SIL";
   -fx-prompt-text-fill: derive(-fx-control-inner-background, -30%);
-  -fx-font-size: 14px; 
+  -fx-font-size: 16px;
 }
 
 /* password-field settings in login page */
@@ -10,19 +10,21 @@
   -fx-font-family: "Abyssinica SIL";
   -fx-prompt-text-fill: derive(-fx-control-inner-background, -30%);
   -fx-font-style: normal;
-  -fx-font-size: 14px; 
+  -fx-font-size: 16px;
 }
 
 /* login button base settings*/
 #loginButton {
   -fx-background-color: #0D37A1;      /* Colore di sfondo principale (Blu scuro) */
   -fx-text-fill: white;               /* Colore del testo (bianco) */
+  -fx-pref-width: 200;                /* Larghezza preferita */
+  -fx-pref-height: 30;                /* Altezza preferita */
   -fx-font-size: 16px;                /* Dimensione del font */
   -fx-font-family: "Abyssinica SIL";  /* Tipo di font */
-  -fx-padding: 10px 20px;             /* Padding (spazio interno) */
+  -fx-padding: 5px 10px;             /* Padding (spazio interno) */
   -fx-background-radius: 5px;         /* Arrotondamento dello sfondo */
-  -fx-border-radius: 5px;             /* Arrotondamento del bordo */
   -fx-border-color: #0B2C91;          /* Colore del bordo (Blu ancora più scuro) */
+  -fx-border-radius: 5px;             /* Arrotondamento del bordo */
   -fx-border-width: 2px;              /* Spessore del bordo */
 }
 

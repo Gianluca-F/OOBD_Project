@@ -10,10 +10,10 @@ import java.io.IOException;
 
 public final class App extends Application {
 
-    private static final int INITIAL_SCENE_WIDTH = 650;
-    private static final int INITIAL_SCENE_HEIGHT = 480;
-    private static final int MIN_SCENE_WIDTH = 500;
-    private static final int MIN_SCENE_HEIGHT = 420;
+    private static final int INITIAL_SCENE_WIDTH = 800;
+    private static final int INITIAL_SCENE_HEIGHT = 600;
+    private static final int MIN_SCENE_WIDTH = 700;
+    private static final int MIN_SCENE_HEIGHT = 550;
     private static Scene scene;
 
     @Override
