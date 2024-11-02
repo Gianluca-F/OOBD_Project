@@ -13,8 +13,8 @@
   -fx-font-size: 14px; 
 }
 
-/* button base settings*/
-.button {
+/* login button base settings*/
+#loginButton {
   -fx-background-color: #0D37A1;      /* Colore di sfondo principale (Blu scuro) */
   -fx-text-fill: white;               /* Colore del testo (bianco) */
   -fx-font-size: 16px;                /* Dimensione del font */
@@ -27,14 +27,30 @@
 }
 
 /* Stile quando il mouse è sopra (hover) */
-.button:hover {
+#loginButton:hover {
   -fx-background-color: #0B2C91;  /* Blu più scuro durante l'hover */
   -fx-border-color: #081B73;      /* Cambia il colore del bordo a un blu ancora più profondo */
+  -fx-cursor: hand;               /* Cambia il cursore a una mano */
 }
 
 /* Stile quando il Button è premuto */
-.button:pressed {
-  -fx-background-color: #081B73;  /* Colore ancora più scuro quando viene premuto */
-  -fx-border-color: #060E54;      /* Colore del bordo ancora più scuro */
+#loginButton:pressed {
+  -fx-background-color: #081B73;                                   /* Colore ancora più scuro quando viene premuto */
+  -fx-border-color: #060E54;                                       /* Colore del bordo ancora più scuro */
   -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0, 0, 1);  /* Ombra */
 }
+
+/* toggle button base settings */
+#toggleButton {
+  -fx-background-color: transparent; /* Rende lo sfondo trasparente */
+  -fx-border-color: transparent;     /* Rimuove il bordo */
+  -fx-padding: 0;                    /* Rimuove il padding interno */
+  -fx-focus-color: transparent;      /* Rimuove il colore del focus */
+  -fx-faint-focus-color: transparent;/* Rimuove il colore del focus più chiaro */
+}
+
+#toggleButton:hover {
+  -fx-background-color: rgba(0, 0, 0, 0.1); /* Colore di sfondo leggero in hover */
+  -fx-cursor: hand;                         /* Cambia il cursore a una mano */
+}
+

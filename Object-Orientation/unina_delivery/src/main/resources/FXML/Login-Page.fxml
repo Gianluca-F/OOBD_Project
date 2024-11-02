@@ -31,6 +31,16 @@
                               <Image url="@../images/logo.png" />
                            </image>
                         </ImageView>
+                        <Label layoutX="10.0" layoutY="193.0" text="Unina" textFill="#ff9129" wrapText="true">
+                           <font>
+                              <Font name="SansSerif Bold Italic" size="25.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="59.0" layoutY="217.0" text="Delivery" textFill="#ff9129" wrapText="true">
+                           <font>
+                              <Font name="SansSerif Bold Italic" size="25.0" />
+                           </font>
+                        </Label>
                         <Label alignment="CENTER" layoutX="193.0" layoutY="37.0" prefHeight="32.0" prefWidth="255.0" text="Login Page" textAlignment="CENTER" textFill="#111f4d">
                            <font>
                               <Font name="Abyssinica SIL" size="23.0" />
@@ -46,22 +56,26 @@
                               <Font name="Abyssinica SIL" size="13.0" />
                            </font>
                         </PasswordField>
-                        <Label layoutX="10.0" layoutY="193.0" text="Unina" textFill="#ff9129" wrapText="true">
+                        <TextField fx:id="plainPasswordField" layoutX="240.0" layoutY="136.0" prefHeight="25.0" prefWidth="159.0" styleClass="text-field" visible="false">
                            <font>
-                              <Font name="SansSerif Bold Italic" size="25.0" />
+                              <Font name="Abyssinica SIL" size="13.0" />
                            </font>
-                        </Label>
-                        <Label layoutX="59.0" layoutY="217.0" text="Delivery" textFill="#ff9129" wrapText="true">
-                           <font>
-                              <Font name="SansSerif Bold Italic" size="25.0" />
-                           </font>
-                        </Label>
-                        <Button fx:id="accediButton" layoutX="272.0" layoutY="236.0" mnemonicParsing="false" onAction="#buttonPressed" text="Accedi" />
+                        </TextField>
+                        <Button fx:id="toggleButton" layoutX="373.0" layoutY="142.0" visible="false">
+                           <graphic>
+                              <ImageView fx:id="eyeIcon" fitHeight="24.0" fitWidth="23.0" layoutX="375.0" layoutY="143.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/hideEye.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
                         <Label fx:id="errorLabel" alignment="CENTER" layoutX="204.0" layoutY="178.0" prefHeight="41.0" prefWidth="229.0" text=" " textAlignment="CENTER" textFill="#d00000" textOverrun="CLIP" wrapText="true">
                            <font>
                               <Font name="Abyssinica SIL" size="13.0" />
                            </font>
                         </Label>
+                        <Button fx:id="loginButton" layoutX="271.0" layoutY="236.0" mnemonicParsing="false" onAction="#buttonPressed" text="Accedi" />
                      </children>
                   </AnchorPane>
                   <VBox VBox.vgrow="ALWAYS" />

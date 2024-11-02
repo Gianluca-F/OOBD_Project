@@ -25,6 +25,7 @@ public class LoginControl {
 
                 if(operatore != null) {
                     // TODO: Show next GUI
+                    loginController.showErrorMessage("");
                     System.out.println("Login successful");
                 } else {
                     loginController.showErrorMessage("Username e/o password\nnon validi!");

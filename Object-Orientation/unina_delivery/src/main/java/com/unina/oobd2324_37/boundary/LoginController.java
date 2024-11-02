@@ -5,9 +5,12 @@ import com.unina.oobd2324_37.control.LoginControl;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
 public class LoginController {
@@ -19,13 +22,31 @@ public class LoginController {
     private PasswordField passwordField;
 
     @FXML
+    private TextField plainPasswordField;
+
+    @FXML
+    private Button toggleButton;
+
+    @FXML
+    private ImageView eyeIcon;
+
+    @FXML
     private Label errorLabel;
 
+    private boolean isPasswordVisible = false;
     private LoginControl loginControl;
 
     @FXML
     public void initialize() {
         loginControl = new LoginControl(this);
+
+        passwordField.textProperty().addListener((observable, oldValue, newValue) -> { /* lambda expression: */
+            toggleButton.setVisible(!newValue.isEmpty());                               /* Show toggle button only if password is not empty */
+        });
+
+        plainPasswordField.textProperty().bindBidirectional(passwordField.textProperty());
+
+        toggleButton.setOnAction(event -> togglePasswordVisibility());
     }
 
     public void buttonPressed(ActionEvent actionEvent) {
@@ -51,4 +72,10 @@ public class LoginController {
         shakingTT.play();
     }
 
+    private void togglePasswordVisibility() {
+        isPasswordVisible = !isPasswordVisible;
+        plainPasswordField.setVisible(isPasswordVisible);
+        passwordField.setVisible(!isPasswordVisible);
+        eyeIcon.setImage(new Image(getClass().getResourceAsStream(isPasswordVisible ? "/images/showEye.png" : "/images/hideEye.png")));
+    }
 }
