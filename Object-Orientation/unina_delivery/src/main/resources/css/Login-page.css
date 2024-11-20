@@ -13,6 +13,23 @@
   -fx-font-size: 16px;
 }
 
+/* Rimuove il bordo di un TextField */
+#plainPasswordField {
+  -fx-border-width: 0;                 /* Rimuove il bordo */
+  -fx-background-color: transparent;   /* Imposta lo sfondo come trasparente (facoltativo) */
+  -fx-focus-color: transparent;        /* Rimuove il bordo di focus (quando cliccato) */
+  -fx-faint-focus-color: transparent;  /* Rimuove il bordo di focus sfocato */
+}
+
+#palliniPasswordField {
+  -fx-font-size: 8px;                  /* Dimensione dei pallini ridotta */
+  -fx-border-width: 0;                 /* Rimuove il bordo */
+  -fx-background-color: transparent;   /* Imposta lo sfondo come trasparente (facoltativo) */
+  -fx-focus-color: transparent;        /* Rimuove il bordo di focus (quando cliccato) */
+  -fx-faint-focus-color: transparent;  /* Rimuove il bordo di focus sfocato */
+}
+
+
 /* login button base settings*/
 #loginButton {
   -fx-background-color: #0D37A1;      /* Colore di sfondo principale (Blu scuro) */

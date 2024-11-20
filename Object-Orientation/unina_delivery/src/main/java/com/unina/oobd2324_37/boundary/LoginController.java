@@ -19,10 +19,13 @@ public class LoginController {
     private TextField usernameField;
 
     @FXML
-    private PasswordField passwordField;
+    private PasswordField promptPasswordField;
 
     @FXML
     private TextField plainPasswordField;
+
+    @FXML
+    private PasswordField palliniPasswordField;
 
     @FXML
     private Button toggleButton;
@@ -40,17 +43,27 @@ public class LoginController {
     public void initialize() {
         loginControl = new LoginControl(this);
 
-        passwordField.textProperty().addListener((observable, oldValue, newValue) -> { /* lambda expression: */
+        palliniPasswordField.textProperty().addListener((observable, oldValue, newValue) -> { /* lambda expression: */
             toggleButton.setVisible(!newValue.isEmpty());                               /* Show toggle button only if password is not empty */
+            updatePromptPasswordFieldVisibility(newValue);
         });
 
-        plainPasswordField.textProperty().bindBidirectional(passwordField.textProperty());
+        plainPasswordField.textProperty().bindBidirectional(palliniPasswordField.textProperty());
 
         toggleButton.setOnAction(event -> togglePasswordVisibility());
     }
 
+    private void updatePromptPasswordFieldVisibility(String newValue) {
+        if(newValue.isEmpty()) {
+            promptPasswordField.setPromptText("Password");
+        }
+        else {
+            promptPasswordField.setPromptText("");
+        }
+    }
+
     public void buttonPressed(ActionEvent actionEvent) {
-        loginControl.login(usernameField.getText(), passwordField.getText());
+        loginControl.login(usernameField.getText(), palliniPasswordField.getText());
     }
 
     public void showErrorMessage(String message) {
@@ -75,7 +88,7 @@ public class LoginController {
     private void togglePasswordVisibility() {
         isPasswordVisible = !isPasswordVisible;
         plainPasswordField.setVisible(isPasswordVisible);
-        passwordField.setVisible(!isPasswordVisible);
+        palliniPasswordField.setVisible(!isPasswordVisible);
         eyeIcon.setImage(new Image(getClass().getResourceAsStream(isPasswordVisible ? "/images/showEye.png" : "/images/hideEye.png")));
     }
 }

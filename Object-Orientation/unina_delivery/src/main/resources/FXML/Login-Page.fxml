@@ -41,27 +41,32 @@
                               <Font name="SansSerif Bold Italic" size="35.0" />
                            </font>
                         </Label>
-                        <Label alignment="CENTER" layoutX="315.0" layoutY="54.0" prefHeight="32.0" prefWidth="255.0" text="Login Page" textAlignment="CENTER" textFill="#111f4d">
+                        <Label alignment="CENTER" layoutX="315.0" layoutY="50.0" prefHeight="32.0" prefWidth="255.0" text="Login Page" textAlignment="CENTER" textFill="#111f4d">
                            <font>
                               <Font name="Abyssinica SIL" size="30.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="usernameField" layoutX="339.0" layoutY="124.0" prefHeight="30.0" prefWidth="200.0" promptText="Username" styleClass="text-field">
+                        <TextField fx:id="usernameField" layoutX="339.0" layoutY="170.0" prefHeight="33.0" prefWidth="200.0" promptText="Username" styleClass="text-field">
                            <font>
                               <Font name="Abyssinica SIL" size="16.0" />
                            </font>
                         </TextField>
-                        <PasswordField fx:id="passwordField" layoutX="339.0" layoutY="177.0" prefHeight="30.0" prefWidth="200.0" promptText="Password">
+                        <PasswordField fx:id="promptPasswordField" editable="false" focusTraversable="false" layoutX="339.0" layoutY="215.0" mouseTransparent="true" pickOnBounds="false" prefHeight="33.0" prefWidth="200.0" promptText="Password">
                            <font>
                               <Font name="Abyssinica SIL" size="16.0" />
                            </font>
                         </PasswordField>
-                        <TextField fx:id="plainPasswordField" layoutX="339.0" layoutY="177.0" prefHeight="30.0" prefWidth="200.0" styleClass="text-field" visible="false">
+                        <TextField fx:id="plainPasswordField" layoutX="339.0" layoutY="215.0" prefHeight="33.0" prefWidth="170.0" styleClass="text-field" visible="false">
                            <font>
                               <Font name="Abyssinica SIL" size="16.0" />
                            </font>
                         </TextField>
-                        <Button fx:id="toggleButton" layoutX="504.0" layoutY="183.0" prefHeight="18.0" prefWidth="26.0" visible="false">
+                        <PasswordField fx:id="palliniPasswordField" layoutX="343.0" layoutY="215.0" prefHeight="33.0" prefWidth="166.0">
+                           <font>
+                              <Font name="Abyssinica SIL" size="16.0" />
+                           </font>
+                        </PasswordField>
+                        <Button fx:id="toggleButton" layoutX="504.0" layoutY="220.0" prefHeight="18.0" prefWidth="26.0" visible="false">
                            <graphic>
                               <ImageView fx:id="eyeIcon" fitHeight="20.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -70,12 +75,12 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Label fx:id="errorLabel" alignment="CENTER" layoutX="324.0" layoutY="226.0" prefHeight="55.0" prefWidth="229.0" text=" " textAlignment="CENTER" textFill="#d00000" textOverrun="CLIP" wrapText="true">
+                        <Label fx:id="errorLabel" alignment="CENTER" layoutX="324.0" layoutY="100.0" prefHeight="55.0" prefWidth="229.0" text=" " textAlignment="CENTER" textFill="#d00000" textOverrun="CLIP" wrapText="true">
                            <font>
                               <Font name="Abyssinica SIL" size="16.0" />
                            </font>
                         </Label>
-                        <Button fx:id="loginButton" layoutX="339.0" layoutY="309.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="30.0" prefWidth="200.0" text="Accedi" />
+                        <Button fx:id="loginButton" layoutX="339.0" layoutY="270.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="30.0" prefWidth="200.0" text="Accedi" />
                      </children>
                   </AnchorPane>
                   <VBox VBox.vgrow="ALWAYS" />
