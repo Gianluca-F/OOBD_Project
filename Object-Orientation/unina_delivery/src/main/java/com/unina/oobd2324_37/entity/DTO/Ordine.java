@@ -11,10 +11,10 @@ public class Ordine {
     private String CAP;
     private String citta;
     private String cellulare;
-    private double prezzoTotale;
+    private Currency prezzoTotale;
     private boolean consegnato;
 
-    public Ordine(String idOrdine, LocalDate data, String via, String civico, String CAP, String citta, String cellulare, double prezzoTotale, boolean consegnato) {
+    public Ordine(String idOrdine, LocalDate data, String via, String civico, String CAP, String citta, String cellulare, Currency prezzoTotale, boolean consegnato) {
         this.idOrdine = idOrdine;
         this.data = data;
         this.via = via;
@@ -82,11 +82,11 @@ public class Ordine {
         this.cellulare = cellulare;
     }
 
-    public double getPrezzoTotale() {
+    public Currency getPrezzoTotale() {
         return prezzoTotale;
     }
 
-    public void setPrezzoTotale(double prezzoTotale) {
+    public void setPrezzoTotale(Currency prezzoTotale) {
         this.prezzoTotale = prezzoTotale;
     }
 

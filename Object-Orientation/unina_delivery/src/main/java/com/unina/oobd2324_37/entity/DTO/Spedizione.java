@@ -1,5 +1,6 @@
 package com.unina.oobd2324_37.entity.DTO;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Spedizione {

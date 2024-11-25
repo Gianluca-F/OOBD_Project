@@ -55,9 +55,4 @@ public class Operatore {
         this.password = password;
     }
 
-    @Override
-    public String toString() {
-        return "Operatore{" + "nome=" + nome + ", cognome=" + cognome + ", codFiscale=" + codFiscale + ", username=" + username + ", password=" + password + '}';
-    }
-
 }
