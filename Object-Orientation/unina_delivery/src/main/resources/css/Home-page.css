@@ -1,0 +1,30 @@
+/* Stili generali del bottone */
+Button {
+    -fx-background-color: #E0F7FA;
+    -fx-background-radius: 15px;
+    -fx-border-color: #1F4F83;
+    -fx-border-width: 2px;
+    -fx-border-radius: 15px;
+    -fx-border-insets: 1px;     /* Distanza tra il contenuto e il bordo */
+    -fx-padding: 0px;
+}
+
+/* Stili per il bottone con icona */
+Button .graphic {
+    -fx-alignment: center;     /* Allinea l'icona al centro */
+    -fx-padding: 0px;          /* Rimuove il padding che potrebbe influire sull'allineamento */
+}
+
+.button:hover {
+    -fx-background-color: #B2EBF2; /* Cambia il colore dello sfondo quando il mouse è sopra */
+}
+
+.button:pressed {
+    -fx-background-color: #80DEEA; /* Colore quando il bottone è premuto */
+}
+
+#logoutButton {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 0px;
+}

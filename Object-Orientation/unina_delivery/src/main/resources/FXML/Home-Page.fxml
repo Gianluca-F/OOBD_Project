@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="800.0" prefWidth="1200.0" stylesheets="@../css/Home-page.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+    <opaqueInsets>
+        <Insets />
+    </opaqueInsets>
+    <top>
+        <VBox BorderPane.alignment="CENTER">
+            <children>
+                <HBox alignment="CENTER" prefHeight="70.0" style="-fx-background-color: #ffffff;">
+                    <children>
+                        <Region prefHeight="200.0" prefWidth="10.0" />
+                        <Label text="Benvenuto, Operatore!" textFill="#111f4d" HBox.hgrow="ALWAYS">
+                            <font>
+                                <Font name="Abyssinica SIL" size="24.0" />
+                            </font>
+                        </Label>
+                        <Region prefHeight="200.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />
+                        <ImageView fitHeight="93.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/logo.png" />
+                            </image>
+                        </ImageView>
+                        <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                        <Button fx:id="logoutButton" onAction="#handleLogout" style="-fx-background-color: transparent; -fx-cursor: hand;">
+                            <graphic>
+                                <ImageView fitHeight="61.0" fitWidth="74.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/log-out.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER" prefHeight="100.0" spacing="30.0" style="-fx-background-color: #1F4F83;">
+                    <children>
+                        <VBox alignment="CENTER" prefHeight="80.0" prefWidth="80.0" spacing="5.0">
+                            <Button fx:id="homeButton" onAction="#goToHome" prefHeight="80.0" prefWidth="80.0">
+                                <graphic>
+                                    <ImageView fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
+                                        <image>
+                                            <Image url="@../images/home.png" />
+                                        </image>
+                                    </ImageView>
+                                </graphic>
+                            </Button>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="80.0" prefWidth="80.0" spacing="5.0">
+                            <Button fx:id="deliveryButton" onAction="#goToDelivery" prefHeight="80.0" prefWidth="80.0">
+                                <graphic>
+                                    <ImageView fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
+                                        <image>
+                                            <Image url="@../images/delivery.png" />
+                                        </image>
+                                    </ImageView>
+                                </graphic>
+                            </Button>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="80.0" prefWidth="80.0" spacing="5.0">
+                            <Button fx:id="warehouseButton" onAction="#goToWarehouse" prefHeight="80.0" prefWidth="80.0">
+                                <graphic>
+                                    <ImageView fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
+                                        <image>
+                                            <Image url="@../images/warehouse.png" />
+                                        </image>
+                                    </ImageView>
+                                </graphic>
+                            </Button>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="80.0" prefWidth="80.0" spacing="5.0">
+                            <Button fx:id="reportButton" onAction="#goToReport" prefHeight="80.0" prefWidth="80.0">
+                                <graphic>
+                                    <ImageView fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
+                                        <image>
+                                            <Image url="@../images/report.png" />
+                                        </image>
+                                    </ImageView>
+                                </graphic>
+                            </Button>
+                        </VBox>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </top>
+    <center>
+        <AnchorPane fx:id="mainContentArea" prefHeight="600.0" prefWidth="1200.0" style="-fx-background-color: #f4f4f4;" BorderPane.alignment="CENTER">
+            <!-- Contenuti dinamici verranno caricati qui -->
+        </AnchorPane>
+    </center>
+</BorderPane>
