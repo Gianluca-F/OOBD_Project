@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="800.0" prefWidth="1200.0" stylesheets="@../css/Home-page.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="800.0" prefWidth="1200.0" stylesheets="@../css/Home-page.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unina.oobd2324_37.boundary.HomeController">
     <opaqueInsets>
         <Insets />
     </opaqueInsets>
@@ -22,7 +22,7 @@
                 <HBox alignment="CENTER" prefHeight="70.0" style="-fx-background-color: #ffffff;">
                     <children>
                         <Region prefHeight="200.0" prefWidth="10.0" />
-                        <Label text="Benvenuto, Operatore!" textFill="#111f4d" HBox.hgrow="ALWAYS">
+                        <Label fx:id="labelWelcome" text="Benvenuto, Operatore!" textFill="#111f4d" HBox.hgrow="ALWAYS">
                             <font>
                                 <Font name="Abyssinica SIL" size="24.0" />
                             </font>

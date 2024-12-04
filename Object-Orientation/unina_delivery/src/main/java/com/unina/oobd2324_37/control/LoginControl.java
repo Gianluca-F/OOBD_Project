@@ -5,13 +5,23 @@ import com.unina.oobd2324_37.entity.DAO.OperatoreDAO;
 import com.unina.oobd2324_37.entity.DAOimplementation.OperatoreDAOimp;
 import com.unina.oobd2324_37.entity.DTO.Operatore;
 
-import java.sql.SQLException;
+import java.io.IOException;
 
 public class LoginControl {
 
+    public static LoginControl instance = null;
     private LoginController loginController;
 
-    public LoginControl(LoginController loginController) {
+    private LoginControl() {}
+
+    public static LoginControl getInstance() {
+        if(instance == null) {
+            instance = new LoginControl();
+        }
+        return instance;
+    }
+
+    public void initialize(LoginController loginController) {
         this.loginController = loginController;
     }
 
@@ -19,20 +29,24 @@ public class LoginControl {
         if(username.isEmpty() || password.isEmpty()) {
             loginController.showErrorMessage("Username e/o password\nnon possono essere vuoti!");
         } else {
-            try {
-                OperatoreDAO operatoreDAO = new OperatoreDAOimp();
-                Operatore operatore = operatoreDAO.getByEmailNPass(username, password);
+            OperatoreDAO operatoreDAO = new OperatoreDAOimp();
+            Operatore operatore = operatoreDAO.getByEmailNPass(username, password);
 
-                if(operatore != null) {
-                    // TODO: Show next GUI
-                    loginController.showErrorMessage("");
-                    System.out.println("Login successful");
-                } else {
-                    loginController.showErrorMessage("Username e/o password\nnon validi!");
-                }
-            } catch (SQLException e) {
-                System.err.println(e.getClass().getName()+": "+ e.getMessage());
+            if(operatore != null) {
+                HomeControl.getInstance().initialize(operatore);
+                switchToHome();
+                loginController.showErrorMessage("");
+            } else {
+                loginController.showErrorMessage("Username e/o password\nnon validi!");
             }
+        }
+    }
+
+    private void switchToHome() {
+        try {
+            App.setRoot("Home-Page");
+        } catch (IOException e) {
+            System.err.println("Error switching to Home-Page: " + e.getMessage());
         }
     }
 }

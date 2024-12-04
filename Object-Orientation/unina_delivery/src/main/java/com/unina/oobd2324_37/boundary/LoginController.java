@@ -41,7 +41,8 @@ public class LoginController {
 
     @FXML
     public void initialize() {
-        loginControl = new LoginControl(this);
+        loginControl = LoginControl.getInstance();
+        loginControl.initialize(this);
 
         palliniPasswordField.textProperty().addListener((observable, oldValue, newValue) -> { /* lambda expression: */
             toggleButton.setVisible(!newValue.isEmpty());                               /* Show toggle button only if password is not empty */
