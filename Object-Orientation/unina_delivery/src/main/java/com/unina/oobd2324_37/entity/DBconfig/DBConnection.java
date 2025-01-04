@@ -13,12 +13,13 @@ public final class DBConnection {
     private static final String nomeDB = "postgres";
     private static final String schema = "unina_delivery";
 
-    private static String url = "jdbc:postgresql://" + IP + ":" + port + "/" + nomeDB;
+    private static final String url = "jdbc:postgresql://" + IP + ":" + port + "/" +
+                                                               nomeDB + "?currentSchema=" + schema;
 
     private DBConnection(){}
 
-    public static Connection getInstance() {
-        if(connection == null) {
+    public static Connection getInstance() throws SQLException {
+        if(connection == null || connection.isClosed()) {
             connection = getConnectionBySchema();
         }
         return connection;
@@ -33,7 +34,6 @@ public final class DBConnection {
             // registra il driver
             Class.forName("org.postgresql.Driver");
             // chiama il DriverManager e chiedi la connessione
-            url = url + "?currentSchema=" + schema;
             return DriverManager.getConnection(url, "postgres", "superMachine");
         }
         catch (ClassNotFoundException e) {

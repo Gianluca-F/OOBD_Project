@@ -30,7 +30,7 @@ public class HomeControl {
         try {
             App.setRoot("Login-Page");
         } catch (IOException e) {
-            System.err.println("Error switching to Login: " + e.getMessage());
+            System.err.println("Error switching to Login-Page: " + e.getMessage());
         }
     }
 

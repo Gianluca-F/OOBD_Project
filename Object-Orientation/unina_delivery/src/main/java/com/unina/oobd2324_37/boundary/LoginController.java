@@ -13,6 +13,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
+import java.util.Objects;
+
+/**
+ * This class is used to manage the login page.
+ */
 public class LoginController {
 
     @FXML
@@ -37,8 +42,12 @@ public class LoginController {
     private Label errorLabel;
 
     private boolean isPasswordVisible = false;
+    private boolean isAnimationErrorLabelRunning = false;
     private LoginControl loginControl;
 
+    /**
+     * This method is called when the login page is initialized.
+     */
     @FXML
     public void initialize() {
         loginControl = LoginControl.getInstance();
@@ -54,6 +63,10 @@ public class LoginController {
         toggleButton.setOnAction(event -> togglePasswordVisibility());
     }
 
+    /**
+     * Update the prompt text of the password field.
+     * @param newValue The new value of the password field
+     */
     private void updatePromptPasswordFieldVisibility(String newValue) {
         if(newValue.isEmpty()) {
             promptPasswordField.setPromptText("Password");
@@ -63,16 +76,32 @@ public class LoginController {
         }
     }
 
+    /**
+     * This method is called when the login button is pressed.
+     * @param actionEvent The event of the button press
+     */
+    @SuppressWarnings("unused")
     public void buttonPressed(ActionEvent actionEvent) {
         loginControl.login(usernameField.getText(), palliniPasswordField.getText());
     }
 
+    /**
+     * Show an error message when the login.
+     * @param message The error message
+     */
     public void showErrorMessage(String message) {
         errorLabel.setText(message);
-        shakeErrorLabel();
+        if(!isAnimationErrorLabelRunning) {
+            shakeErrorLabel();
+        }
     }
 
+    /**
+     * Shake the error label.
+     */
     private void shakeErrorLabel() {
+        isAnimationErrorLabelRunning = true;
+
         TranslateTransition shakingTT = new TranslateTransition(Duration.millis(100), errorLabel);
         TranslateTransition originalCoordsTT = new TranslateTransition(Duration.millis(30), errorLabel);
         shakingTT.setFromX(-5);
@@ -82,14 +111,23 @@ public class LoginController {
         shakingTT.setAutoReverse(true);
         originalCoordsTT.setByX(5);
         originalCoordsTT.setRate(0.3);
-        shakingTT.setOnFinished(event -> originalCoordsTT.play());
+
+        // When the shaking transition is finished, the original coordinates transition is played
+        shakingTT.setOnFinished(event -> {
+            originalCoordsTT.play();
+            originalCoordsTT.setOnFinished(e -> isAnimationErrorLabelRunning = false);
+        });
+
         shakingTT.play();
     }
 
+    /**
+     * Toggle the visibility of the password.
+     */
     private void togglePasswordVisibility() {
         isPasswordVisible = !isPasswordVisible;
         plainPasswordField.setVisible(isPasswordVisible);
         palliniPasswordField.setVisible(!isPasswordVisible);
-        eyeIcon.setImage(new Image(getClass().getResourceAsStream(isPasswordVisible ? "/images/showEye.png" : "/images/hideEye.png")));
+        eyeIcon.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream(isPasswordVisible ? "/images/showEye.png" : "/images/hideEye.png"))));
     }
 }

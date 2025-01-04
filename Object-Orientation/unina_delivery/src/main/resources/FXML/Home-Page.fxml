@@ -12,6 +12,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.shape.Rectangle?>
 <BorderPane prefHeight="800.0" prefWidth="1200.0" stylesheets="@../css/Home-page.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unina.oobd2324_37.boundary.HomeController">
     <opaqueInsets>
         <Insets />
@@ -35,6 +37,9 @@
                         </ImageView>
                         <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
                         <Button fx:id="logoutButton" onAction="#handleLogout" style="-fx-background-color: transparent; -fx-cursor: hand;">
+                            <tooltip>
+                                <Tooltip text="Logout" />
+                            </tooltip>
                             <graphic>
                                 <ImageView fitHeight="61.0" fitWidth="74.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
@@ -49,6 +54,9 @@
                     <children>
                         <VBox alignment="CENTER" prefHeight="80.0" prefWidth="80.0" spacing="5.0">
                             <Button fx:id="homeButton" onAction="#goToHome" prefHeight="80.0" prefWidth="80.0">
+                                <tooltip>
+                                    <Tooltip text="Home" />
+                                </tooltip>
                                 <graphic>
                                     <ImageView fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
                                         <image>
@@ -57,9 +65,13 @@
                                     </ImageView>
                                 </graphic>
                             </Button>
+                            <Rectangle fx:id="homeIndicator" height="4.0" width="80.0" styleClass="rectangle-indicator"/>
                         </VBox>
                         <VBox alignment="CENTER" prefHeight="80.0" prefWidth="80.0" spacing="5.0">
                             <Button fx:id="deliveryButton" onAction="#goToDelivery" prefHeight="80.0" prefWidth="80.0">
+                                <tooltip>
+                                    <Tooltip text="Genera spedizione" />
+                                </tooltip>
                                 <graphic>
                                     <ImageView fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
                                         <image>
@@ -68,9 +80,13 @@
                                     </ImageView>
                                 </graphic>
                             </Button>
+                            <Rectangle fx:id="deliveryIndicator" height="4.0" width="80.0" styleClass="rectangle-indicator" visible="false" />
                         </VBox>
                         <VBox alignment="CENTER" prefHeight="80.0" prefWidth="80.0" spacing="5.0">
                             <Button fx:id="warehouseButton" onAction="#goToWarehouse" prefHeight="80.0" prefWidth="80.0">
+                                <tooltip>
+                                    <Tooltip text="Gestione magazzino" />
+                                </tooltip>
                                 <graphic>
                                     <ImageView fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
                                         <image>
@@ -79,9 +95,13 @@
                                     </ImageView>
                                 </graphic>
                             </Button>
+                            <Rectangle fx:id="warehouseIndicator" height="4.0" width="80.0" styleClass="rectangle-indicator" visible="false" />
                         </VBox>
                         <VBox alignment="CENTER" prefHeight="80.0" prefWidth="80.0" spacing="5.0">
                             <Button fx:id="reportButton" onAction="#goToReport" prefHeight="80.0" prefWidth="80.0">
+                                <tooltip>
+                                    <Tooltip text="Visualizza report" />
+                                </tooltip>
                                 <graphic>
                                     <ImageView fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
                                         <image>
@@ -90,6 +110,7 @@
                                     </ImageView>
                                 </graphic>
                             </Button>
+                            <Rectangle fx:id="reportIndicator" height="4.0" width="80.0" styleClass="rectangle-indicator" visible="false" />
                         </VBox>
                     </children>
                 </HBox>
@@ -98,7 +119,7 @@
     </top>
     <center>
         <AnchorPane fx:id="mainContentArea" prefHeight="600.0" prefWidth="1200.0" style="-fx-background-color: #f4f4f4;" BorderPane.alignment="CENTER">
-            <!-- Contenuti dinamici verranno caricati qui -->
+        <!-- Here will be the content of the page -->
         </AnchorPane>
     </center>
 </BorderPane>

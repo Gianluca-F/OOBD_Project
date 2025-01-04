@@ -4,6 +4,8 @@ module unina.delivery {
     requires java.sql;
     requires org.postgresql.jdbc;
 
+    exports com.unina.oobd2324_37.boundary;
     exports com.unina.oobd2324_37.control;
+    exports com.unina.oobd2324_37.entity.DTO;
     opens com.unina.oobd2324_37.boundary to javafx.fxml;
 }

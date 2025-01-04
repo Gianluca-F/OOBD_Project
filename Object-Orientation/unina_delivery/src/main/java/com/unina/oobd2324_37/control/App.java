@@ -6,8 +6,10 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 
+/**
+ * This class is used to start the JavaFX application.
+ */
 public final class App extends Application {
 
     private static final int INITIAL_SCENE_WIDTH = 800;
