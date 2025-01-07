@@ -948,14 +948,14 @@ EXECUTE FUNCTION update_sped_completata();
 
 -- CLIENTE
 INSERT INTO clienti VALUES 
-(DEFAULT, 'Gian', 'Fiore', 'Strada comunale', '26', '80140', '3456420123', 'gian@unina.it'),
+(DEFAULT, 'Gian', 'Fiore', 'Strada comunale', '26', '80140', '3333454444', 'gian@unina.it'),
 (DEFAULT, 'Luigi', 'Dota', 'Via Giotto', '8', '80023', '3386420123', 'luigi@unina.it'),
 (DEFAULT, 'Vit', 'Testa', 'Via Giotto', '15', '80024', '3196420123', 'vit@unina.it');
 
 -- OPERATORE
 INSERT INTO operatori VALUES
-(DEFAULT, 'Max', 'Rossi', 'RSSMXA00T01F839Y', 'maxino9', 'maxRossi00'),
-(DEFAULT, 'Luca', 'Tino', 'FRNGLC03R01M654T', 'stockode', 'Yugioharc5');
+(DEFAULT, 'Luigi', 'Rossi', 'RSSLGU00T01F839Y', 'lagia', 'Luigi2003'),
+(DEFAULT, 'Luca', 'Tino', 'FRNGLC03R01M654T', 'stock', 'Luca2003');
 
 -- CORRIERE
 INSERT INTO corrieri VALUES
