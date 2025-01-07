@@ -7,6 +7,7 @@
     -fx-border-radius: 15px;        /* Arrotondamento del bordo */
     -fx-border-insets: 1px;         /* Distanza tra il contenuto e il bordo */
     -fx-padding: 0px;               /* Spazio interno */
+    -fx-cursor: hand;               /* Cambia il cursore a una mano */
 }
 
 /* Stile quando il mouse è sopra (hover) */
@@ -17,13 +18,6 @@
 /* Stile quando il bottone è premuto */
 .button:pressed {
     -fx-background-color: #80DEEA; /* Colore quando il bottone è premuto */
-}
-
-/* Stile personalizzato per il bottone di logout */
-#logoutButton {
-    -fx-background-color: transparent;  /* Sfondo trasparente */
-    -fx-border-color: transparent;      /* Bordo trasparente */
-    -fx-padding: 0px;                   /* Spazio interno */
 }
 
 /* Stile per la linea orizzontale dei pulsanti con icona */

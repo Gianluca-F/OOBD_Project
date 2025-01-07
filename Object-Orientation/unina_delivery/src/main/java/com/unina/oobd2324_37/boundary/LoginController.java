@@ -3,7 +3,6 @@ package com.unina.oobd2324_37.boundary;
 import com.unina.oobd2324_37.control.LoginControl;
 
 import javafx.animation.TranslateTransition;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -16,7 +15,7 @@ import javafx.util.Duration;
 import java.util.Objects;
 
 /**
- * This class is used to manage the login page.
+ * This class is used to manage the login page UI.
  */
 public class LoginController {
 
@@ -54,7 +53,7 @@ public class LoginController {
         loginControl.initialize(this);
 
         palliniPasswordField.textProperty().addListener((observable, oldValue, newValue) -> { /* lambda expression: */
-            toggleButton.setVisible(!newValue.isEmpty());                               /* Show toggle button only if password is not empty */
+            toggleButton.setVisible(!newValue.isEmpty());                                   /* Only show the toggle button if the password field is not empty */
             updatePromptPasswordFieldVisibility(newValue);
         });
 
@@ -78,15 +77,13 @@ public class LoginController {
 
     /**
      * This method is called when the login button is pressed.
-     * @param actionEvent The event of the button press
      */
-    @SuppressWarnings("unused")
-    public void buttonPressed(ActionEvent actionEvent) {
+    public void buttonPressed() {
         loginControl.login(usernameField.getText(), palliniPasswordField.getText());
     }
 
     /**
-     * Show an error message when the login.
+     * Show an error message when the login fails.
      * @param message The error message
      */
     public void showErrorMessage(String message) {

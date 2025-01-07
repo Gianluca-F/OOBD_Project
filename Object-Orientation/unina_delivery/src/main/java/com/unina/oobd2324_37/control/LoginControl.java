@@ -52,8 +52,8 @@ public class LoginControl {
             Operatore operatore = operatoreDAO.getByEmailNPass(username, password);
 
             if(operatore != null) {
-                HomeControl.getInstance().initialize(operatore);
-                switchToHome();
+                DashboardControl.getInstance().setOperatore(operatore);
+                switchToDashboard();
                 loginController.showErrorMessage("");
             } else {
                 loginController.showErrorMessage("Username e/o password\nnon validi!");
@@ -62,13 +62,13 @@ public class LoginControl {
     }
 
     /**
-     * This method is used to switch to the home page.
+     * This method is used to switch to the dashboard page.
      */
-    private void switchToHome() {
+    private void switchToDashboard() {
         try {
-            App.setRoot("Home-Page");
+            App.setRoot("Dashboard-Page");
         } catch (IOException e) {
-            System.err.println("Error switching to Home-Page: " + e.getMessage());
+            System.err.println("Error switching to Dashboard-Page: " + e.getMessage());
         }
     }
 }
