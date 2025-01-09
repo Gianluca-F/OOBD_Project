@@ -1,0 +1,11 @@
+
+.button {
+    -fx-cursor: hand;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #f9f9f9;
+}
+.table-row-cell:even {
+    -fx-background-color: #ffffff;
+}
