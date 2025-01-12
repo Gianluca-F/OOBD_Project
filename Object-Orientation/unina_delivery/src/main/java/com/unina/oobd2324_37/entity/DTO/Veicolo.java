@@ -5,9 +5,22 @@ public class Veicolo {
     private double pesoSupportato;
     private boolean disponibilita;
 
-    public Veicolo(String targa, double pesoSupportato, boolean disponibilita) {
+    private static final String TARGA_PATTERN = "^[A-Z]{2}\\d{3}[A-Z]{2}$";
+
+    public Veicolo(String targa, double pesoSupportato) {
+        if(!targa.matches(TARGA_PATTERN)){
+            throw new IllegalArgumentException("Targa non valida");
+        }
+        if(pesoSupportato <= 0){
+            throw new IllegalArgumentException("Peso supportato non valido");
+        }
         this.targa = targa;
         this.pesoSupportato = pesoSupportato;
+        this.disponibilita = true;
+    }
+
+    public Veicolo(String targa, double pesoSupportato, boolean disponibilita) {
+        this(targa, pesoSupportato);
         this.disponibilita = disponibilita;
     }
 
@@ -16,6 +29,9 @@ public class Veicolo {
     }
 
     public void setTarga(String targa) {
+        if(!targa.matches(TARGA_PATTERN)){
+            throw new IllegalArgumentException("Targa non valida");
+        }
         this.targa = targa;
     }
     
@@ -24,6 +40,9 @@ public class Veicolo {
     }
 
     public void setPesoSupportato(double pesoSupportato) {
+        if(pesoSupportato <= 0){
+            throw new IllegalArgumentException("Peso supportato non valido");
+        }
         this.pesoSupportato = pesoSupportato;
     }
 

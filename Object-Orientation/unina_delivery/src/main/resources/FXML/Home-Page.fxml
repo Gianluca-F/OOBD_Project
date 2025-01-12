@@ -38,20 +38,22 @@
             <!-- Tabella degli ordini -->
             <ScrollPane>
                 <content>
-                    <TableView fx:id="orderTable" prefHeight="400.0" maxWidth="1550.0">
+                    <TableView fx:id="orderTable" prefHeight="400.0" maxWidth="1750.0">
                         <columns>
                             <TableColumn fx:id="idOrdineColumn" prefWidth="100.0" text="ID Ordine" />           <!-- 1a colonna -->
                             <TableColumn fx:id="dataOrdineColumn" prefWidth="150.0" text="Data Ordine" />       <!-- 2a colonna -->
                             <TableColumn fx:id="prezzoTotaleColumn" prefWidth="150.0" text="Prezzo Totale" />   <!-- 3a colonna -->
-                            <TableColumn fx:id="utenteColumn" prefWidth="150.0" text="Utente" />                <!-- 4a colonna -->
-                            <TableColumn fx:id="emailColumn" prefWidth="200.0" text="Email" />                  <!-- 5a colonna -->
-                            <TableColumn fx:id="indirizzoColumn" prefWidth="200.0" text="Indirizzo" />          <!-- 6a colonna -->
-                            <TableColumn fx:id="cittaColumn" prefWidth="100.0" text="Città" />                  <!-- 7a colonna -->
-                            <TableColumn fx:id="cellulareColumn" prefWidth="150.0" text="Cellulare" />          <!-- 8a colonna -->
-                            <TableColumn fx:id="consegnatoColumn" prefWidth="100.0" text="Consegnato" />        <!-- 9a colonna -->
-                            <TableColumn fx:id="idspedizioneColumn" prefWidth="150.0" text="ID Spedizione" />   <!-- 10a colonna -->
-                            <TableColumn fx:id="operatoreColumn" prefWidth="100.0" text="Operatore" />          <!-- 11a colonna -->
+                            <TableColumn fx:id="clienteColumn" prefWidth="150.0" text="Cliente" />              <!-- 4a colonna -->
+                            <TableColumn fx:id="viaColumn" prefWidth="200.0" text="Via" />                      <!-- 5a colonna -->
+                            <TableColumn fx:id="civicoColumn" prefWidth="100.0" text="Civico" />                <!-- 6a colonna -->
+                            <TableColumn fx:id="CAPColumn" prefWidth="100.0" text="CAP" />                      <!-- 7a colonna -->
+                            <TableColumn fx:id="cittaColumn" prefWidth="100.0" text="Città" />                  <!-- 8a colonna -->
+                            <TableColumn fx:id="cellulareColumn" prefWidth="150.0" text="Cellulare" />          <!-- 9a colonna -->
+                            <TableColumn fx:id="consegnatoColumn" prefWidth="100.0" text="Consegnato" />        <!-- 10a colonna -->
+                            <TableColumn fx:id="idspedizioneColumn" prefWidth="150.0" text="ID Spedizione" />   <!-- 11a colonna -->
+                            <TableColumn fx:id="operatoreColumn" prefWidth="100.0" text="Operatore" />          <!-- 12a colonna -->
                             <!-- Si attiva con visualizza dettagli
+                            <TableColumn fx:id="emailColumn" prefWidth="200.0" text="Email" />
                             <TableColumn fx:id="corriereColumn" prefWidth="100.0" text="Corriere" />
                             <TableColumn fx:id="targaColumn" prefWidth="100.0" text="Targa" />
                             -->

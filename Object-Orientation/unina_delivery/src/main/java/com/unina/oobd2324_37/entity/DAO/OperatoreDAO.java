@@ -4,4 +4,6 @@ import com.unina.oobd2324_37.entity.DTO.Operatore;
 
 public interface OperatoreDAO {
     public Operatore getByEmailNPass(String username, String password) throws NullPointerException;
+
+    public Operatore getById(String idOperatore);
 }
