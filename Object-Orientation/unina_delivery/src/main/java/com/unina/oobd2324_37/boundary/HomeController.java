@@ -9,10 +9,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 
 public class HomeController {
@@ -33,10 +36,7 @@ public class HomeController {
     private TableColumn<Ordine, String> clienteColumn;
 
     @FXML
-    private TableColumn<Ordine, String> viaColumn;
-
-    @FXML
-    private TableColumn<Ordine, String> civicoColumn;
+    private TableColumn<Ordine, String> indirizzoColumn;
 
     @FXML
     private TableColumn<Ordine, String> CAPColumn;
@@ -61,23 +61,51 @@ public class HomeController {
 
     @FXML
     public void initialize() {
+        setTableColumns();
+
+        // Load data
+        orderList.addAll(ordineDAO.getAll());
+        orderTable.setItems(orderList);
+    }
+
+    private void setTableColumns() {
         // Column initialization
         idOrdineColumn.setCellValueFactory(new PropertyValueFactory<>("idOrdine"));
         dataOrdineColumn.setCellValueFactory(new PropertyValueFactory<>("data"));
+
+        // Personalizzazione della colonna "Prezzo Totale"
+        setprezzoTotColumn();
+
         prezzoTotaleColumn.setCellValueFactory(new PropertyValueFactory<>("prezzoTot"));
         clienteColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCliente().getNome() + " " + cellData.getValue().getCliente().getCognome()));
-        viaColumn.setCellValueFactory(new PropertyValueFactory<>("via"));
-        civicoColumn.setCellValueFactory(new PropertyValueFactory<>("civico"));
+        indirizzoColumn.setCellValueFactory(cellData-> new SimpleStringProperty(cellData.getValue().getVia() + " " + cellData.getValue().getCivico()));
         CAPColumn.setCellValueFactory(new PropertyValueFactory<>("CAP"));
         cittaColumn.setCellValueFactory(new PropertyValueFactory<>("citta"));
         cellulareColumn.setCellValueFactory(new PropertyValueFactory<>("cellulare"));
         consegnatoColumn.setCellValueFactory(new PropertyValueFactory<>("consegnato"));
         idspedizioneColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSpedizione().getIdSpedizione()));
         operatoreColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getOperatore().getNome() + " " + cellData.getValue().getOperatore().getCognome()));
+    }
 
-        // Load data
-        orderList.addAll(ordineDAO.getAll());
-        orderTable.setItems(orderList);
+    private void setprezzoTotColumn() {
+        prezzoTotaleColumn.setCellFactory(new Callback<TableColumn<Ordine, Double>, TableCell<Ordine, Double>>() {
+            @Override
+            public TableCell<Ordine, Double> call(TableColumn<Ordine, Double> param) {
+                return new TableCell<Ordine, Double>() {
+                    private final DecimalFormat df = new DecimalFormat("€ #.00 ");  // Formato con simbolo euro e due decimali
+
+                    @Override
+                    protected void updateItem(Double item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty || item == null) {
+                            setText(null);
+                        } else {
+                            setText(df.format(item));  // Formatto il valore con simbolo euro e 2 decimali
+                        }
+                    }
+                };
+            }
+        });
     }
 
     public void handleApplyFilter(ActionEvent actionEvent) {

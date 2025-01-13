@@ -39,7 +39,6 @@ public class VeicoloDAOimp implements VeicoloDAO {
 
         rs.close();
         ps.close();
-        con.close();
 
         return veicolo;
     }

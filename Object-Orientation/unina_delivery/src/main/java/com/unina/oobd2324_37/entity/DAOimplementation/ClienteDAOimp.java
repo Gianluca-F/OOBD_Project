@@ -51,7 +51,6 @@ public class ClienteDAOimp implements ClienteDAO {
 
         rs.close();
         ps.close();
-        con.close();
 
         return cliente;
     }

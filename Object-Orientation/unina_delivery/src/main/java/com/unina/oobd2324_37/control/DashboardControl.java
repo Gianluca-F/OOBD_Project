@@ -1,5 +1,6 @@
 package com.unina.oobd2324_37.control;
 
+import com.unina.oobd2324_37.entity.DBconfig.DBConnection;
 import com.unina.oobd2324_37.entity.DTO.Operatore;
 import com.unina.oobd2324_37.boundary.DashboardController;
 
@@ -63,6 +64,7 @@ public class DashboardControl {
     public void logout() {
         try {
             App.setRoot("Login-Page");
+            DBConnection.closeConnection();
         } catch (IOException e) {
             System.err.println("Error switching to Login-Page: " + e.getMessage());
         }

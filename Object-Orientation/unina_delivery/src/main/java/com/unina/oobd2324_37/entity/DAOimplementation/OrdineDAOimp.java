@@ -29,7 +29,6 @@ public class OrdineDAOimp implements OrdineDAO {
 
             rs.close();
             st.close();
-            con.close();
 
             return ordini;
         } catch (SQLException e) {

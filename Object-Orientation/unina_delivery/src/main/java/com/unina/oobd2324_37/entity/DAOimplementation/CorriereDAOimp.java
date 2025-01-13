@@ -44,7 +44,6 @@ public class CorriereDAOimp implements CorriereDAO {
 
         rs.close();
         ps.close();
-        con.close();
 
         return corriere;
     }

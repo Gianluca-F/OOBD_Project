@@ -49,7 +49,6 @@ public class SpedizioneDAOimp implements SpedizioneDAO {
 
         rs.close();
         ps.close();
-        con.close();
 
         return spedizione;
     }

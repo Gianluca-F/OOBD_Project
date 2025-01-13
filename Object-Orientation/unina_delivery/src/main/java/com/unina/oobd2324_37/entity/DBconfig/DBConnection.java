@@ -48,4 +48,13 @@ public final class DBConnection {
         }
     }
 
+    public static void closeConnection() {
+        try {
+            if(connection != null && !connection.isClosed()) {
+                connection.close();
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getClass().getName()+": "+ e.getMessage());
+        }
+    }
 }

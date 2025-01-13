@@ -35,7 +35,7 @@
                                 <Image url="@../images/logo.png" />
                             </image>
                         </ImageView>
-                        <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                        <Region prefHeight="200.0" prefWidth="144.0" HBox.hgrow="ALWAYS" />
                         <Button onAction="#handleLogout" style="-fx-background-color: transparent; -fx-border-color: transparent;">
                             <tooltip>
                                 <Tooltip text="Logout" />

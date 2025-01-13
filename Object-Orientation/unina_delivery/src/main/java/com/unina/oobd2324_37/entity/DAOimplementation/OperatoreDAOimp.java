@@ -60,7 +60,6 @@ public class OperatoreDAOimp implements OperatoreDAO {
 
         rs.close();
         ps.close();
-        con.close();
 
         return operatore;
     }

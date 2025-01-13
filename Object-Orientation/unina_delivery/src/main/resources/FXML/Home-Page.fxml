@@ -36,31 +36,26 @@
             </HBox>
 
             <!-- Tabella degli ordini -->
-            <ScrollPane>
-                <content>
-                    <TableView fx:id="orderTable" prefHeight="400.0" maxWidth="1750.0">
-                        <columns>
-                            <TableColumn fx:id="idOrdineColumn" prefWidth="100.0" text="ID Ordine" />           <!-- 1a colonna -->
-                            <TableColumn fx:id="dataOrdineColumn" prefWidth="150.0" text="Data Ordine" />       <!-- 2a colonna -->
-                            <TableColumn fx:id="prezzoTotaleColumn" prefWidth="150.0" text="Prezzo Totale" />   <!-- 3a colonna -->
-                            <TableColumn fx:id="clienteColumn" prefWidth="150.0" text="Cliente" />              <!-- 4a colonna -->
-                            <TableColumn fx:id="viaColumn" prefWidth="200.0" text="Via" />                      <!-- 5a colonna -->
-                            <TableColumn fx:id="civicoColumn" prefWidth="100.0" text="Civico" />                <!-- 6a colonna -->
-                            <TableColumn fx:id="CAPColumn" prefWidth="100.0" text="CAP" />                      <!-- 7a colonna -->
-                            <TableColumn fx:id="cittaColumn" prefWidth="100.0" text="Città" />                  <!-- 8a colonna -->
-                            <TableColumn fx:id="cellulareColumn" prefWidth="150.0" text="Cellulare" />          <!-- 9a colonna -->
-                            <TableColumn fx:id="consegnatoColumn" prefWidth="100.0" text="Consegnato" />        <!-- 10a colonna -->
-                            <TableColumn fx:id="idspedizioneColumn" prefWidth="150.0" text="ID Spedizione" />   <!-- 11a colonna -->
-                            <TableColumn fx:id="operatoreColumn" prefWidth="100.0" text="Operatore" />          <!-- 12a colonna -->
-                            <!-- Si attiva con visualizza dettagli
-                            <TableColumn fx:id="emailColumn" prefWidth="200.0" text="Email" />
-                            <TableColumn fx:id="corriereColumn" prefWidth="100.0" text="Corriere" />
-                            <TableColumn fx:id="targaColumn" prefWidth="100.0" text="Targa" />
-                            -->
-                        </columns>
-                    </TableView>
-                </content>
-            </ScrollPane>
+            <TableView fx:id="orderTable" prefHeight="400.0" prefWidth="1290">
+                <columns>
+                    <TableColumn fx:id="idOrdineColumn" prefWidth="90.0" text="ID Ordine" style="-fx-alignment: center;"/>                 <!-- 1a colonna -->
+                    <TableColumn fx:id="dataOrdineColumn" prefWidth="110.0" text="Data Ordine" style="-fx-alignment: center;"/>            <!-- 2a colonna -->
+                    <TableColumn fx:id="prezzoTotaleColumn" prefWidth="120.0" text="Prezzo Totale" style="-fx-alignment: center-right;"/>  <!-- 3a colonna -->
+                    <TableColumn fx:id="clienteColumn" prefWidth="150.0" text="Cliente" style="-fx-alignment: center-left;"/>              <!-- 4a colonna -->
+                    <TableColumn fx:id="indirizzoColumn" prefWidth="170.0" text="Indirizzo" style="-fx-alignment: center-left;"/>          <!-- 5a colonna -->
+                    <TableColumn fx:id="CAPColumn" prefWidth="70.0" text="CAP" style="-fx-alignment: center;"/>                            <!-- 6a colonna -->
+                    <TableColumn fx:id="cittaColumn" prefWidth="70.0" text="Città" style="-fx-alignment: center-left;"/>                   <!-- 7a colonna -->
+                    <TableColumn fx:id="cellulareColumn" prefWidth="120.0" text="Cellulare" style="-fx-alignment: center;"/>               <!-- 8a colonna -->
+                    <TableColumn fx:id="consegnatoColumn" prefWidth="100.0" text="Consegnato" style="-fx-alignment: center;"/>             <!-- 9a colonna -->
+                    <TableColumn fx:id="idspedizioneColumn" prefWidth="130.0" text="ID Spedizione" style="-fx-alignment: center;"/>        <!-- 10a colonna -->
+                    <TableColumn fx:id="operatoreColumn" prefWidth="160.0" text="Operatore" style="-fx-alignment: center-left;"/>          <!-- 11a colonna -->
+                    <!-- Si attiva con visualizza dettagli
+                    <TableColumn fx:id="emailColumn" prefWidth="200.0" text="Email" />
+                    <TableColumn fx:id="corriereColumn" prefWidth="100.0" text="Corriere" />
+                    <TableColumn fx:id="targaColumn" prefWidth="100.0" text="Targa" />
+                    -->
+                </columns>
+            </TableView>
 
             <!-- Pulsanti per azioni su ordini selezionati -->
             <HBox spacing="10.0">
