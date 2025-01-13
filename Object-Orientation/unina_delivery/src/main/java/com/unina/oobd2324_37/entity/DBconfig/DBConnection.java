@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * Classe per la connessione al DB
+ */
 public final class DBConnection {
 
     private static Connection connection = null;
@@ -16,8 +19,16 @@ public final class DBConnection {
     private static final String url = "jdbc:postgresql://" + IP + ":" + port + "/" +
                                                                nomeDB + "?currentSchema=" + schema;
 
+    /**
+     * Costruttore privato per evitare l'istanziazione della classe
+     */
     private DBConnection(){}
 
+    /**
+     * Metodo per ottenere la connessione al DB
+     * @return la connessione al DB
+     * @throws SQLException
+     */
     public static Connection getInstance() throws SQLException {
         if(connection == null || connection.isClosed()) {
             connection = getConnectionBySchema();
@@ -48,6 +59,9 @@ public final class DBConnection {
         }
     }
 
+    /**
+     * Metodo per chiudere la connessione al DB
+     */
     public static void closeConnection() {
         try {
             if(connection != null && !connection.isClosed()) {
