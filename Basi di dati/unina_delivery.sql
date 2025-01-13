@@ -72,7 +72,7 @@ CREATE TABLE spedizioni
 (
     idspedizione    VARCHAR(15) PRIMARY KEY,
     data_sped       DATE        NOT NULL    DEFAULT CURRENT_DATE,
-    orario          TIME        NOT NULL    DEFAULT CURRENT_TIME,
+    orario          TIME        NOT NULL    DEFAULT (DATE_TRUNC('minute', CURRENT_TIMESTAMP))::time,
     avviata         BOOLEAN     NOT NULL    DEFAULT FALSE,
     completata      BOOLEAN     NOT NULL    DEFAULT FALSE,
     idoperatore     INTEGER     NOT NULL,
@@ -643,7 +643,9 @@ BEGIN
 
     -- Se tutto e' ok, permetto avviata = TRUE, ma non prima di aver aggiornato data e orario
     NEW.data_sped := CURRENT_DATE;
-    NEW.orario := CURRENT_TIME;
+    NEW.orario := (DATE_TRUNC('minute', CURRENT_TIMESTAMP))::time;
+
+
 
     -- Una spedizione dve prima essere avviata, e poi puO' essere completata
     NEW.completata := FALSE;
@@ -948,57 +950,267 @@ EXECUTE FUNCTION update_sped_completata();
 
 -- CLIENTE
 INSERT INTO clienti VALUES 
-(DEFAULT, 'Gian', 'Fiore', 'Strada comunale', '26', '80140', '3333454444', 'gian@unina.it'),
-(DEFAULT, 'Luigi', 'Dota', 'Via Giotto', '8', '80023', '3386420123', 'luigi@unina.it'),
-(DEFAULT, 'Vit', 'Testa', 'Via Giotto', '15', '80024', '3196420123', 'vit@unina.it');
+(DEFAULT, 'Vit', 'Testa', 'Via Giotto', '15', '80024', '3196420123', 'vit@unina.it'),
+(DEFAULT, 'Marco', 'Verdi', 'Via delle Rose', '10', '20121', '3391122334', 'marco.verdi@gmail.com'),
+(DEFAULT, 'Anna', 'Rossi', 'Piazza del Popolo', '1', '50122', '3334445566', 'anna.rossi@yahoo.it'),
+(DEFAULT, 'Francesca', 'Neri', 'Via Milano', '5', '80122', '3409988776', 'francesco.ne@gmail.it'),
+(DEFAULT, 'Alessandro', 'Bianchi', 'Via Roma', '45', '10121', '3478899001', 'alessandro.bianchi@gmail.com'),
+(DEFAULT, 'Maria', 'Verdi', 'Piazza Garibaldi', '12', '80134', '3336677889', 'maria.verdi@libero.it'),
+(DEFAULT, 'Luisa', 'Rossi', 'Via Dante', '7', '20122', '3402233445', 'luisa.rossi@hotmail.com'),
+(DEFAULT, 'Giovanni', 'Neri', 'Via Manzoni', '50', '80131', '3456678990', 'giovanni.neri@unina.it'),
+(DEFAULT, 'Elena', 'Moretti', 'Corso Umberto', '22', '50123', '3201122334', 'elena.moretti@yahoo.it'),
+(DEFAULT, 'Roberto', 'Ferri', 'Via Milano', '18', '20124', '3285566778', 'roberto.ferri@gmail.com'),
+(DEFAULT, 'Chiara', 'Conti', 'Via Napoli', '3', '80136', '3388899001', 'chiara.conti@outlook.com'),
+(DEFAULT, 'Simone', 'Marini', 'Via Firenze', '27', '50134', '3396677888', 'simone.marini@virgilio.it'), 
+(DEFAULT, 'Federico', 'Baldini', 'Via Leopardi', '9', '80141', '3345566778', 'federico.baldini@gmail.com'),
+(DEFAULT, 'Sara', 'Fontana', 'Via Venezia', '11', '20135', '3278899002', 'sara.fontana@libero.it'),
+(DEFAULT, 'Matteo', 'Lombardi', 'Via Roma', '28', '50125', '3461122335', 'matteo.lombardi@hotmail.com'),
+(DEFAULT, 'Giorgia', 'Esposito', 'Via Torino', '33', '80142', '3296677887', 'giorgia.esposito@unina.it'),
+(DEFAULT, 'Davide', 'Rinaldi', 'Corso Garibaldi', '5', '20121', '3379988776', 'davide.rinaldi@yahoo.it');
 
 -- OPERATORE
 INSERT INTO operatori VALUES
-(DEFAULT, 'Luigi', 'Rossi', 'RSSLGU00T01F839Y', 'lagia', 'Luigi2003'),
-(DEFAULT, 'Luca', 'Tino', 'FRNGLC03R01M654T', 'stock', 'Luca2003');
+(DEFAULT, 'Luigi', 'Dota', 'DTOLGU03T01F123L', 'lagia', 'Luigi2003'),
+(DEFAULT, 'Gianluca', 'Fiorentino', 'FRNGLC03R01M654T', 'stock', 'Luca2003');
 
 -- CORRIERE
-INSERT INTO corrieri VALUES
+INSERT INTO corrieri VALUES				-- default = true
 (DEFAULT, 'Valeria', 'Sipa', 'SPIVLR96T01S253Z', '3901231234', DEFAULT),
-(DEFAULT, 'Cane', 'Pazzo', 'FRPGLC03R01M654T', '3196420124', DEFAULT),
-(DEFAULT, 'Marco', 'Galli', 'GLLMRC93T01Q277A', '3386600123', FALSE);
+(DEFAULT, 'Cane', 'Pazzo', 'PZZCNA93R01M654T', '3196420124', DEFAULT),
+(DEFAULT, 'Giulia', 'Manni', 'MNAGIU93T12L840Q', '3456677889', DEFAULT),
+(DEFAULT, 'Lorenzo', 'Conti', 'CNTLNZ85A01F205L', '3312233445', DEFAULT),
+(DEFAULT, 'Marco', 'Galli', 'GLLMRC93T01Q277A', '3386600123', DEFAULT);
 
 -- ARTICOLO
-INSERT INTO articoli VALUES                  -- quantita, peso, prezzo
-(DEFAULT, 'Pane', 'Trattasi di una bella baguette', 1200, 0.8, 0.50),
-(DEFAULT, 'Pane', 'Pane cafone', 500, 1, 1.20),
-(DEFAULT, 'Arancia', 'Arance fresche', 150, 1, 3.50);
+INSERT INTO articoli VALUES                  -- quantita, peso in kg, prezzo in euro per una quantità
+(DEFAULT, 'Pane', 'Baguette di origine francese', 500, 0.80, 0.50),
+(DEFAULT, 'Pane', 'Pane cafone', 300, 1.00, 1.20),
+(DEFAULT, 'Arancia', 'Arance fresche', 150, 1.00, 0.70),
+(DEFAULT, 'Mela', 'Mele fresche', 200, 0.15, 0.80),
+(DEFAULT, 'Latte', 'Latte fresco intero', 100, 1.00, 1.50),
+(DEFAULT, 'Uova', 'Confezione da 12 uova', 50, 0.50, 2.00),
+(DEFAULT, 'Pasta', 'Spaghetti di grano duro', 1000, 1.00, 1.10),
+(DEFAULT, 'Riso', 'Riso Arborio per risotti', 500, 1.00, 2.50),
+(DEFAULT, 'Olio', 'Olio extravergine d''oliva (bottiglia singola)', 200, 0.75, 5.50),
+(DEFAULT, 'Zucchero', 'Zucchero bianco', 800, 1.00, 1.20),
+(DEFAULT, 'Farina', 'Farina di grano tenero tipo 00', 600, 1.00, 0.90),
+(DEFAULT, 'Biscotti', 'Biscotti al cioccolato', 300, 0.50, 2.30),
+(DEFAULT, 'Cereali', 'Cereali integrali', 250, 0.50, 3.00),
+(DEFAULT, 'Burro', 'Burro fresco', 150, 0.25, 2.20),
+(DEFAULT, 'Yogurt', 'Yogurt alla fragola', 200, 0.12, 0.80),
+(DEFAULT, 'Prosciutto', 'Prosciutto crudo affettato', 100, 0.15, 3.50),
+(DEFAULT, 'Formaggio', 'Parmigiano Reggiano', 300, 0.50, 10.00),
+(DEFAULT, 'Tonno', 'Tonno in scatola sott''olio', 500, 0.20, 1.50),
+(DEFAULT, 'Cioccolato', 'Tavoletta di cioccolato fondente', 400, 0.10, 2.20),
+(DEFAULT, 'Pizza', 'Pizza surgelata margherita', 100, 0.40, 3.50),
+(DEFAULT, 'Patatine', 'Patatine in busta', 250, 0.20, 1.50),
+(DEFAULT, 'Acqua', 'Bottiglia d''acqua naturale 1.5L (bottiglia singola)', 1000, 1.50, 0.50),
+(DEFAULT, 'Acqua', 'Bottiglia d''acqua naturale 1.5L (confezione da 6)', 350, 9.00, 0.50),
+(DEFAULT, 'Succhi di frutta', 'Succo di frutta alla pesca', 300, 1.00, 1.20),
+(DEFAULT, 'Caffè', 'Caffè macinato per moka', 200, 0.25, 3.90),
+(DEFAULT, 'Tè', 'Bustine di tè verde', 150, 0.20, 2.50),
+(DEFAULT, 'Detersivo', 'Detersivo per lavatrice', 50, 1.50, 5.00);
 
 -- VEICOLO
-INSERT INTO veicoli VALUES
+INSERT INTO veicoli VALUES 	-- default = true
 ('DM555AA', 450, DEFAULT),
 ('AA567SS', 169, FALSE),
 ('SS420CA', 69, DEFAULT),
+('FF110SE', 118, DEFAULT),
+('WS431CD', 200, DEFAULT),
 ('PA345CE', 5, DEFAULT);
 
 -- ORDINE
-INSERT INTO ordini VALUES -- mancano info su operatore e spedizione
-(DEFAULT, '2023-01-30', 'Strada comunale', '26', '80140', 'Napoli', '3456420123', DEFAULT, DEFAULT, 1),
-(DEFAULT, '2023-01-31', 'Strada comunale', '26', '80140', 'Napoli', '3456420123', DEFAULT, DEFAULT, 1),
-(DEFAULT, '2023-01-31', 'Via Giotto',       '8', '80023', 'Milano', '3386420123', DEFAULT, DEFAULT, 2);
+INSERT INTO ordini VALUES 				-- mancano info su operatore e spedizione
+(DEFAULT, '2023-10-01', 'Via Dante', '7', '80122', 'Napoli', '3402233445', DEFAULT, DEFAULT, 1),
+(DEFAULT, '2023-10-01', 'Via Manzoni', '50', '80131', 'Napoli', '3456678990', DEFAULT, DEFAULT, 2),
+(DEFAULT, '2023-10-01', 'Corso Umberto', '22', '50123', 'Firenze', '3201122334', DEFAULT, DEFAULT, 3),
+(DEFAULT, '2023-10-04', 'Via Milano', '18', '20124', 'Milano', '3285566778', DEFAULT, DEFAULT, 4),
+(DEFAULT, '2023-10-04', 'Via Napoli', '3', '80136', 'Napoli', '3388899001', DEFAULT, DEFAULT, 5),
+(DEFAULT, '2023-10-06', 'Via Firenze', '27', '50134', 'Firenze', '3396677888', DEFAULT, DEFAULT, 6),
+(DEFAULT, '2023-10-07', 'Via Leopardi', '9', '80141', 'Napoli', '3345566778', DEFAULT, DEFAULT, 7),
+(DEFAULT, '2023-10-08', 'Via Venezia', '11', '20135', 'Milano', '3278899002', DEFAULT, DEFAULT, 8),
+(DEFAULT, '2023-10-09', 'Via Roma', '28', '50125', 'Firenze', '3461122335', DEFAULT, DEFAULT, 9),
+(DEFAULT, '2023-10-12', 'Via Torino', '33', '80142', 'Napoli', '3296677887', DEFAULT, DEFAULT, 10),
+
+(DEFAULT, '2023-10-13', 'Corso Garibaldi', '5', '20121', 'Milano', '3379988776', DEFAULT, DEFAULT, 11),
+(DEFAULT, '2023-10-14', 'Piazza Garibaldi', '12', '80134', 'Napoli', '3336677889', DEFAULT, DEFAULT, 12),
+(DEFAULT, '2023-10-15', 'Piazza del Popolo', '1', '50122', 'Firenze', '3334445566', DEFAULT, DEFAULT, 13),
+(DEFAULT, '2023-10-16', 'Via delle Rose', '10', '20121', 'Milano', '3391122334', DEFAULT, DEFAULT, 14),
+(DEFAULT, '2023-10-20', 'Via Roma', '45', '10121', 'Torino', '3478899001', DEFAULT, DEFAULT, 15),
+(DEFAULT, '2023-10-21', 'Via Dante', '7', '20122', 'Milano', '3402233445', DEFAULT, DEFAULT, 16),
+(DEFAULT, '2023-10-22', 'Via Leopardi', '9', '80141', 'Napoli', '3345566778', DEFAULT, DEFAULT, 17),
+(DEFAULT, '2023-11-05', 'Via Roma', '12', '80131', 'Napoli', '3456678990', DEFAULT, DEFAULT, 3),
+(DEFAULT, '2023-11-05', 'Via Dante', '45', '20122', 'Milano', '3402233445', DEFAULT, DEFAULT, 7),
+(DEFAULT, '2023-11-05', 'Corso Umberto', '2', '50123', 'Firenze', '3201122334', DEFAULT, DEFAULT, 12),
+
+(DEFAULT, '2023-11-05', 'Via Napoli', '9', '80136', 'Napoli', '3388899001', DEFAULT, DEFAULT, 5),
+(DEFAULT, '2023-11-10', 'Piazza Garibaldi', '12', '80134', 'Napoli', '3336677889', DEFAULT, DEFAULT, 6),
+(DEFAULT, '2023-11-11', 'Via delle Rose', '45', '20121', 'Milano', '3391122334', DEFAULT, DEFAULT, 2),
+(DEFAULT, '2023-11-11', 'Via Leopardi', '23', '80141', 'Napoli', '3345566778', DEFAULT, DEFAULT, 10),
+(DEFAULT, '2023-11-11', 'Via Torino', '33', '80142', 'Napoli', '3296677887', DEFAULT, DEFAULT, 8),
+(DEFAULT, '2023-11-11', 'Via Napoli', '6', '80136', 'Napoli', '3388899001', DEFAULT, DEFAULT, 4),
+(DEFAULT, '2023-11-11', 'Via Dante', '27', '20122', 'Milano', '3402233445', DEFAULT, DEFAULT, 15),
+(DEFAULT, '2023-12-02', 'Via Roma', '15', '10121', 'Torino', '3478899001', DEFAULT, DEFAULT, 12),
+(DEFAULT, '2023-12-02', 'Via Dante', '5', '20122', 'Milano', '3402233445', DEFAULT, DEFAULT, 2),
+(DEFAULT, '2023-12-02', 'Via Manzoni', '50', '80131', 'Napoli', '3456678990', DEFAULT, DEFAULT, 9),
+
+(DEFAULT, '2023-12-08', 'Via Venezia', '3', '20135', 'Milano', '3278899002', DEFAULT, DEFAULT, 13),
+(DEFAULT, '2023-12-08', 'Via Roma', '6', '10121', 'Torino', '3478899001', DEFAULT, DEFAULT, 15),
+(DEFAULT, '2023-12-10', 'Via Dante', '2', '20122', 'Milano', '3402233445', DEFAULT, DEFAULT, 16),
+(DEFAULT, '2023-12-23', 'Via Torino', '45', '80142', 'Napoli', '3296677887', DEFAULT, DEFAULT, 9),
+(DEFAULT, '2023-12-23', 'Via Firenze', '7', '50134', 'Firenze', '3396677888', DEFAULT, DEFAULT, 13),
+(DEFAULT, '2024-01-03', 'Via Roma', '12', '80131', 'Napoli', '3456678990', DEFAULT, DEFAULT, 4),
+(DEFAULT, '2024-01-03', 'Via Torino', '8', '80142', 'Napoli', '3296677887', DEFAULT, DEFAULT, 11),
+(DEFAULT, '2024-01-04', 'Via Firenze', '14', '50134', 'Firenze', '3396677888', DEFAULT, DEFAULT, 8),
+(DEFAULT, '2024-01-05', 'Via Napoli', '6', '80136', 'Napoli', '3388899001', DEFAULT, DEFAULT, 5),
+(DEFAULT, '2024-01-05', 'Piazza Garibaldi', '18', '80134', 'Napoli', '3336677889', DEFAULT, DEFAULT, 2),
+
+(DEFAULT, '2024-01-07', 'Via Venezia', '7', '20135', 'Milano', '3278899002', DEFAULT, DEFAULT, 15),
+(DEFAULT, '2024-01-08', 'Via Leopardi', '9', '80141', 'Napoli', '3345566778', DEFAULT, DEFAULT, 16),
+(DEFAULT, '2024-01-09', 'Via Leopardi', '7', '80141', 'Napoli', '3345566778', DEFAULT, DEFAULT, 12),
+(DEFAULT, '2024-01-10', 'Piazza Garibaldi', '30', '80134', 'Napoli', '3336677889', DEFAULT, DEFAULT, 3),
+(DEFAULT, '2024-01-17', 'Via Venezia', '12', '20135', 'Milano', '3278899002', DEFAULT, DEFAULT, 6),
+(DEFAULT, '2024-01-24', 'Via Dante', '5', '20122', 'Milano', '3402233445', DEFAULT, DEFAULT, 14),
+(DEFAULT, '2024-01-24', 'Via Manzoni', '2', '80131', 'Napoli', '3456678990', DEFAULT, DEFAULT, 11),
+(DEFAULT, '2024-01-30', 'Via Torino', '33', '80142', 'Napoli', '3296677887', DEFAULT, DEFAULT, 2),
+(DEFAULT, '2024-01-30', 'Via Firenze', '10', '50134', 'Firenze', '3396677888', DEFAULT, DEFAULT, 15),
+(DEFAULT, '2024-01-31', 'Via Firenze', '10', '50134', 'Firenze', '3396677888', DEFAULT, DEFAULT, 15);
 
 -- COMPORDINE
 INSERT INTO compOrdine VALUES -- quantita, pesoPar, prezzoPar
 ('O1000', 'A1000', 3, 0, 0),
-('O1000', 'A1001', 3, 0, 0),
+('O1000', 'A1001', 2, 0, 0),
 ('O1001', 'A1002', 5, 0, 0),
-('O1002', 'A1001', 10, 0, 0);
+('O1001', 'A1003', 4, 0, 0),
+('O1001', 'A1004', 1, 0, 0),
+('O1002', 'A1005', 10, 0, 0),
+('O1003', 'A1007', 6, 0, 0),
+('O1003', 'A1008', 1, 0, 0),
+('O1003', 'A1009', 3, 0, 0),
+('O1004', 'A1010', 7, 0, 0),
+('O1004', 'A1011', 8, 0, 0),
+('O1005', 'A1012', 4, 0, 0),
+('O1005', 'A1013', 5, 0, 0),
+('O1005', 'A1014', 6, 0, 0),
+('O1006', 'A1015', 3, 0, 0),
+('O1006', 'A1016', 2, 0, 0),
+('O1007', 'A1017', 5, 0, 0),
+('O1007', 'A1018', 4, 0, 0),
+('O1008', 'A1019', 6, 0, 0),
+('O1008', 'A1020', 1, 0, 0),
+('O1009', 'A1021', 7, 0, 0),
+('O1009', 'A1022', 8, 0, 0),
+('O1010', 'A1023', 5, 0, 0),
+('O1011', 'A1025', 4, 0, 0),
+('O1011', 'A1026', 6, 0, 0),
+('O1012', 'A1000', 10, 0, 0),
+('O1012', 'A1001', 2, 0, 0),
+('O1013', 'A1002', 3, 0, 0),
+('O1013', 'A1003', 5, 0, 0),
+('O1013', 'A1004', 7, 0, 0),
+('O1014', 'A1005', 6, 0, 0),
+('O1014', 'A1006', 3, 0, 0),
+('O1015', 'A1007', 8, 0, 0),
+('O1015', 'A1008', 9, 0, 0),
+('O1016', 'A1010', 5, 0, 0),
+('O1017', 'A1011', 7, 0, 0),
+('O1017', 'A1012', 3, 0, 0),
+('O1017', 'A1013', 4, 0, 0),
+('O1018', 'A1014', 2, 0, 0),
+('O1018', 'A1015', 6, 0, 0),
+('O1019', 'A1016', 10, 0, 0),
+('O1019', 'A1017', 5, 0, 0),
+('O1020', 'A1018', 6, 0, 0),
+('O1020', 'A1019', 4, 0, 0),
+('O1021', 'A1020', 5, 0, 0),
+('O1021', 'A1021', 3, 0, 0),
+('O1022', 'A1022', 7, 0, 0),
+('O1022', 'A1023', 4, 0, 0),
+('O1022', 'A1024', 2, 0, 0),
+('O1023', 'A1025', 8, 0, 0),
+('O1023', 'A1026', 9, 0, 0),
+('O1024', 'A1000', 6, 0, 0),
+('O1024', 'A1001', 10, 0, 0),
+('O1025', 'A1002', 5, 0, 0),
+('O1025', 'A1003', 7, 0, 0),
+('O1025', 'A1004', 6, 0, 0),
+('O1026', 'A1005', 8, 0, 0),
+('O1026', 'A1006', 9, 0, 0),
+('O1027', 'A1007', 6, 0, 0),
+('O1027', 'A1008', 5, 0, 0),
+('O1028', 'A1009', 7, 0, 0),
+('O1028', 'A1010', 10, 0, 0),
+('O1029', 'A1011', 6, 0, 0),
+('O1029', 'A1012', 5, 0, 0),
+('O1029', 'A1013', 2, 0, 0),
+('O1030', 'A1014', 3, 0, 0),
+('O1030', 'A1015', 4, 0, 0),
+('O1030', 'A1016', 6, 0, 0),
+('O1031', 'A1017', 5, 0, 0),
+('O1031', 'A1018', 7, 0, 0),
+('O1032', 'A1019', 8, 0, 0),
+('O1032', 'A1020', 6, 0, 0),
+('O1033', 'A1021', 5, 0, 0),
+('O1033', 'A1022', 4, 0, 0),
+('O1034', 'A1023', 3, 0, 0),
+('O1034', 'A1024', 6, 0, 0),
+('O1035', 'A1025', 4, 0, 0),
+('O1035', 'A1026', 7, 0, 0),
+('O1036', 'A1000', 2, 0, 0),
+('O1036', 'A1001', 1, 0, 0),
+('O1037', 'A1002', 3, 0, 0),
+('O1037', 'A1003', 4, 0, 0),
+('O1038', 'A1004', 5, 0, 0),
+('O1038', 'A1005', 6, 0, 0),
+('O1039', 'A1006', 7, 0, 0),
+('O1039', 'A1007', 8, 0, 0),
+('O1040', 'A1008', 6, 0, 0),
+('O1040', 'A1009', 9, 0, 0),
+('O1041', 'A1010', 4, 0, 0),
+('O1041', 'A1011', 7, 0, 0),
+('O1042', 'A1012', 3, 0, 0),
+('O1042', 'A1013', 2, 0, 0),
+('O1043', 'A1014', 6, 0, 0),
+('O1043', 'A1015', 5, 0, 0),
+('O1044', 'A1016', 4, 0, 0),
+('O1044', 'A1017', 6, 0, 0),
+('O1045', 'A1018', 8, 0, 0),
+('O1045', 'A1019', 3, 0, 0),
+('O1046', 'A1020', 9, 0, 0),
+('O1046', 'A1021', 7, 0, 0),
+('O1047', 'A1022', 10, 0, 0),
+('O1048', 'A1024', 5, 0, 0),
+('O1048', 'A1025', 8, 0, 0),
+('O1049', 'A1026', 6, 0, 0),
+('O1049', 'A1000', 7, 0, 0);
 
 -- SPEDIZIONE
-INSERT INTO spedizioni VALUES
-(DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, 1, 1, 'PA345CE');
+INSERT INTO spedizioni VALUES		-- idOp, idCor
+(DEFAULT, '2023-10-19', DEFAULT, TRUE, TRUE, 1, 1, 'DM555AA'),
+(DEFAULT, '2023-10-31', DEFAULT, TRUE, TRUE, 2, 2, 'SS420CA'),
+(DEFAULT, '2023-11-14', DEFAULT, TRUE, TRUE, 2, 3, 'WS431CD'),
+(DEFAULT, '2023-12-10', DEFAULT, TRUE, TRUE, 1, 4, 'FF110SE'),
+(DEFAULT, '2023-12-24', DEFAULT, TRUE, TRUE, 1, 1, 'SS420CA'),
+(DEFAULT, '2024-01-31', DEFAULT, TRUE, TRUE, 2, 4, 'DM555AA');
+
+/*
+(DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, 1, 5, 'PA345CE'),
+(DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, 1, 1, 'PA345CE'),
+(DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, 1, 1, 'PA345CE'),
+(DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, 1, 1, 'PA345CE'),
+(DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, 1, 1, 'PA345CE'),
+(DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, 1, 1, 'PA345CE'),
+(DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, 1, 1, 'PA345CE'),
+(DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, 1, 1, 'PA345CE'),
+*/
 
 UPDATE ordini
-SET idoperatore = 1, idspedizione = 'S1000'
-WHERE ((idordine = 'O1000') OR (idordine = 'O1002'));
+SET idoperatore = 1, idspedizione = 'S1000', consegnato = TRUE
+WHERE idordine BETWEEN 'O1000' AND 'O1009';
 
 /*  
- * Non posso avviare la spedizione
+ * Non posso avviare la spedizione 1 con targa 'PA345CE'
  *
  * UPDATE SPEDIZIONI
  * SET AVVIATA = TRUE
@@ -1008,7 +1220,29 @@ WHERE ((idordine = 'O1000') OR (idordine = 'O1002'));
  * Bisogna dunque cambiare il veicolo adoperato per la spedizione in questione
  *
  */
+ 
 
+UPDATE ordini
+SET idoperatore = 2, idspedizione = 'S1001', consegnato = TRUE
+WHERE idordine BETWEEN 'O1010' AND 'O1016';
+
+UPDATE ordini
+SET idoperatore = 2, idspedizione = 'S1002', consegnato = TRUE
+WHERE idordine BETWEEN 'O1017' AND 'O1026';
+
+UPDATE ordini
+SET idoperatore = 1, idspedizione = 'S1003', consegnato = TRUE
+WHERE idordine BETWEEN 'O1027' AND 'O1031';
+
+UPDATE ordini
+SET idoperatore = 1, idspedizione = 'S1004', consegnato = TRUE
+WHERE idordine BETWEEN 'O1032' AND 'O1034';
+
+UPDATE ordini
+SET idoperatore = 2, idspedizione = 'S1005', consegnato = TRUE
+WHERE idordine BETWEEN 'O1035' AND 'O1049';
+ 
+/*
 UPDATE spedizioni
 SET targa = 'DM555AA'
 WHERE idspedizione = 'S1000';
@@ -1030,10 +1264,10 @@ UPDATE ordini
 SET consegnato = TRUE
 WHERE idordine = 'O1000';
 
--- E, in un momento diverso...
+-- E, in un momento diverso gli altri...
 UPDATE ordini
 SET consegnato = TRUE
-WHERE idordine = 'O1002';
+WHERE idordine BETWEEN 'O1001' AND 'O1009';
 
 -- Possiamo notare come per effetto del trigger, la spedizione, che ha consegnato tutti i pacchi, risulti completata
--- SELECT * FROM spedizioni;
+-- SELECT * FROM spedizioni;*/
