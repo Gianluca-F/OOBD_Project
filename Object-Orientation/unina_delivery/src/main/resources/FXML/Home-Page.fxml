@@ -20,8 +20,8 @@
             <!-- Sezione di filtro -->
             <HBox spacing="10.0">
                 <VBox spacing="5.0">
-                    <Label text="Filtra per Utente:" />
-                    <TextField fx:id="userFilterField" promptText="Inserisci nome utente" />
+                    <Label text="Filtra per Cliente:" />
+                    <TextField fx:id="customerFilterField" promptText="Inserisci nome cliente" />
                 </VBox>
                 <VBox spacing="5.0">
                     <Label text="Da:" />

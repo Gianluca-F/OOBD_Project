@@ -1,5 +1,6 @@
 package com.unina.oobd2324_37.boundary;
 
+import com.unina.oobd2324_37.control.HomeControl;
 import com.unina.oobd2324_37.entity.DAO.OrdineDAO;
 import com.unina.oobd2324_37.entity.DAOimplementation.OrdineDAOimp;
 import com.unina.oobd2324_37.entity.DTO.Ordine;
@@ -9,16 +10,26 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
+import javafx.util.StringConverter;
 
 import java.text.DecimalFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 public class HomeController {
+
+    @FXML
+    private TextField customerFilterField;
+
+    @FXML
+    private DatePicker startDatePicker;
+
+    @FXML
+    private DatePicker endDatePicker;
 
     @FXML
     private TableView<Ordine> orderTable;
@@ -56,16 +67,44 @@ public class HomeController {
     @FXML
     private TableColumn<Ordine, String> operatoreColumn;
 
-    private OrdineDAO ordineDAO = new OrdineDAOimp();
-    private ObservableList<Ordine> orderList = FXCollections.observableArrayList();
+    private final OrdineDAO ordineDAO = new OrdineDAOimp();
+    private final ObservableList<Ordine> orderList = FXCollections.observableArrayList();
+
+    private HomeControl homeControl;
 
     @FXML
     public void initialize() {
-        setTableColumns();
+        homeControl = HomeControl.getInstance();
+        homeControl.initialize(this);
 
-        // Load data
-        orderList.addAll(ordineDAO.getAll());
-        orderTable.setItems(orderList);
+        formatDatePicker();
+        updateTable();
+    }
+
+    public void handleApplyFilter(ActionEvent actionEvent) {
+        homeControl.applyFilter(customerFilterField.getText(), startDatePicker.getValue(), endDatePicker.getValue());
+    }
+
+    public void handleResetFilter(ActionEvent actionEvent) {
+        customerFilterField.clear();
+        startDatePicker.setValue(null);
+        endDatePicker.setValue(null);
+    }
+
+    public void handleViewDetails(ActionEvent actionEvent) {
+    }
+
+    public void handleDeleteOrder(ActionEvent actionEvent) {
+    }
+
+    public void updateTable() {
+        setTableColumns();
+        loadOrders(ordineDAO.getAll());
+    }
+
+    public void updateTable(String cliente, LocalDate startDate, LocalDate endDate) {
+        setTableColumns();
+        loadOrders(ordineDAO.getByCustomerAndDate(cliente, startDate, endDate));
     }
 
     private void setTableColumns() {
@@ -83,8 +122,18 @@ public class HomeController {
         cittaColumn.setCellValueFactory(new PropertyValueFactory<>("citta"));
         cellulareColumn.setCellValueFactory(new PropertyValueFactory<>("cellulare"));
         consegnatoColumn.setCellValueFactory(new PropertyValueFactory<>("consegnato"));
-        idspedizioneColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSpedizione().getIdSpedizione()));
-        operatoreColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getOperatore().getNome() + " " + cellData.getValue().getOperatore().getCognome()));
+        idspedizioneColumn.setCellValueFactory(cellData -> {
+            String idSpedizione = cellData.getValue().getSpedizione() != null ?
+                    cellData.getValue().getSpedizione().getIdSpedizione() :
+                    "null";
+            return new SimpleStringProperty(idSpedizione);
+        });
+        operatoreColumn.setCellValueFactory(cellData -> {
+            String idOperatore = cellData.getValue().getOperatore() != null ?
+                    cellData.getValue().getOperatore().getNome() + " " + cellData.getValue().getOperatore().getCognome() :
+                    "null";
+            return new SimpleStringProperty(idOperatore);
+        });
     }
 
     private void setprezzoTotColumn() {
@@ -108,15 +157,28 @@ public class HomeController {
         });
     }
 
-    public void handleApplyFilter(ActionEvent actionEvent) {
+    private void loadOrders(List<Ordine> orders) {
+        orderList.clear();
+        orderList.addAll(orders);
+        orderTable.setItems(orderList);
     }
 
-    public void handleResetFilter(ActionEvent actionEvent) {
-    }
+    private void formatDatePicker() {
+        StringConverter<LocalDate> converter = new StringConverter<LocalDate>() {
+            private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-    public void handleViewDetails(ActionEvent actionEvent) {
-    }
+            @Override
+            public String toString(LocalDate date) {
+                return (date == null) ? "" : dateFormatter.format(date);
+            }
 
-    public void handleDeleteOrder(ActionEvent actionEvent) {
+            @Override
+            public LocalDate fromString(String string) {
+                return (string == null || string.isEmpty()) ? null : LocalDate.parse(string, dateFormatter);
+            }
+        };
+
+        startDatePicker.setConverter(converter);
+        endDatePicker.setConverter(converter);
     }
 }

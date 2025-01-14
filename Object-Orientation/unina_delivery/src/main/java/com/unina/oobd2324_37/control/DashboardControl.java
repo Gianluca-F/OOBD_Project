@@ -5,7 +5,6 @@ import com.unina.oobd2324_37.entity.DTO.Operatore;
 import com.unina.oobd2324_37.boundary.DashboardController;
 
 import javafx.scene.Node;
-import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 
