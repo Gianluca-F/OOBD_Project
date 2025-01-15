@@ -1,8 +1,6 @@
 package com.unina.oobd2324_37.boundary;
 
 import com.unina.oobd2324_37.control.HomeControl;
-import com.unina.oobd2324_37.entity.DAO.OrdineDAO;
-import com.unina.oobd2324_37.entity.DAOimplementation.OrdineDAOimp;
 import com.unina.oobd2324_37.entity.DTO.Ordine;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -14,12 +12,16 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
+import java.util.function.Supplier;
 
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+/**
+ * This class is used to manage the Home Controller.
+ */
 public class HomeController {
 
     @FXML
@@ -67,24 +69,35 @@ public class HomeController {
     @FXML
     private TableColumn<Ordine, String> operatoreColumn;
 
-    private final OrdineDAO ordineDAO = new OrdineDAOimp();
     private final ObservableList<Ordine> orderList = FXCollections.observableArrayList();
 
     private HomeControl homeControl;
 
+    /**
+     * This method is used to initialize the HomeController class.
+     */
     @FXML
     public void initialize() {
         homeControl = HomeControl.getInstance();
         homeControl.initialize(this);
 
         formatDatePicker();
-        updateTable();
+        setTableColumns();
+        homeControl.applyFilter(null, null, null);
     }
 
+    /**
+     * This method is used to handle the apply filter action.
+     * @param actionEvent The action event
+     */
     public void handleApplyFilter(ActionEvent actionEvent) {
         homeControl.applyFilter(customerFilterField.getText(), startDatePicker.getValue(), endDatePicker.getValue());
     }
 
+    /**
+     * This method is used to handle the reset filter action.
+     * @param actionEvent The action event
+     */
     public void handleResetFilter(ActionEvent actionEvent) {
         customerFilterField.clear();
         startDatePicker.setValue(null);
@@ -97,16 +110,17 @@ public class HomeController {
     public void handleDeleteOrder(ActionEvent actionEvent) {
     }
 
-    public void updateTable() {
-        setTableColumns();
-        loadOrders(ordineDAO.getAll());
+    /**
+     * This method is used to update the table.
+     * @param orderSupplier The order supplier (lambda expression)
+     */
+    public void updateTable(Supplier<List<Ordine>> orderSupplier) {
+        loadOrders(orderSupplier.get());
     }
 
-    public void updateTable(String cliente, LocalDate startDate, LocalDate endDate) {
-        setTableColumns();
-        loadOrders(ordineDAO.getByCustomerAndDate(cliente, startDate, endDate));
-    }
-
+    /**
+     * This method is used to set the table columns.
+     */
     private void setTableColumns() {
         // Column initialization
         idOrdineColumn.setCellValueFactory(new PropertyValueFactory<>("idOrdine"));
@@ -136,6 +150,9 @@ public class HomeController {
         });
     }
 
+    /**
+     * This method is used to set the "Prezzo Totale" column.
+     */
     private void setprezzoTotColumn() {
         prezzoTotaleColumn.setCellFactory(new Callback<TableColumn<Ordine, Double>, TableCell<Ordine, Double>>() {
             @Override
@@ -157,12 +174,19 @@ public class HomeController {
         });
     }
 
+    /**
+     * This method is used to load the orders.
+     * @param orders The list of orders
+     */
     private void loadOrders(List<Ordine> orders) {
         orderList.clear();
         orderList.addAll(orders);
         orderTable.setItems(orderList);
     }
 
+    /**
+     * This method is used to format the date picker.
+     */
     private void formatDatePicker() {
         StringConverter<LocalDate> converter = new StringConverter<LocalDate>() {
             private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
