@@ -56,10 +56,10 @@ public class LoginController {
             toggleButton.setVisible(!newValue.isEmpty());                                   /* Only show the toggle button if the password field is not empty */
             updatePromptPasswordFieldVisibility(newValue);
         });
-
         plainPasswordField.textProperty().bindBidirectional(palliniPasswordField.textProperty());
-
         toggleButton.setOnAction(event -> togglePasswordVisibility());
+
+        setShortcuts();
     }
 
     /**
@@ -126,5 +126,28 @@ public class LoginController {
         plainPasswordField.setVisible(isPasswordVisible);
         palliniPasswordField.setVisible(!isPasswordVisible);
         eyeIcon.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream(isPasswordVisible ? "/images/showEye.png" : "/images/hideEye.png"))));
+    }
+
+    /**
+     * Set the shortcuts for the login page.
+     */
+    private void setShortcuts() {
+        usernameField.setOnKeyPressed(event -> {
+            if(event.getCode().toString().equals("ENTER")) {
+                buttonPressed();
+            }
+        });
+
+        palliniPasswordField.setOnKeyPressed(event -> {
+            if(event.getCode().toString().equals("ENTER")) {
+                buttonPressed();
+            }
+        });
+
+        plainPasswordField.setOnKeyPressed(event -> {
+            if(event.getCode().toString().equals("ENTER")) {
+                buttonPressed();
+            }
+        });
     }
 }

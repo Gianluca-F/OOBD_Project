@@ -8,6 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
@@ -69,6 +70,9 @@ public class HomeController {
     @FXML
     private TableColumn<Ordine, String> operatoreColumn;
 
+    @FXML
+    private Button viewDetailsButton;
+
     private final ObservableList<Ordine> orderList = FXCollections.observableArrayList();
 
     private HomeControl homeControl;
@@ -84,6 +88,20 @@ public class HomeController {
         formatDatePicker();
         setTableColumns();
         homeControl.applyFilter(null, null, null);
+
+        // Disabilita il pulsante se non ci sono righe selezionate
+        viewDetailsButton.disableProperty().bind(
+                orderTable.getSelectionModel().selectedItemProperty().isNull()
+        );
+
+        // Resetta la selezione quando il TableView o VisualizzaOrdine peronoe il focus
+        orderTable.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) {
+                if (!orderTable.isFocused() && !viewDetailsButton.isFocused()) {
+                    orderTable.getSelectionModel().clearSelection();
+                }
+            }
+        });
     }
 
     /**
@@ -104,10 +122,13 @@ public class HomeController {
         endDatePicker.setValue(null);
     }
 
+    /**
+     * This method is used to handle the view details action.
+     * @param actionEvent The action event
+     */
     public void handleViewDetails(ActionEvent actionEvent) {
-    }
-
-    public void handleDeleteOrder(ActionEvent actionEvent) {
+        Ordine selectedOrder = orderTable.getSelectionModel().getSelectedItem();
+        homeControl.showOrderDetails(selectedOrder);
     }
 
     /**
@@ -139,13 +160,13 @@ public class HomeController {
         idspedizioneColumn.setCellValueFactory(cellData -> {
             String idSpedizione = cellData.getValue().getSpedizione() != null ?
                     cellData.getValue().getSpedizione().getIdSpedizione() :
-                    "null";
+                    "N/A";
             return new SimpleStringProperty(idSpedizione);
         });
         operatoreColumn.setCellValueFactory(cellData -> {
             String idOperatore = cellData.getValue().getOperatore() != null ?
                     cellData.getValue().getOperatore().getNome() + " " + cellData.getValue().getOperatore().getCognome() :
-                    "null";
+                    "N/A";
             return new SimpleStringProperty(idOperatore);
         });
     }

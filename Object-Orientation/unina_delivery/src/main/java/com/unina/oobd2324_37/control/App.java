@@ -3,6 +3,7 @@ package com.unina.oobd2324_37.control;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -39,10 +40,11 @@ public final class App extends Application {
     }
 
     /**
-     * Main method to start the JavaFX application
+     * Main method to load the fonts and start the JavaFX application
      * @param args Command line arguments
      */
     public static void main(String[] args) {
+        loadFonts(); // Load the fonts
         Application.launch(); // Start the JavaFX application
     }
 
@@ -63,5 +65,12 @@ public final class App extends Application {
      */
     public static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml).load()); // Load the new FXML file
+    }
+
+    /**
+     * Load the fonts
+     */
+    private static void loadFonts() {
+        Font.loadFont(App.class.getResource("/fonts/RobotoSlabBold-PKGJr.ttf").toExternalForm(), 12);
     }
 }

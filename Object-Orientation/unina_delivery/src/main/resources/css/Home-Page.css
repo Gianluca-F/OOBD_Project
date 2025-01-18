@@ -1,11 +1,75 @@
-
+/* Stili generali del bottone */
 .button {
-    -fx-cursor: hand;
+    -fx-font-family: "Roboto Slab"; /* Font personalizzato */
+    -fx-font-style: normal;         /* Stile normale */
+    -fx-font-weight: bold;          /* Grassetto */
+    -fx-font-size: 14px;            /* Dimensione del testo */
+    -fx-pref-width: 100px;          /* Larghezza preferita per i pulsanti */
+    -fx-pref-height: 30px;          /* Altezza preferita per i pulsanti */
+    -fx-background-color: #E0F7FA;  /* Colore di sfondo */
+    -fx-background-radius: 10px;    /* Arrotondamento dello sfondo */
+    -fx-border-color: #1F4F83;      /* Colore del bordo */
+    -fx-border-width: 3px;          /* Spessore del bordo */
+    -fx-border-radius: 10px;        /* Arrotondamento del bordo */
+    -fx-border-insets: 0px;         /* Distanza tra il contenuto e il bordo */
+    -fx-padding: 5px 10px;          /* Spazio interno */
+    -fx-cursor: hand;               /* Cambia il cursore a una mano */
 }
 
-.table-row-cell:odd {
-    -fx-background-color: #f9f9f9;
+/* Stile quando il mouse è sopra (hover) */
+.button:hover {
+    -fx-background-color: #B2EBF2; /* Cambia il colore dello sfondo quando il mouse è sopra */
 }
+
+/* Stile quando il bottone è premuto */
+.button:pressed {
+    -fx-background-color: #80DEEA; /* Colore quando il bottone è premuto */
+}
+
+/* Escludi i pulsanti interni del DatePicker */
+.date-picker .arrow-button,
+.date-picker-popup .button {
+    -fx-background-color: transparent;   /* Rimuovi lo sfondo personalizzato */
+    -fx-border-color: transparent;       /* Rimuovi il bordo personalizzato */
+    -fx-pref-width: 30px;                /* Larghezza preferita per i pulsanti */
+    -fx-pref-height: 30px;               /* Altezza preferita per i pulsanti */
+    -fx-cursor: default;                 /* Cursori predefiniti */
+}
+
+#viewDetailsButton {
+    -fx-pref-width: 200px; /* Larghezza preferita */
+}
+
+/* Stile righe dispari della tabella */
+.table-row-cell:odd {
+    -fx-background-color: #f9f9f9; /* Colore di sfondo */
+    -fx-cursor: hand;               /* Cambia il cursore a una mano */
+}
+
+/* Stile righe pari della tabella */
 .table-row-cell:even {
-    -fx-background-color: #ffffff;
+    -fx-background-color: #ffffff; /* Colore di sfondo */
+    -fx-cursor: hand;               /* Cambia il cursore a una mano */
+}
+
+/* Stile righe quando il mouse è sopra */
+.table-row-cell:hover {
+    -fx-background-color: #E0F7FA;
+}
+
+/* Stile righe selezionate */
+.table-row-cell:selected {
+    -fx-background-color: #1F4F83; /* Blu acceso */
+    -fx-text-fill: #FFFFFF;        /* Testo bianco per contrasto */
+}
+
+/* Specificità aggiuntiva per il testo della riga selezionata */
+.table-row-cell:selected .text {
+    -fx-fill: #FFFFFF; /* Forza il colore del testo */
+}
+
+.table-view:focused {
+    -fx-focus-color: transparent;  /* Rimuove il bordo blu quando la tabella è in focus */
+    -fx-background-insets: 0;      /* Rimuove eventuali insetti */
+    -fx-border-color: #b3b3b3;   /* Colore del bordo */
 }

@@ -3,6 +3,7 @@ package com.unina.oobd2324_37.control;
 import com.unina.oobd2324_37.boundary.HomeController;
 import com.unina.oobd2324_37.entity.DAO.OrdineDAO;
 import com.unina.oobd2324_37.entity.DAOimplementation.OrdineDAOimp;
+import com.unina.oobd2324_37.entity.DTO.Ordine;
 
 import java.time.LocalDate;
 
@@ -102,5 +103,9 @@ public class HomeControl {
      */
     private boolean isClienteValid(String cliente) {
         return cliente != null && !cliente.isEmpty();
+    }
+
+    public void showOrderDetails(Ordine selectedOrder) {
+        System.out.println("Order details ID: " + selectedOrder.getIdOrdine());
     }
 }

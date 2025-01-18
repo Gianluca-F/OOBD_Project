@@ -10,56 +10,71 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.layout.Region?>
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unina.oobd2324_37.boundary.HomeController">
     <children>
         <VBox spacing="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" stylesheets="@../css/Home-Page.css">
-            <!-- Titolo -->
-            <Label style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Gestione Ordini" />
-
-            <!-- Sezione di filtro -->
-            <HBox spacing="10.0">
+            <HBox alignment="CENTER" spacing="10.0">
                 <VBox spacing="5.0">
-                    <Label text="Filtra per Cliente:" />
-                    <TextField fx:id="customerFilterField" promptText="Inserisci nome cliente" />
+                    <Region HBox.hgrow="ALWAYS" />
                 </VBox>
                 <VBox spacing="5.0">
-                    <Label text="Da:" />
-                    <DatePicker fx:id="startDatePicker" />
-                </VBox>
-                <VBox spacing="5.0">
-                    <Label text="A:" />
-                    <DatePicker fx:id="endDatePicker" />
-                </VBox>
-                <Button fx:id="applyFilterButton" onAction="#handleApplyFilter" text="Applica Filtro" />
-                <Button fx:id="resetFilterButton" onAction="#handleResetFilter" text="Reset Filtro" />
-            </HBox>
+                    <!-- Titolo -->
+                    <Label style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Gestione Ordini" />
 
-            <!-- Tabella degli ordini -->
-            <TableView fx:id="orderTable" prefHeight="400.0" prefWidth="1290">
-                <columns>
-                    <TableColumn fx:id="idOrdineColumn" prefWidth="90.0" text="ID Ordine" style="-fx-alignment: center;"/>                 <!-- 1a colonna -->
-                    <TableColumn fx:id="dataOrdineColumn" prefWidth="110.0" text="Data Ordine" style="-fx-alignment: center;"/>            <!-- 2a colonna -->
-                    <TableColumn fx:id="prezzoTotaleColumn" prefWidth="120.0" text="Prezzo Totale" style="-fx-alignment: center-right;"/>  <!-- 3a colonna -->
-                    <TableColumn fx:id="clienteColumn" prefWidth="150.0" text="Cliente" style="-fx-alignment: center-left;"/>              <!-- 4a colonna -->
-                    <TableColumn fx:id="indirizzoColumn" prefWidth="170.0" text="Indirizzo" style="-fx-alignment: center-left;"/>          <!-- 5a colonna -->
-                    <TableColumn fx:id="CAPColumn" prefWidth="70.0" text="CAP" style="-fx-alignment: center;"/>                            <!-- 6a colonna -->
-                    <TableColumn fx:id="cittaColumn" prefWidth="70.0" text="Città" style="-fx-alignment: center-left;"/>                   <!-- 7a colonna -->
-                    <TableColumn fx:id="cellulareColumn" prefWidth="120.0" text="Cellulare" style="-fx-alignment: center;"/>               <!-- 8a colonna -->
-                    <TableColumn fx:id="consegnatoColumn" prefWidth="100.0" text="Consegnato" style="-fx-alignment: center;"/>             <!-- 9a colonna -->
-                    <TableColumn fx:id="idspedizioneColumn" prefWidth="130.0" text="ID Spedizione" style="-fx-alignment: center;"/>        <!-- 10a colonna -->
-                    <TableColumn fx:id="operatoreColumn" prefWidth="160.0" text="Operatore" style="-fx-alignment: center-left;"/>          <!-- 11a colonna -->
-                    <!-- Si attiva con visualizza dettagli
-                    <TableColumn fx:id="emailColumn" prefWidth="200.0" text="Email" />
-                    <TableColumn fx:id="corriereColumn" prefWidth="100.0" text="Corriere" />
-                    <TableColumn fx:id="targaColumn" prefWidth="100.0" text="Targa" />
-                    -->
-                </columns>
-            </TableView>
+                    <!-- Sezione di filtro -->
+                    <HBox spacing="10.0">
+                        <VBox spacing="5.0">
+                            <Label text="Filtra per Cliente:" />
+                            <TextField fx:id="customerFilterField" promptText="Inserisci nome cliente" />
+                        </VBox>
+                        <VBox spacing="5.0">
+                            <Label text="Da:" />
+                            <DatePicker fx:id="startDatePicker" />
+                        </VBox>
+                        <VBox spacing="5.0">
+                            <Label text="A:" />
+                            <DatePicker fx:id="endDatePicker" />
+                        </VBox>
+                        <VBox>
+                            <Region prefHeight="15.0" prefWidth="10.0" />
+                            <HBox spacing="5.0">
+                                <Button fx:id="applyFilterButton" onAction="#handleApplyFilter" text="Applica" />
+                                <Button fx:id="resetFilterButton" onAction="#handleResetFilter" text="Reset" />
+                            </HBox>
+                        </VBox>
+                    </HBox>
 
-            <!-- Pulsanti per azioni su ordini selezionati -->
-            <HBox spacing="10.0">
-                <Button fx:id="viewDetailsButton" disable="true" onAction="#handleViewDetails" text="Visualizza Dettagli" />
-                <Button fx:id="deleteOrderButton" disable="true" onAction="#handleDeleteOrder" text="Elimina Ordine" />
+                    <!-- Tabella degli ordini -->
+                    <TableView fx:id="orderTable" prefHeight="600.0" prefWidth="1290">
+                        <columns>
+                            <TableColumn fx:id="idOrdineColumn" prefWidth="90.0" text="ID Ordine" style="-fx-alignment: center;"/>                 <!-- 1a colonna -->
+                            <TableColumn fx:id="dataOrdineColumn" prefWidth="110.0" text="Data Ordine" style="-fx-alignment: center;"/>            <!-- 2a colonna -->
+                            <TableColumn fx:id="prezzoTotaleColumn" prefWidth="120.0" text="Prezzo Totale" style="-fx-alignment: center-right;"/>  <!-- 3a colonna -->
+                            <TableColumn fx:id="clienteColumn" prefWidth="150.0" text="Cliente" style="-fx-alignment: center-left;"/>              <!-- 4a colonna -->
+                            <TableColumn fx:id="indirizzoColumn" prefWidth="170.0" text="Indirizzo" style="-fx-alignment: center-left;"/>          <!-- 5a colonna -->
+                            <TableColumn fx:id="CAPColumn" prefWidth="70.0" text="CAP" style="-fx-alignment: center;"/>                            <!-- 6a colonna -->
+                            <TableColumn fx:id="cittaColumn" prefWidth="70.0" text="Città" style="-fx-alignment: center-left;"/>                   <!-- 7a colonna -->
+                            <TableColumn fx:id="cellulareColumn" prefWidth="120.0" text="Cellulare" style="-fx-alignment: center;"/>               <!-- 8a colonna -->
+                            <TableColumn fx:id="consegnatoColumn" prefWidth="100.0" text="Consegnato" style="-fx-alignment: center;"/>             <!-- 9a colonna -->
+                            <TableColumn fx:id="idspedizioneColumn" prefWidth="130.0" text="ID Spedizione" style="-fx-alignment: center;"/>        <!-- 10a colonna -->
+                            <TableColumn fx:id="operatoreColumn" prefWidth="160.0" text="Operatore" style="-fx-alignment: center-left;"/>          <!-- 11a colonna -->
+                            <!-- Si attiva con visualizza dettagli
+                            <TableColumn fx:id="emailColumn" prefWidth="200.0" text="Email" />
+                            <TableColumn fx:id="corriereColumn" prefWidth="100.0" text="Corriere" />
+                            <TableColumn fx:id="targaColumn" prefWidth="100.0" text="Targa" />
+                            -->
+                        </columns>
+                    </TableView>
+
+                    <!-- Pulsanti per azioni su ordini selezionati -->
+                    <HBox spacing="10.0">
+                        <Button fx:id="viewDetailsButton" disable="true" onAction="#handleViewDetails" text="Visualizza Dettagli" />
+                    </HBox>
+                </VBox>
+                <VBox spacing="5.0" style="-fx-background-color: #1F4F83;">
+                    <Region HBox.hgrow="ALWAYS" />
+                </VBox>
             </HBox>
         </VBox>
     </children>
