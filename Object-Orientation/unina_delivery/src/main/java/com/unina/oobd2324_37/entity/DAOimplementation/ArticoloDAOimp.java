@@ -18,7 +18,7 @@ public class ArticoloDAOimp implements ArticoloDAO {
             PreparedStatement st = null;
             ResultSet rs = null;
 
-            st = con.prepareStatement("SELECT * FROM articolo WHERE id = ?");
+            st = con.prepareStatement("SELECT * FROM articoli WHERE idarticolo = ?");
             st.setString(1, id);
             rs = st.executeQuery();
 

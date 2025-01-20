@@ -2,13 +2,12 @@ package com.unina.oobd2324_37.control;
 
 import com.unina.oobd2324_37.boundary.HomeController;
 import com.unina.oobd2324_37.entity.DAO.OrdineDAO;
+import com.unina.oobd2324_37.entity.DAOimplementation.CompOrdineDAOimp;
 import com.unina.oobd2324_37.entity.DAOimplementation.OrdineDAOimp;
-import com.unina.oobd2324_37.entity.DTO.Ordine;
-
-import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
+import com.unina.oobd2324_37.entity.DTO.Articolo;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * This class is used to manage the HomeControl class.
@@ -99,6 +98,10 @@ public class HomeControl {
         }
     }
 
+    public List<Articolo> getArticoliByIdOrdine(String idOrdine) {
+        return new CompOrdineDAOimp().getArticoliByIdOrdine(idOrdine);
+    }
+
     /**
      * This method is used to check if the customer is valid.
      * @param cliente The customer name
@@ -108,10 +111,7 @@ public class HomeControl {
         return cliente != null && !cliente.isEmpty();
     }
 
-    public void setPopUp(Ordine selectedOrder, GridPane gridPane) {
-        homeController.setLabel(0, gridPane, new Label("Data:"), new Label(selectedOrder.getData().toString()));
-
-
-
+    public int getQuantitaArticoloConsegnata(String idOrdine, String idArticolo) {
+        return new CompOrdineDAOimp().getByIdOrdineNIdArticolo(idOrdine, idArticolo).getQuantita();
     }
 }

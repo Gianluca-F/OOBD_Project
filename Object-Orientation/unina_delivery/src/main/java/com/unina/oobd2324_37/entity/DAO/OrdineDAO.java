@@ -9,7 +9,6 @@ import java.util.List;
  * This interface is used to manage the DAO of the Ordine class.
  */
 public interface OrdineDAO {
-
     public List<Ordine> getAll();
 
     public Ordine getById(String id);

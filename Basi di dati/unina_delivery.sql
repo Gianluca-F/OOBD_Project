@@ -1005,7 +1005,7 @@ INSERT INTO articoli VALUES                  -- quantita, peso in kg, prezzo in 
 (DEFAULT, 'Pizza', 'Pizza surgelata margherita', 100, 0.40, 3.50),
 (DEFAULT, 'Patatine', 'Patatine in busta', 250, 0.20, 1.50),
 (DEFAULT, 'Acqua', 'Bottiglia d''acqua naturale 1.5L (bottiglia singola)', 1000, 1.50, 0.50),
-(DEFAULT, 'Acqua', 'Bottiglia d''acqua naturale 1.5L (confezione da 6)', 350, 9.00, 0.50),
+(DEFAULT, 'Acqua', 'Bottiglia d''acqua naturale 1.5L (confezione da 6)', 350, 9.00, 2.99),
 (DEFAULT, 'Succhi di frutta', 'Succo di frutta alla pesca', 300, 1.00, 1.20),
 (DEFAULT, 'Caffè', 'Caffè macinato per moka', 200, 0.25, 3.90),
 (DEFAULT, 'Tè', 'Bustine di tè verde', 150, 0.20, 2.50),
@@ -1191,19 +1191,7 @@ INSERT INTO spedizioni VALUES		-- idOp, idCor
 (DEFAULT, '2023-10-31', DEFAULT, TRUE, TRUE, 2, 2, 'SS420CA'),
 (DEFAULT, '2023-11-14', DEFAULT, TRUE, TRUE, 2, 3, 'WS431CD'),
 (DEFAULT, '2023-12-10', DEFAULT, TRUE, TRUE, 1, 4, 'FF110SE'),
-(DEFAULT, '2023-12-24', DEFAULT, TRUE, TRUE, 1, 1, 'SS420CA'),
-(DEFAULT, '2024-01-31', DEFAULT, TRUE, TRUE, 2, 4, 'DM555AA');
-
-/*
-(DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, 1, 5, 'PA345CE'),
-(DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, 1, 1, 'PA345CE'),
-(DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, 1, 1, 'PA345CE'),
-(DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, 1, 1, 'PA345CE'),
-(DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, 1, 1, 'PA345CE'),
-(DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, 1, 1, 'PA345CE'),
-(DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, 1, 1, 'PA345CE'),
-(DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, 1, 1, 'PA345CE'),
-*/
+(DEFAULT, '2023-12-24', DEFAULT, TRUE, TRUE, 1, 1, 'SS420CA');
 
 UPDATE ordini
 SET idoperatore = 1, idspedizione = 'S1000', consegnato = TRUE
@@ -1237,10 +1225,6 @@ WHERE idordine BETWEEN 'O1027' AND 'O1031';
 UPDATE ordini
 SET idoperatore = 1, idspedizione = 'S1004', consegnato = TRUE
 WHERE idordine BETWEEN 'O1032' AND 'O1034';
-
-UPDATE ordini
-SET idoperatore = 2, idspedizione = 'S1005', consegnato = TRUE
-WHERE idordine BETWEEN 'O1035' AND 'O1049';
  
 /*
 UPDATE spedizioni

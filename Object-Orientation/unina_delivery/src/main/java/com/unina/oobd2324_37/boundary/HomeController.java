@@ -1,6 +1,7 @@
 package com.unina.oobd2324_37.boundary;
 
 import com.unina.oobd2324_37.control.HomeControl;
+import com.unina.oobd2324_37.entity.DTO.Articolo;
 import com.unina.oobd2324_37.entity.DTO.Ordine;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -10,17 +11,19 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
@@ -136,39 +139,18 @@ public class HomeController {
      * @param actionEvent The action event
      */
     public void handleViewDetails(ActionEvent actionEvent) {
-        GridPane grid = getGridPane();
-        homeControl.setPopUp(orderTable.getSelectionModel().getSelectedItem(), grid);
-        /*
-        Label customerNameLabel = new Label("Cliente:");
-        Label customerNameValue = new Label(selectedOrder.getCliente().getNome() + " " + selectedOrder.getCliente().getCognome());
-        setLabel(1, grid, customerNameLabel, customerNameValue);
-
-        Label orderDateLabel = new Label("Data Ordine:");
-        Label orderDateValue = new Label(String.valueOf(selectedOrder.getData()));
-        setLabel(2, grid, orderDateLabel, orderDateValue);
-
-        Label totalPriceLabel = new Label("Prezzo Totale:");
-        Label totalPriceValue = new Label("€" + String.format("%.2f", selectedOrder.getPrezzoTot()));
-        setLabel(3, grid, totalPriceLabel, totalPriceValue);
-
-        Label deliveryStatusLabel = new Label("Stato Consegna:");
-        Label deliveryStatusValue = new Label(selectedOrder.isConsegnato() ? "Consegnato" : "In Attesa");
-        setLabel(4, grid, deliveryStatusLabel, deliveryStatusValue);*/
-
-        // Pulsante per chiudere il popup
-        Button closeButton = new Button("Chiudi");
-        closeButton.setOnAction(e -> ((Stage) closeButton.getScene().getWindow()).close());
-        GridPane.setHalignment(closeButton, HPos.CENTER); // Centra il pulsante
-        grid.add(closeButton, 0, 5, 2, 1); // Aggiungi il pulsante sotto, occupando 2 colonne
-
-        // Crea una scena e un nuovo Stage per il popup
-        Scene scene = new Scene(grid);
+        Ordine selectedOrder = orderTable.getSelectionModel().getSelectedItem();
+        HBox mainLayout = getMainAreaPopUp(selectedOrder);
+        Scene scene = new Scene(mainLayout);
         Stage popupStage = new Stage();
-        popupStage.setTitle("Dettagli Ordine " + orderTable.getSelectionModel().getSelectedItem().getIdOrdine());
+
+        popupStage.setTitle("Dettagli Ordine: " + selectedOrder.getIdOrdine());
         popupStage.setScene(scene);
-        popupStage.initModality(Modality.WINDOW_MODAL); // Blocca interazione con la finestra principale
-        popupStage.initOwner(orderTable.getScene().getWindow()); // Imposta la finestra principale come proprietaria
-        popupStage.showAndWait(); // Mostra il popup e attende che venga chiuso
+        popupStage.initModality(Modality.WINDOW_MODAL);
+        popupStage.initOwner(orderTable.getScene().getWindow());
+        popupStage.setResizable(false);
+
+        popupStage.showAndWait();
     }
 
     /**
@@ -268,28 +250,164 @@ public class HomeController {
     }
 
     /**
-     * This method is used to get the grid pane.
-     * @return The grid pane
+     * This method is used to get the main area pop-up.
+     * @param selectedOrder The selected order
+     * @return The HBox object
      */
-    private static GridPane getGridPane() {
-        GridPane grid = new GridPane();
-        grid.setPadding(new Insets(15));
-        grid.setHgap(10); // Spaziatura orizzontale tra colonne
-        grid.setVgap(10); // Spaziatura verticale tra righe
-        grid.setAlignment(Pos.CENTER);
-        return grid;
+    private @NotNull HBox getMainAreaPopUp(Ordine selectedOrder) {
+        GridPane leftPane = createLeftPane(selectedOrder);
+        VBox rightPane = createRightPane(selectedOrder);
+
+        Separator separator = new Separator();
+        separator.setOrientation(Orientation.VERTICAL);
+
+        HBox mainLayout = new HBox(20, leftPane, separator, rightPane);
+        mainLayout.setPadding(new Insets(20));
+        mainLayout.setAlignment(Pos.CENTER);
+
+        return mainLayout;
     }
 
     /**
-     * This method is used to set the label.
-     * @param index The index
-     * @param grid The grid pane
-     * @param tagLabel The tag label
-     * @param valueLabel The value label
+     * This method is used to create the left pane.
+     * @param ordine The order
+     * @return The GridPane object
      */
-    public void setLabel(int index, GridPane grid, Label tagLabel, Label valueLabel) {
-        GridPane.setHalignment(tagLabel, HPos.LEFT);
-        GridPane.setHalignment(valueLabel, HPos.RIGHT);
-        grid.addRow(index, tagLabel, valueLabel);
+    private GridPane createLeftPane(Ordine ordine) {
+        int rowIndex = -1;
+        GridPane leftPane = new GridPane();
+        leftPane.setHgap(10);
+        leftPane.setVgap(10);
+
+        addLabelRow(leftPane, ++rowIndex, "Data:", ordine.getData().toString());
+        addLabelRow(leftPane, ++rowIndex, "Cliente:", ordine.getCliente().getNome() + " " + ordine.getCliente().getCognome());
+        addLabelRow(leftPane, ++rowIndex, "Cellulare:", ordine.getCellulare());
+        addLabelRow(leftPane, ++rowIndex, "E-mail:", ordine.getCliente().getEmail());
+        addLabelRow(leftPane, ++rowIndex, "Indirizzo:", ordine.getVia() + " " + ordine.getCivico() + ", " + ordine.getCitta() + " " + ordine.getCAP());
+        addLabelRow(leftPane, ++rowIndex, "Stato Consegna:", ordine.isConsegnato() ? "Consegnato (" + ordine.getSpedizione().getData() + ")" : "In Attesa");
+
+        if (ordine.getSpedizione() != null) {
+            // Aggiungi le informazioni di spedizione
+            addLabelRow(leftPane, ++rowIndex, "A carico di:", ordine.getSpedizione().getCorriere().getNome() + " " + ordine.getSpedizione().getCorriere().getCognome());
+            addLabelRow(leftPane, ++rowIndex, "Veicolo adoperato:", ordine.getSpedizione().getVeicolo().getTarga());
+            addLabelRow(leftPane, ++rowIndex, "Gestito da:", ordine.getOperatore().getNome() + " " + ordine.getOperatore().getCognome());
+        }
+
+        return leftPane;
+    }
+
+    /**
+     * This method is used to create the right pane.
+     * @param ordine The order
+     * @return The VBox object
+     */
+    private VBox createRightPane(Ordine ordine) {
+        List<Articolo> articoli = homeControl.getArticoliByIdOrdine(ordine.getIdOrdine());
+        int rowIndex = 0;
+        double pesoTot = 0.00;
+        VBox rightPane = new VBox(10);
+        rightPane.setAlignment(Pos.TOP_LEFT);
+        Label titleLabel = getLabelWithStyle("Articoli Ordinati:", "-fx-font-weight: bold; -fx-font-size: 17px; -fx-text-fill: #163c65", HPos.LEFT);
+        GridPane articoliGrid = getRightGridPane();
+        setTableLabel(articoliGrid, rowIndex);
+        ++rowIndex;
+
+        for (Articolo articolo : articoli) {
+            int quantita = homeControl.getQuantitaArticoloConsegnata(ordine.getIdOrdine(), articolo.getIdArticolo());
+            pesoTot += articolo.getPeso() * quantita;
+
+            articoliGrid.add(getLabelWithStyle(articolo.getNome(), "-fx-font-weight: bold;", HPos.LEFT), 0, rowIndex);
+            articoliGrid.add(getLabelWithStyle("x" + quantita, "", HPos.RIGHT), 1, rowIndex);
+            articoliGrid.add(getLabelWithStyle("€" + String.format("%.2f", articolo.getPrezzo()), "", HPos.RIGHT), 2, rowIndex);
+            articoliGrid.add(getLabelWithStyle(String.format("%.2f", articolo.getPeso()) + " Kg", "", HPos.RIGHT), 3, rowIndex);
+            articoliGrid.add(getLabelWithStyle(articolo.getDescrizione(), "-fx-font-style: italic;", HPos.LEFT), 4, rowIndex);
+            ++rowIndex;
+        }
+        rightPane.getChildren().addAll(titleLabel, articoliGrid);
+
+        addLabelRow(rightPane, "", ""); // Spazio vuoto
+        addLabelRow(rightPane, "Prezzo Totale:", "€" + String.format("%.2f", ordine.getPrezzoTot()));
+        addLabelRow(rightPane, "Peso Totale:", String.format("%.2f", pesoTot) + " Kg");
+
+        return rightPane;
+    }
+
+    private static @NotNull Label getLabelWithStyle(String text, String style, HPos pos) {
+        Label nomeLabel = new Label(text);
+        nomeLabel.setStyle(style);
+        GridPane.setHalignment(nomeLabel, pos);
+        return nomeLabel;
+    }
+
+    /**
+     * This method is used to set the table label.
+     * @param articoliGrid The GridPane object
+     * @param rowIndex The row index
+     */
+    private static void setTableLabel(GridPane articoliGrid, int rowIndex) {
+        Label nomLabel = new Label("Nome");
+        Label quantitaLabel = new Label("Q.tà");
+        Label prezzoLabel = new Label("Prezzo");
+        Label pesoLabel = new Label("Peso");
+        Label descrizioneLabel = new Label("Descrizione");
+
+        nomLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 15px");
+        quantitaLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 15px; -fx-alignment: center-right;");
+        prezzoLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 15px; -fx-alignment: center-right;");
+        pesoLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 15px; -fx-alignment: center-right;");
+        descrizioneLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 15px");
+
+        articoliGrid.add(nomLabel, 0, rowIndex);
+        articoliGrid.add(quantitaLabel, 1, rowIndex);
+        articoliGrid.add(prezzoLabel, 2, rowIndex);
+        articoliGrid.add(pesoLabel, 3, rowIndex);
+        articoliGrid.add(descrizioneLabel, 4, rowIndex);
+    }
+
+    /**
+     * This method is used to create the right pane.
+     * @return The VBox object
+     */
+    private static @NotNull GridPane getRightGridPane() {
+        GridPane articoliGrid = new GridPane();
+        articoliGrid.setVgap(5); // Distanza tra le righe
+        articoliGrid.setHgap(25); // Distanza tra le colonne
+        articoliGrid.setStyle("-fx-padding: 10px;");
+
+        return articoliGrid;
+    }
+
+    /**
+     * This method is used to add a label row.
+     * @param pane The GridPane object
+     * @param rowIndex The row index
+     * @param labelText The label text
+     * @param valueText The value text
+     */
+    private void addLabelRow(GridPane pane, int rowIndex, String labelText, String valueText) {
+        Label label = new Label(labelText);
+        Label value = new Label(valueText);
+
+        // Stile custom per le label
+        label.setStyle("-fx-font-weight: bold; -fx-text-fill: #163c65");
+
+        // Aggiungi le label al pannello
+        pane.addRow(rowIndex, label, value);
+    }
+
+    /**
+     * This method is used to add a label row.
+     * @param vBox The VBox object
+     * @param labelText The label text
+     * @param valueText The value text
+     */
+    private void addLabelRow(VBox vBox, String labelText, String valueText) {
+        Label label = new Label(labelText);
+        Label value = new Label(valueText);
+
+        label.setStyle("-fx-font-weight: bold; -fx-text-fill: #163c65");
+
+        HBox row = new HBox(10, label, value);
+        vBox.getChildren().add(row);
     }
 }

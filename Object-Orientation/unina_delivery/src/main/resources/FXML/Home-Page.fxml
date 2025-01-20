@@ -59,11 +59,6 @@
                             <TableColumn fx:id="consegnatoColumn" prefWidth="100.0" text="Consegnato" style="-fx-alignment: center;"/>             <!-- 9a colonna -->
                             <TableColumn fx:id="idspedizioneColumn" prefWidth="130.0" text="ID Spedizione" style="-fx-alignment: center;"/>        <!-- 10a colonna -->
                             <TableColumn fx:id="operatoreColumn" prefWidth="160.0" text="Operatore" style="-fx-alignment: center-left;"/>          <!-- 11a colonna -->
-                            <!-- Si attiva con visualizza dettagli
-                            <TableColumn fx:id="emailColumn" prefWidth="200.0" text="Email" />
-                            <TableColumn fx:id="corriereColumn" prefWidth="100.0" text="Corriere" />
-                            <TableColumn fx:id="targaColumn" prefWidth="100.0" text="Targa" />
-                            -->
                         </columns>
                     </TableView>
 

@@ -79,4 +79,28 @@ public class Spedizione {
         this.completata = completata;
     }
 
+    public Operatore getOperatore() {
+        return operatore;
+    }
+
+    public void setOperatore(Operatore operatore) {
+        this.operatore = operatore;
+    }
+
+    public Corriere getCorriere() {
+        return corriere;
+    }
+
+    public void setCorriere(Corriere corriere) {
+        this.corriere = corriere;
+    }
+
+    public Veicolo getVeicolo() {
+        return veicolo;
+    }
+
+    public void setVeicolo(Veicolo veicolo) {
+        this.veicolo = veicolo;
+    }
+
 }

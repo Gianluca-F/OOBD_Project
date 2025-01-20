@@ -4,6 +4,7 @@ module unina.delivery {
     requires java.sql;
     requires org.postgresql.jdbc;
     requires mfx.core;
+    requires org.jetbrains.annotations;
 
     exports com.unina.oobd2324_37.boundary;
     exports com.unina.oobd2324_37.control;
