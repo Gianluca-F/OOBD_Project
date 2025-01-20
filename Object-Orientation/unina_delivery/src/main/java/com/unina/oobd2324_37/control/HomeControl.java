@@ -5,6 +5,9 @@ import com.unina.oobd2324_37.entity.DAO.OrdineDAO;
 import com.unina.oobd2324_37.entity.DAOimplementation.OrdineDAOimp;
 import com.unina.oobd2324_37.entity.DTO.Ordine;
 
+import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
+
 import java.time.LocalDate;
 
 /**
@@ -105,7 +108,10 @@ public class HomeControl {
         return cliente != null && !cliente.isEmpty();
     }
 
-    public void showOrderDetails(Ordine selectedOrder) {
-        System.out.println("Order details ID: " + selectedOrder.getIdOrdine());
+    public void setPopUp(Ordine selectedOrder, GridPane gridPane) {
+        homeController.setLabel(0, gridPane, new Label("Data:"), new Label(selectedOrder.getData().toString()));
+
+
+
     }
 }

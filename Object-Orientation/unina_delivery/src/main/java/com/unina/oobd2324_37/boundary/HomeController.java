@@ -8,11 +8,20 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.HPos;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
+
 import java.util.function.Supplier;
 
 import java.text.DecimalFormat;
@@ -127,8 +136,39 @@ public class HomeController {
      * @param actionEvent The action event
      */
     public void handleViewDetails(ActionEvent actionEvent) {
-        Ordine selectedOrder = orderTable.getSelectionModel().getSelectedItem();
-        homeControl.showOrderDetails(selectedOrder);
+        GridPane grid = getGridPane();
+        homeControl.setPopUp(orderTable.getSelectionModel().getSelectedItem(), grid);
+        /*
+        Label customerNameLabel = new Label("Cliente:");
+        Label customerNameValue = new Label(selectedOrder.getCliente().getNome() + " " + selectedOrder.getCliente().getCognome());
+        setLabel(1, grid, customerNameLabel, customerNameValue);
+
+        Label orderDateLabel = new Label("Data Ordine:");
+        Label orderDateValue = new Label(String.valueOf(selectedOrder.getData()));
+        setLabel(2, grid, orderDateLabel, orderDateValue);
+
+        Label totalPriceLabel = new Label("Prezzo Totale:");
+        Label totalPriceValue = new Label("€" + String.format("%.2f", selectedOrder.getPrezzoTot()));
+        setLabel(3, grid, totalPriceLabel, totalPriceValue);
+
+        Label deliveryStatusLabel = new Label("Stato Consegna:");
+        Label deliveryStatusValue = new Label(selectedOrder.isConsegnato() ? "Consegnato" : "In Attesa");
+        setLabel(4, grid, deliveryStatusLabel, deliveryStatusValue);*/
+
+        // Pulsante per chiudere il popup
+        Button closeButton = new Button("Chiudi");
+        closeButton.setOnAction(e -> ((Stage) closeButton.getScene().getWindow()).close());
+        GridPane.setHalignment(closeButton, HPos.CENTER); // Centra il pulsante
+        grid.add(closeButton, 0, 5, 2, 1); // Aggiungi il pulsante sotto, occupando 2 colonne
+
+        // Crea una scena e un nuovo Stage per il popup
+        Scene scene = new Scene(grid);
+        Stage popupStage = new Stage();
+        popupStage.setTitle("Dettagli Ordine " + orderTable.getSelectionModel().getSelectedItem().getIdOrdine());
+        popupStage.setScene(scene);
+        popupStage.initModality(Modality.WINDOW_MODAL); // Blocca interazione con la finestra principale
+        popupStage.initOwner(orderTable.getScene().getWindow()); // Imposta la finestra principale come proprietaria
+        popupStage.showAndWait(); // Mostra il popup e attende che venga chiuso
     }
 
     /**
@@ -225,5 +265,31 @@ public class HomeController {
 
         startDatePicker.setConverter(converter);
         endDatePicker.setConverter(converter);
+    }
+
+    /**
+     * This method is used to get the grid pane.
+     * @return The grid pane
+     */
+    private static GridPane getGridPane() {
+        GridPane grid = new GridPane();
+        grid.setPadding(new Insets(15));
+        grid.setHgap(10); // Spaziatura orizzontale tra colonne
+        grid.setVgap(10); // Spaziatura verticale tra righe
+        grid.setAlignment(Pos.CENTER);
+        return grid;
+    }
+
+    /**
+     * This method is used to set the label.
+     * @param index The index
+     * @param grid The grid pane
+     * @param tagLabel The tag label
+     * @param valueLabel The value label
+     */
+    public void setLabel(int index, GridPane grid, Label tagLabel, Label valueLabel) {
+        GridPane.setHalignment(tagLabel, HPos.LEFT);
+        GridPane.setHalignment(valueLabel, HPos.RIGHT);
+        grid.addRow(index, tagLabel, valueLabel);
     }
 }

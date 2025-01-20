@@ -12,6 +12,8 @@ public interface OrdineDAO {
 
     public List<Ordine> getAll();
 
+    public Ordine getById(String id);
+
     public List<Ordine> getByCustomerAndDate(String customer, LocalDate startDate, LocalDate endDate);
 
     public List<Ordine> getByCustomer(String customer);

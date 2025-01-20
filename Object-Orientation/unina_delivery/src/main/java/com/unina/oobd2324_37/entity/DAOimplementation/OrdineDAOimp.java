@@ -45,6 +45,32 @@ public class OrdineDAOimp implements OrdineDAO {
         }
     }
 
+    @Override
+    public Ordine getById(String id) {
+        try {
+            Connection con = DBConnection.getInstance();
+            Ordine ordine = null;
+            PreparedStatement st = null;
+            ResultSet rs = null;
+
+            st = con.prepareStatement("SELECT * FROM ordini WHERE idordine = ?");
+            st.setString(1, id);
+            rs = st.executeQuery();
+
+            if(rs.next()) {
+                ordine = populateOrdine(rs);
+            }
+
+            rs.close();
+            st.close();
+
+            return ordine;
+        } catch (SQLException e) {
+            System.err.println(e.getClass().getName()+": "+ e.getMessage());
+            return null;
+        }
+    }
+
     /**
      * This method is used to get the orders by customer and date.
      * @param customer The name of the customer
