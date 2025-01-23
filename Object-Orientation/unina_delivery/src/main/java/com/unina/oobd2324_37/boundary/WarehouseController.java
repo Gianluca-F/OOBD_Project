@@ -16,6 +16,9 @@ import java.text.DecimalFormat;
 import java.util.List;
 import java.util.function.Supplier;
 
+/**
+ * This class is used to manage the WarehouseController.
+ */
 public class WarehouseController {
 
     @FXML
@@ -152,6 +155,9 @@ public class WarehouseController {
         availabilityCheckBox.setSelected(false);
     }
 
+    /**
+     * This method is used to handle the edit (quantity) product.
+     */
     public void handleEditProduct() {
         Articolo selectedProduct = productTable.getSelectionModel().getSelectedItem();
         if (selectedProduct != null) {

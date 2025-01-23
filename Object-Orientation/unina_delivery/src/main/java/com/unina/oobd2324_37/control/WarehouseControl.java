@@ -4,6 +4,9 @@ import com.unina.oobd2324_37.boundary.WarehouseController;
 import com.unina.oobd2324_37.entity.DAO.ArticoloDAO;
 import com.unina.oobd2324_37.entity.DAOimplementation.ArticoloDAOimp;
 
+/**
+ * This class is used to manage the WarehouseControl.
+ */
 public class WarehouseControl {
 
     private static WarehouseControl instance = null;
@@ -33,6 +36,11 @@ public class WarehouseControl {
         this.warehouseController = warehouseController;
     }
 
+    /**
+     * This method is used to apply the filter to the table.
+     * @param articolo The articolo name
+     * @param soloDisponibile The availability of the articolo
+     */
     public void applyFilter(String articolo, Boolean soloDisponibile) {
         ArticoloDAO articoloDAO = new ArticoloDAOimp();
 
@@ -60,6 +68,11 @@ public class WarehouseControl {
         }
     }
 
+    /**
+     * This method is used to check if the articolo is valid.
+     * @param articolo The articolo name
+     * @return True if the articolo is valid, false otherwise
+     */
     private boolean isArticoloValid(String articolo) {
         return articolo != null && !articolo.isEmpty();
     }
