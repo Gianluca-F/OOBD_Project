@@ -201,7 +201,7 @@ public class HomeController {
             @Override
             public TableCell<Ordine, Double> call(TableColumn<Ordine, Double> param) {
                 return new TableCell<Ordine, Double>() {
-                    private final DecimalFormat df = new DecimalFormat("€ #.00 ");  // Formato con simbolo euro e due decimali
+                    private final DecimalFormat df = new DecimalFormat("€ 0.00 ");  // Formato con simbolo euro e due decimali
 
                     @Override
                     protected void updateItem(Double item, boolean empty) {

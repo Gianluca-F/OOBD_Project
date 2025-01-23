@@ -3,6 +3,7 @@ package com.unina.oobd2324_37.entity.DAOimplementation;
 import com.unina.oobd2324_37.entity.DAO.OrdineDAO;
 import com.unina.oobd2324_37.entity.DBconfig.DBConnection;
 import com.unina.oobd2324_37.entity.DTO.Ordine;
+import com.unina.oobd2324_37.entity.utils.StringFormat;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -86,7 +87,7 @@ public class OrdineDAOimp implements OrdineDAO {
             List<Ordine> ordini = new LinkedList<Ordine>();
             PreparedStatement st = null;
             ResultSet rs = null;
-            customer = capitalizeWords(customer) + "%";
+            customer = StringFormat.capitalizeWords(customer) + "%";
 
             st = con.prepareStatement("SELECT * FROM ordini AS O NATURAL JOIN (SELECT idcliente, nome, cognome FROM clienti) AS C " +
                                             "WHERE (C.nome LIKE ? OR C.cognome LIKE ?) AND " +
@@ -126,7 +127,7 @@ public class OrdineDAOimp implements OrdineDAO {
             List<Ordine> ordini = new LinkedList<Ordine>();
             PreparedStatement st = null;
             ResultSet rs = null;
-            customer = capitalizeWords(customer) + "%";
+            customer = StringFormat.capitalizeWords(customer) + "%";
 
             st = con.prepareStatement("SELECT * FROM ordini AS O NATURAL JOIN (SELECT idcliente, nome, cognome FROM clienti) AS C " +
                                             "WHERE C.nome LIKE ? OR C.cognome LIKE ? " +
@@ -230,7 +231,7 @@ public class OrdineDAOimp implements OrdineDAO {
             List<Ordine> ordini = new LinkedList<Ordine>();
             PreparedStatement st = null;
             ResultSet rs = null;
-            customer = capitalizeWords(customer) + "%";
+            customer = StringFormat.capitalizeWords(customer) + "%";
 
             st = con.prepareStatement("SELECT * FROM ordini AS O NATURAL JOIN (SELECT idcliente, nome, cognome FROM clienti) AS C " +
                                             "WHERE (C.nome LIKE ? OR C.cognome LIKE ?) AND " +
@@ -270,7 +271,7 @@ public class OrdineDAOimp implements OrdineDAO {
             List<Ordine> ordini = new LinkedList<Ordine>();
             PreparedStatement st = null;
             ResultSet rs = null;
-            customer = capitalizeWords(customer) + "%";
+            customer = StringFormat.capitalizeWords(customer) + "%";
 
             st = con.prepareStatement("SELECT * FROM ordini AS O NATURAL JOIN (SELECT idcliente, nome, cognome FROM clienti) AS C " +
                                             "WHERE (C.nome LIKE ? OR C.cognome LIKE ?) AND " +
@@ -365,29 +366,4 @@ public class OrdineDAOimp implements OrdineDAO {
             return null;
         }
     }
-
-    /**
-     * This method is used to capitalize the words in a string.
-     * @param input The input string
-     * @return The formatted string
-     */
-    private static String capitalizeWords(String input) {
-        if (input == null || input.isEmpty()) {
-            return input;
-        }
-
-        String[] words = input.toLowerCase().split("\\s+");
-        StringBuilder capitalized = new StringBuilder();
-
-        for (String word : words) {
-            if (!word.isEmpty()) {
-                capitalized.append(Character.toUpperCase(word.charAt(0)))
-                        .append(word.substring(1))
-                        .append(" ");
-            }
-        }
-
-        return capitalized.toString().trim();
-    }
-
 }

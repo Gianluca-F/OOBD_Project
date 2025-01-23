@@ -2,6 +2,16 @@ package com.unina.oobd2324_37.entity.utils;
 
 public class Cryptography {
 
+    /**
+     * Private constructor to avoid instantiation.
+     */
+    private Cryptography() {}
+
+    /**
+     * This method is used to crypt a password.
+     * @param input The input password
+     * @return The crypted password
+     */
     public static String cryptPassword(String input) {
         return caesarCipher(input);
     }

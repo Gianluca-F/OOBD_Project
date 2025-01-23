@@ -19,10 +19,8 @@
                     <Region HBox.hgrow="ALWAYS" />
                 </VBox>
                 <VBox spacing="5.0">
-                    <!-- Titolo -->
-                    <Label style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Gestione Ordini" />
+                    <Label text="Gestione Ordini" style="-fx-font-size: 24px; -fx-font-weight: bold;" />
 
-                    <!-- Sezione di filtro -->
                     <HBox spacing="10.0">
                         <VBox spacing="5.0">
                             <Label text="Filtra per Cliente:" />
@@ -36,16 +34,16 @@
                             <Label text="A:" />
                             <DatePicker fx:id="endDatePicker" />
                         </VBox>
+                        <Region prefHeight="0.0" prefWidth="0.0" />
                         <VBox>
                             <Region prefHeight="15.0" prefWidth="10.0" />
                             <HBox spacing="5.0">
-                                <Button fx:id="applyFilterButton" onAction="#handleApplyFilter" text="Applica" />
-                                <Button fx:id="resetFilterButton" onAction="#handleResetFilter" text="Reset" />
+                                <Button onAction="#handleApplyFilter" text="Applica" />
+                                <Button onAction="#handleResetFilter" text="Reset" />
                             </HBox>
                         </VBox>
                     </HBox>
 
-                    <!-- Tabella degli ordini -->
                     <TableView fx:id="orderTable" prefHeight="600.0" prefWidth="1290">
                         <columns>
                             <TableColumn fx:id="idOrdineColumn" prefWidth="90.0" text="ID Ordine" style="-fx-alignment: center;"/>                 <!-- 1a colonna -->
@@ -62,12 +60,11 @@
                         </columns>
                     </TableView>
 
-                    <!-- Pulsanti per azioni su ordini selezionati -->
                     <HBox spacing="10.0">
-                        <Button fx:id="viewDetailsButton" disable="true" onAction="#handleViewDetails" text="Visualizza Dettagli" />
+                        <Button fx:id="viewDetailsButton" disable="true" onAction="#handleViewDetails" text="Visualizza dettagli" />
                     </HBox>
                 </VBox>
-                <VBox spacing="5.0" style="-fx-background-color: #1F4F83;">
+                <VBox spacing="5.0">
                     <Region HBox.hgrow="ALWAYS" />
                 </VBox>
             </HBox>
