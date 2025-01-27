@@ -20,7 +20,7 @@
                     <Region HBox.hgrow="ALWAYS" />
                 </VBox>
                 <VBox spacing="5.0">
-                    <Label text="Gestione Magazzino" style="-fx-font-size: 24px; -fx-font-weight: bold;" />
+                    <Label text="Gestione Magazzino" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #1F4F83;" />
 
                     <HBox spacing="10.0">
                         <VBox spacing="5.0">

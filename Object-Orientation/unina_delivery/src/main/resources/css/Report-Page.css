@@ -1,0 +1,31 @@
+/* Stili generali del bottone */
+.button {
+    -fx-font-family: "Roboto Slab"; /* Font personalizzato */
+    -fx-font-style: normal;         /* Stile normale */
+    -fx-font-weight: bold;          /* Grassetto */
+    -fx-font-size: 14px;            /* Dimensione del testo */
+    -fx-pref-width: 100px;          /* Larghezza preferita per i pulsanti */
+    -fx-pref-height: 30px;          /* Altezza preferita per i pulsanti */
+    -fx-background-color: #E0F7FA;  /* Colore di sfondo */
+    -fx-background-radius: 10px;    /* Arrotondamento dello sfondo */
+    -fx-border-color: #1F4F83;      /* Colore del bordo */
+    -fx-border-width: 3px;          /* Spessore del bordo */
+    -fx-border-radius: 10px;        /* Arrotondamento del bordo */
+    -fx-border-insets: 0px;         /* Distanza tra il contenuto e il bordo */
+    -fx-padding: 5px 10px;          /* Spazio interno */
+    -fx-cursor: hand;               /* Cambia il cursore a una mano */
+}
+
+/* Stile quando il mouse è sopra (hover) */
+.button:hover {
+    -fx-background-color: #B2EBF2; /* Cambia il colore dello sfondo quando il mouse è sopra */
+}
+
+/* Stile quando il bottone è premuto */
+.button:pressed {
+    -fx-background-color: #80DEEA; /* Colore quando il bottone è premuto */
+}
+
+#reportButton {
+    -fx-pref-width: 160px; /* Larghezza preferita */
+}
