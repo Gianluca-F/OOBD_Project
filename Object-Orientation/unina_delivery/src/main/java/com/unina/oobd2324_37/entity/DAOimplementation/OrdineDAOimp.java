@@ -7,6 +7,7 @@ import com.unina.oobd2324_37.entity.utils.StringFormat;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -329,6 +330,41 @@ public class OrdineDAOimp implements OrdineDAO {
         } catch (SQLException e) {
             System.err.println(e.getClass().getName()+": "+ e.getMessage());
             return null;
+        }
+    }
+
+    /**
+     * This method is used to get the average orders in a determined month and year.
+     * @param month The month
+     * @param year The year
+     * @return The average orders
+     */
+    @Override
+    public double getAverageOrders(int month, int year) {
+        try {
+            Connection con = DBConnection.getInstance();
+            PreparedStatement st = null;
+            ResultSet rs = null;
+            int totalDays = YearMonth.of(year, month).lengthOfMonth();
+            double avg = 0;
+
+            st = con.prepareStatement("SELECT COUNT(*)::FLOAT / ? AS avg FROM ordini WHERE EXTRACT(MONTH FROM data_ord) = ? AND EXTRACT(YEAR FROM data_ord) = ?");
+            st.setInt(1, totalDays);
+            st.setInt(2, month);
+            st.setInt(3, year);
+            rs = st.executeQuery();
+
+            if(rs.next()) {
+                avg = rs.getDouble("avg");
+            }
+
+            rs.close();
+            st.close();
+
+            return avg;
+        } catch (SQLException e) {
+            System.err.println(e.getClass().getName()+": "+ e.getMessage());
+            return 0;
         }
     }
 

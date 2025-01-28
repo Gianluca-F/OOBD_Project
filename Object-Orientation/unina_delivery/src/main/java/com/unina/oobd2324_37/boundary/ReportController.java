@@ -3,12 +3,12 @@ package com.unina.oobd2324_37.boundary;
 import com.unina.oobd2324_37.control.ReportControl;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 
 import java.time.LocalDate;
 import java.time.Month;
-import java.time.format.TextStyle;
 
 import java.util.stream.IntStream;
 import java.util.Locale;
@@ -29,6 +29,12 @@ public class ReportController {
 
     @FXML
     private Label minProductsOrderLabel;
+
+    @FXML
+    private Button viewDetailsMajorOrderButton;
+
+    @FXML
+    private Button viewDetailsMinorOrderButton;
 
     private ReportControl reportControl;
 
@@ -51,5 +57,49 @@ public class ReportController {
 
 
     public void handleGenerateReport(ActionEvent actionEvent) {
+        String selectedMonth = monthSelector.getValue();
+        Integer selectedYear = yearSelector.getValue();
+
+        System.out.println("Generating report for " + selectedMonth + "/" + selectedYear + "...");
+
+        if (selectedMonth == null || selectedYear == null) {
+            return;
+        }
+
+        try {
+            reportControl.generateReport(getMonthNumber(selectedMonth), selectedYear);
+        } catch (Exception e) {
+            System.err.println("Errore nella generazione del report: " + e.getMessage());
+        }
     }
+
+    public void handleViewDetailsMajorOrder(ActionEvent actionEvent) {
+        System.out.println("Viewing details of the major order...");
+    }
+
+    public void handleViewDetailsMinorOrder(ActionEvent actionEvent) {
+        System.out.println("Viewing details of the minor order...");
+    }
+
+    public void setAvgOrdersLabel(double avgOrders) {
+        avgOrdersLabel.setText(String.format("%.2f", avgOrders));
+    }
+
+    private int getMonthNumber(String month) {
+        return switch (month) {
+            case "Gennaio" -> 1;
+            case "Febbraio" -> 2;
+            case "Marzo" -> 3;
+            case "Aprile" -> 4;
+            case "Maggio" -> 5;
+            case "Giugno" -> 6;
+            case "Luglio" -> 7;
+            case "Agosto" -> 8;
+            case "Settembre" -> 9;
+            case "Ottobre" -> 10;
+            case "Novembre" -> 11;
+            default -> 12;
+        };
+    }
+
 }

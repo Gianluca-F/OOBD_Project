@@ -7,38 +7,59 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.Region?>
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unina.oobd2324_37.boundary.ReportController">
     <children>
         <VBox spacing="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" AnchorPane.bottomAnchor="20.0" stylesheets="@../css/Report-Page.css">
-            <Label text="Report Statistico Mensile" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #1F4F83;" />
+            <HBox alignment="CENTER" spacing="10.0">
+                <VBox spacing="5.0">
+                    <Region HBox.hgrow="ALWAYS" />
+                </VBox>
+                <VBox spacing="25.0" prefWidth="800.0">
+                    <Label text="Report Statistico Mensile" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #1F4F83;" />
 
-            <HBox alignment="CENTER_LEFT" spacing="20.0" style="-fx-padding: 10; -fx-background-color: #F9FAFC; -fx-border-color: #D1D5DB; -fx-border-width: 2; -fx-border-radius: 8; -fx-background-radius: 8;">
-                <Label text="Seleziona il mese:" style="-fx-font-size: 16px;" />
-                <ComboBox fx:id="monthSelector" promptText="Mese" prefWidth="110.0" />
-                <Label text="Seleziona l'anno:" style="-fx-font-size: 16px;" />
-                <ComboBox fx:id="yearSelector" promptText="Anno" prefWidth="110.0" />
-                <Button fx:id="reportButton" text="Genera Report" onAction="#handleGenerateReport" />
+                    <HBox alignment="CENTER_LEFT" spacing="20.0" style="-fx-padding: 10; -fx-background-color: #F9FAFC; -fx-border-color: #D1D5DB; -fx-border-width: 2; -fx-border-radius: 8; -fx-background-radius: 8;">
+                        <Label text="Mese:" style="-fx-font-size: 16px;" />
+                        <ComboBox fx:id="monthSelector" promptText="Mese" prefWidth="110.0" />
+                        <Label text="Anno:" style="-fx-font-size: 16px;" />
+                        <ComboBox fx:id="yearSelector" promptText="Anno" prefWidth="110.0" />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Button fx:id="reportButton" text="Genera Report" onAction="#handleGenerateReport" />
+                    </HBox>
+
+                    <!-- Statistics Display Section -->
+                    <VBox spacing="15.0" style="-fx-border-color: #1F4F83; -fx-border-width: 2; -fx-background-color: #E8F1FA; -fx-border-radius: 12; -fx-background-radius: 12; -fx-padding: 20;">
+                        <Label text="Statistiche Mensili" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #1F4F83;" />
+
+                        <GridPane hgap="20.0" vgap="15.0">
+                            <columnConstraints>
+                                <ColumnConstraints halignment="LEFT" minWidth="200.0" />
+                                <ColumnConstraints halignment="RIGHT" minWidth="100.0" />
+                                <ColumnConstraints halignment="CENTER" minWidth="150.0" />
+                            </columnConstraints>
+
+                            <!-- Numero medio di ordini -->
+                            <Label text="Numero medio di ordini:" style="-fx-font-size: 16px; -fx-text-fill: #111827;" GridPane.rowIndex="0" GridPane.columnIndex="0" />
+                            <Label fx:id="avgOrdersLabel" text="--" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #1F4F83;" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+
+                            <!-- Ordine con il maggior numero di prodotti -->
+                            <Label text="Ordine con il maggior numero di prodotti:" style="-fx-font-size: 16px; -fx-text-fill: #111827;" GridPane.rowIndex="1" GridPane.columnIndex="0" />
+                            <Label fx:id="maxProductsOrderLabel" text="--" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #1F4F83;" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+                            <Button fx:id="viewDetailsMajorOrderButton" disable="true" onAction="#handleViewDetailsMajorOrder" text="Visualizza dettagli" GridPane.rowIndex="1" GridPane.columnIndex="2" />
+
+                            <!-- Ordine con il minor numero di prodotti -->
+                            <Label text="Ordine con il minor numero di prodotti:" style="-fx-font-size: 16px; -fx-text-fill: #111827;" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+                            <Label fx:id="minProductsOrderLabel" text="--" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #1F4F83;" GridPane.rowIndex="2" GridPane.columnIndex="1" />
+                            <Button fx:id="viewDetailsMinorOrderButton" disable="true" onAction="#handleViewDetailsMinorOrder" text="Visualizza dettagli" GridPane.rowIndex="2" GridPane.columnIndex="2" />
+                        </GridPane>
+                    </VBox>
+                </VBox>
+                <VBox spacing="5.0">
+                    <Region HBox.hgrow="ALWAYS" />
+                </VBox>
             </HBox>
-
-            <!-- Statistics Display Section -->
-            <VBox spacing="15.0" style="-fx-border-color: #1F4F83; -fx-border-width: 2; -fx-background-color: #E8F1FA; -fx-border-radius: 12; -fx-background-radius: 12; -fx-padding: 20;">
-                <Label text="Statistiche Mensili" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #1F4F83;" />
-
-                <HBox spacing="40.0">
-                    <VBox spacing="10.0">
-                        <Label text="Numero medio di ordini:" style="-fx-font-size: 16px; -fx-text-fill: #111827;" />
-                        <Label fx:id="avgOrdersLabel" text="--" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #1F4F83;" />
-                    </VBox>
-                    <VBox spacing="10.0">
-                        <Label text="Ordine con il maggior numero di prodotti:" style="-fx-font-size: 16px; -fx-text-fill: #111827;" />
-                        <Label fx:id="maxProductsOrderLabel" text="--" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #1F4F83;" />
-                    </VBox>
-                    <VBox spacing="10.0">
-                        <Label text="Ordine con il minor numero di prodotti:" style="-fx-font-size: 16px; -fx-text-fill: #111827;" />
-                        <Label fx:id="minProductsOrderLabel" text="--" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #1F4F83;" />
-                    </VBox>
-                </HBox>
-            </VBox>
         </VBox>
     </children>
 </AnchorPane>

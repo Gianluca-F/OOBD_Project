@@ -26,6 +26,6 @@
     -fx-background-color: #80DEEA; /* Colore quando il bottone è premuto */
 }
 
-#reportButton {
+#reportButton, #viewDetailsMajorOrderButton, #viewDetailsMinorOrderButton {
     -fx-pref-width: 160px; /* Larghezza preferita */
 }

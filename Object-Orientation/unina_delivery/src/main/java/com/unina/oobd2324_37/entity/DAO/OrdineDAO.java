@@ -26,4 +26,6 @@ public interface OrdineDAO {
     public List<Ordine> getByCustomerAndEndDate(String customer, LocalDate endDate);
 
     public List<Ordine> getByDate(LocalDate startDate, LocalDate endDate);
+
+    public double getAverageOrders(int month, int year);
 }
