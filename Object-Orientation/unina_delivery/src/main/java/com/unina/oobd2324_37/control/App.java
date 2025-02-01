@@ -7,6 +7,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 /**
  * This class is used to start the JavaFX application.
@@ -71,6 +72,6 @@ public final class App extends Application {
      * Load the fonts
      */
     private static void loadFonts() {
-        Font.loadFont(App.class.getResource("/fonts/RobotoSlabBold-PKGJr.ttf").toExternalForm(), 12);
+        Font.loadFont(Objects.requireNonNull(App.class.getResource("/fonts/RobotoSlabBold-PKGJr.ttf")).toExternalForm(), 12);
     }
 }

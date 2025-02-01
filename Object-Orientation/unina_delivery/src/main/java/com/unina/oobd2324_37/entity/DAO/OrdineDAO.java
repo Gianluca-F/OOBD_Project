@@ -28,4 +28,8 @@ public interface OrdineDAO {
     public List<Ordine> getByDate(LocalDate startDate, LocalDate endDate);
 
     public double getAverageOrders(int month, int year);
+
+    public String getMaxProductsOrder(int month, int year);
+
+    public String getMinProductsOrder(int month, int year);
 }

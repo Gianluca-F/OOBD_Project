@@ -3,6 +3,7 @@ package com.unina.oobd2324_37.control;
 import com.unina.oobd2324_37.boundary.WarehouseController;
 import com.unina.oobd2324_37.entity.DAO.ArticoloDAO;
 import com.unina.oobd2324_37.entity.DAOimplementation.ArticoloDAOimp;
+import com.unina.oobd2324_37.entity.DTO.Articolo;
 
 /**
  * This class is used to manage the WarehouseControl.
@@ -75,5 +76,11 @@ public class WarehouseControl {
      */
     private boolean isArticoloValid(String articolo) {
         return articolo != null && !articolo.isEmpty();
+    }
+
+    public void editProductQuantity(Articolo selectedProduct) {
+        if(new ArticoloDAOimp().update(selectedProduct)) {
+            warehouseController.setEditLabel("Quantità modificata con successo!");
+        }
     }
 }

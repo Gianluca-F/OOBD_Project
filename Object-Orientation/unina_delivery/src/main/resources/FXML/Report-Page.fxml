@@ -6,10 +6,10 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.Region?>
+
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unina.oobd2324_37.boundary.ReportController">
     <children>
         <VBox spacing="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" AnchorPane.bottomAnchor="20.0" stylesheets="@../css/Report-Page.css">
@@ -22,9 +22,9 @@
 
                     <HBox alignment="CENTER_LEFT" spacing="20.0" style="-fx-padding: 10; -fx-background-color: #F9FAFC; -fx-border-color: #D1D5DB; -fx-border-width: 2; -fx-border-radius: 8; -fx-background-radius: 8;">
                         <Label text="Mese:" style="-fx-font-size: 16px;" />
-                        <ComboBox fx:id="monthSelector" promptText="Mese" prefWidth="110.0" />
+                        <ComboBox fx:id="monthSelector" promptText="Mese" prefWidth="130.0" />
                         <Label text="Anno:" style="-fx-font-size: 16px;" />
-                        <ComboBox fx:id="yearSelector" promptText="Anno" prefWidth="110.0" />
+                        <ComboBox fx:id="yearSelector" promptText="Anno" prefWidth="130.0" />
                         <Region HBox.hgrow="ALWAYS" />
                         <Button fx:id="reportButton" text="Genera Report" onAction="#handleGenerateReport" />
                     </HBox>
@@ -41,18 +41,18 @@
                             </columnConstraints>
 
                             <!-- Numero medio di ordini -->
-                            <Label text="Numero medio di ordini:" style="-fx-font-size: 16px; -fx-text-fill: #111827;" GridPane.rowIndex="0" GridPane.columnIndex="0" />
-                            <Label fx:id="avgOrdersLabel" text="--" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #1F4F83;" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+                            <Label text="Numero medio di ordini al giorno:" style="-fx-font-size: 16px; -fx-text-fill: #111827;" GridPane.rowIndex="0" GridPane.columnIndex="0" />
+                            <Label fx:id="avgOrdersLabel" text="N/A" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #1F4F83;" GridPane.rowIndex="0" GridPane.columnIndex="1" />
 
                             <!-- Ordine con il maggior numero di prodotti -->
                             <Label text="Ordine con il maggior numero di prodotti:" style="-fx-font-size: 16px; -fx-text-fill: #111827;" GridPane.rowIndex="1" GridPane.columnIndex="0" />
-                            <Label fx:id="maxProductsOrderLabel" text="--" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #1F4F83;" GridPane.rowIndex="1" GridPane.columnIndex="1" />
-                            <Button fx:id="viewDetailsMajorOrderButton" disable="true" onAction="#handleViewDetailsMajorOrder" text="Visualizza dettagli" GridPane.rowIndex="1" GridPane.columnIndex="2" />
+                            <Label fx:id="maxProductsOrderLabel" text="N/A" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #1F4F83;" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+                            <Button fx:id="viewDetailsMaxProductsOrderButton" disable="true" onAction="#handleViewDetailsMaxProductsOrder" text="Visualizza dettagli" GridPane.rowIndex="1" GridPane.columnIndex="2" />
 
                             <!-- Ordine con il minor numero di prodotti -->
                             <Label text="Ordine con il minor numero di prodotti:" style="-fx-font-size: 16px; -fx-text-fill: #111827;" GridPane.rowIndex="2" GridPane.columnIndex="0" />
-                            <Label fx:id="minProductsOrderLabel" text="--" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #1F4F83;" GridPane.rowIndex="2" GridPane.columnIndex="1" />
-                            <Button fx:id="viewDetailsMinorOrderButton" disable="true" onAction="#handleViewDetailsMinorOrder" text="Visualizza dettagli" GridPane.rowIndex="2" GridPane.columnIndex="2" />
+                            <Label fx:id="minProductsOrderLabel" text="N/A" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #1F4F83;" GridPane.rowIndex="2" GridPane.columnIndex="1" />
+                            <Button fx:id="viewDetailsMinProductsOrderButton" disable="true" onAction="#handleViewDetailsMinProductsOrder" text="Visualizza dettagli" GridPane.rowIndex="2" GridPane.columnIndex="2" />
                         </GridPane>
                     </VBox>
                 </VBox>

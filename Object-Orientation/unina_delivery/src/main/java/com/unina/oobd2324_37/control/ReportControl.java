@@ -27,5 +27,19 @@ public class ReportControl {
 
         double avgOrders = ordineDAO.getAverageOrders(month, year);
         reportController.setAvgOrdersLabel(avgOrders);
+        reportController.setMaxProductsOrderLabel(ordineDAO.getMaxProductsOrder(month, year));
+        reportController.setMinProductsOrderLabel(ordineDAO.getMinProductsOrder(month, year));
+    }
+
+    public void viewDetailsMajorOrder(int month, int year) {
+        OrdineDAO ordineDAO = new OrdineDAOimp();
+
+        reportController.handleViewDetails(ordineDAO.getById(ordineDAO.getMaxProductsOrder(month, year)));
+    }
+
+    public void viewDetailsMinorOrder(int monthNumber, Integer selectedYear) {
+        OrdineDAO ordineDAO = new OrdineDAOimp();
+
+        reportController.handleViewDetails(ordineDAO.getById(ordineDAO.getMinProductsOrder(monthNumber, selectedYear)));
     }
 }

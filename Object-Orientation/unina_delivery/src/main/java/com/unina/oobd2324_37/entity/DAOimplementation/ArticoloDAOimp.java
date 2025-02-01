@@ -146,6 +146,27 @@ public class ArticoloDAOimp implements ArticoloDAO {
         }
     }
 
+    @Override
+    public boolean update(Articolo articolo) {
+        try {
+            Connection con = DBConnection.getInstance();
+
+            PreparedStatement st = null;
+
+            st = con.prepareStatement("UPDATE articoli SET quantita = ? WHERE idarticolo = ?");
+            st.setInt(1, articolo.getQuantita());
+            st.setString(2, articolo.getIdArticolo());
+            st.executeUpdate();
+
+            st.close();
+
+            return true;
+        } catch (SQLException e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            return false;
+        }
+    }
+
     private Articolo populateArticolo(ResultSet rs) {
         try {
 

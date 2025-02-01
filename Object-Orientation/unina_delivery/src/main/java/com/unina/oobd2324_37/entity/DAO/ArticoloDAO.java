@@ -14,4 +14,6 @@ public interface ArticoloDAO {
     public List<Articolo> getByDisponibilita();
 
     public List<Articolo> getByNomeNDisponibilita(String articolo);
+
+    public boolean update(Articolo articolo);
 }

@@ -369,6 +369,86 @@ public class OrdineDAOimp implements OrdineDAO {
     }
 
     /**
+     * This method is used to get the major order in a determined month and year.
+     * @param month The month
+     * @param year The year
+     * @return The major order
+     */
+    @Override
+    public String getMaxProductsOrder(int month, int year) {
+        try {
+            Connection con = DBConnection.getInstance();
+            PreparedStatement st = null;
+            ResultSet rs = null;
+            String idOrdine = null;
+
+            st = con.prepareStatement("SELECT idordine FROM ( " +
+                                            "SELECT idordine, COUNT(idarticolo) AS num_articoli, data_ord " +
+                                            "FROM ordini NATURAL JOIN compOrdine " +
+                                            "WHERE EXTRACT(MONTH FROM data_ord) = ? AND EXTRACT(YEAR FROM data_ord) = ? " +
+                                            "GROUP BY idordine " +
+                                        ") AS subquery " +
+                                        "ORDER BY num_articoli DESC, data_ord DESC " +
+                                        "LIMIT 1");
+            st.setInt(1, month);
+            st.setInt(2, year);
+            rs = st.executeQuery();
+
+            if(rs.next()) {
+                idOrdine = rs.getString("idordine");
+            }
+
+            rs.close();
+            st.close();
+
+            return idOrdine;
+        } catch (SQLException e) {
+            System.err.println(e.getClass().getName()+": "+ e.getMessage());
+            return null;
+        }
+    }
+
+    /**
+     * This method is used to get the minor order in a determined month and year.
+     * @param month The month
+     * @param year The year
+     * @return The minor order
+     */
+    @Override
+    public String getMinProductsOrder(int month, int year) {
+        try {
+            Connection con = DBConnection.getInstance();
+            PreparedStatement st = null;
+            ResultSet rs = null;
+            String idOrdine = null;
+
+            st = con.prepareStatement("SELECT idordine FROM ( " +
+                                            "SELECT idordine, COUNT(idarticolo) AS num_articoli, data_ord " +
+                                            "FROM ordini NATURAL JOIN compOrdine " +
+                                            "WHERE EXTRACT(MONTH FROM data_ord) = ? AND EXTRACT(YEAR FROM data_ord) = ? " +
+                                            "GROUP BY idordine " +
+                                        ") AS subquery " +
+                                        "ORDER BY num_articoli ASC, data_ord DESC " +
+                                        "LIMIT 1");
+            st.setInt(1, month);
+            st.setInt(2, year);
+            rs = st.executeQuery();
+
+            if(rs.next()) {
+                idOrdine = rs.getString("idordine");
+            }
+
+            rs.close();
+            st.close();
+
+            return idOrdine;
+        } catch (SQLException e) {
+            System.err.println(e.getClass().getName()+": "+ e.getMessage());
+            return null;
+        }
+    }
+
+    /**
      * This method is used to populate the order object.
      * @param rs The result set
      * @return The order object

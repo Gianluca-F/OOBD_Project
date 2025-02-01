@@ -3,6 +3,9 @@ package com.unina.oobd2324_37.boundary;
 import com.unina.oobd2324_37.control.WarehouseControl;
 import com.unina.oobd2324_37.entity.DTO.Articolo;
 
+import javafx.animation.FadeTransition;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -11,6 +14,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.util.Callback;
+import javafx.util.Duration;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -51,13 +55,17 @@ public class WarehouseController {
     @FXML
     private Button editButton;
 
+    @FXML
+    private Label editLabel;
+
+    private boolean isAnimationEditLabelRunning = false;
+
     private final ObservableList<Articolo> productList = FXCollections.observableArrayList();
 
     private WarehouseControl warehouseControl;
 
     @FXML
     private void initialize() {
-
         warehouseControl = WarehouseControl.getInstance();
         warehouseControl.initialize(this);
 
@@ -79,60 +87,7 @@ public class WarehouseController {
         });
 
         // Configura la colonna Quantità
-        quantitaColumn.setCellFactory(column -> new TableCell<Articolo, Integer>() {
-            private final TextField textField = new TextField();
-            private final Button incrementButton = new Button("+");
-            private final Button decrementButton = new Button("-");
-            private final HBox hBox = new HBox(decrementButton, textField, incrementButton);
-
-            {
-                hBox.setSpacing(5);
-                textField.setPrefWidth(50);
-
-                // Rimuovi gli stili personalizzati
-                incrementButton.getStyleClass().clear();
-                decrementButton.getStyleClass().clear();
-            }
-
-            @Override
-            protected void updateItem(Integer item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setGraphic(null);
-                } else {
-                    textField.setText(String.valueOf(item));
-
-                    incrementButton.setOnAction(event -> {
-                        Articolo articolo = getTableView().getItems().get(getIndex());
-                        int newQuantity = articolo.getQuantita() + 1;
-                        articolo.setQuantita(newQuantity);
-                        textField.setText(String.valueOf(newQuantity));
-                        getTableView().refresh();
-                    });
-
-                    decrementButton.setOnAction(event -> {
-                        Articolo articolo = getTableView().getItems().get(getIndex());
-                        int newQuantity = Math.max(0, articolo.getQuantita() - 1);
-                        articolo.setQuantita(newQuantity);
-                        textField.setText(String.valueOf(newQuantity));
-                        getTableView().refresh();
-                    });
-
-                    textField.setOnAction(event -> {
-                        try {
-                            int newQuantity = Integer.parseInt(textField.getText());
-                            Articolo articolo = getTableView().getItems().get(getIndex());
-                            articolo.setQuantita(newQuantity);
-                            getTableView().refresh();
-                        } catch (NumberFormatException e) {
-                            textField.setText("0");
-                        }
-                    });
-
-                    setGraphic(hBox);
-                }
-            }
-        });
+        setQuantityColumn();
 
         // Configura il pulsante di modifica
         editButton.setOnAction(event -> handleEditProduct());
@@ -161,9 +116,17 @@ public class WarehouseController {
     public void handleEditProduct() {
         Articolo selectedProduct = productTable.getSelectionModel().getSelectedItem();
         if (selectedProduct != null) {
-            // Salva nel database (simulazione)
-            System.out.println("Salvata modifica: " + selectedProduct.getQuantita());
-            // Qui puoi aggiungere la logica per aggiornare il database
+            warehouseControl.editProductQuantity(selectedProduct);
+        }
+    }
+
+    /**
+     * This method is used to set the edit label.
+     * @param text The text of the label
+     */
+    public void setEditLabel(String text) {
+        if(!isAnimationEditLabelRunning) {
+            showTemporaryMessageWithFade(editLabel, text, 3);
         }
     }
 
@@ -252,5 +215,100 @@ public class WarehouseController {
         productList.clear();
         productList.addAll(articoli);
         productTable.setItems(productList);
+    }
+
+    /**
+     * This method is used to show a temporary message with fade effect.
+     * @param label The label
+     * @param seconds The seconds
+     */
+    private void showTemporaryMessageWithFade(Label label, String text, int seconds) {
+        isAnimationEditLabelRunning = true;
+
+        label.setText(text);
+
+        FadeTransition fadeIn = new FadeTransition(Duration.seconds(0.5), label);
+        fadeIn.setFromValue(0);
+        fadeIn.setToValue(1);
+
+        FadeTransition fadeOut = new FadeTransition(Duration.seconds(0.5), label);
+        fadeOut.setFromValue(1);
+        fadeOut.setToValue(0);
+
+        fadeIn.setOnFinished(event -> {
+            FadeTransition delayFadeOut = new FadeTransition(Duration.seconds(0.5), label);
+            delayFadeOut.setFromValue(1);
+            delayFadeOut.setToValue(0);
+            delayFadeOut.setDelay(Duration.seconds(seconds));
+            delayFadeOut.play();
+            delayFadeOut.setOnFinished(e -> isAnimationEditLabelRunning = false);
+        });
+
+        fadeIn.play();
+    }
+
+    /**
+     * This method is used to set the "Quantità" column.
+     */
+    private void setQuantityColumn() {
+        quantitaColumn.setCellFactory(column -> new TableCell<Articolo, Integer>() {
+            private final TextField textField = new TextField();
+            private final Button incrementButton = new Button("+");
+            private final Button decrementButton = new Button("-");
+            private final HBox hBox = new HBox(decrementButton, textField, incrementButton);
+
+            {
+                hBox.setSpacing(5);
+                hBox.setAlignment(javafx.geometry.Pos.CENTER); // Centra gli elementi
+                textField.setPrefWidth(50);
+
+                incrementButton.getStyleClass().clear();
+                decrementButton.getStyleClass().clear();
+                incrementButton.setStyle("-fx-font-size: 14px; -fx-padding: 3px;");
+                decrementButton.setStyle("-fx-font-size: 14px; -fx-padding: 3px;");
+            }
+
+            @Override
+            protected void updateItem(Integer item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setGraphic(null);
+                } else {
+                    textField.setText(String.valueOf(item));
+
+                    incrementButton.setOnAction(event -> {
+                        Articolo articolo = getTableView().getItems().get(getIndex());
+                        int newQuantity = articolo.getQuantita() + 1;
+                        articolo.setQuantita(newQuantity);
+                        textField.setText(String.valueOf(newQuantity));
+                        getTableView().refresh();
+                    });
+
+                    decrementButton.setOnAction(event -> {
+                        Articolo articolo = getTableView().getItems().get(getIndex());
+                        int newQuantity = Math.max(0, articolo.getQuantita() - 1);
+                        articolo.setQuantita(newQuantity);
+                        textField.setText(String.valueOf(newQuantity));
+                        getTableView().refresh();
+                    });
+
+                    textField.setOnAction(event -> {
+                        try {
+                            int newQuantity = Integer.parseInt(textField.getText());
+                            if(newQuantity < 0) {
+                                newQuantity = 0;
+                            }
+                            Articolo articolo = getTableView().getItems().get(getIndex());
+                            articolo.setQuantita(newQuantity);
+                            getTableView().refresh();
+                        } catch (NumberFormatException e) {
+                            textField.setText("0");
+                        }
+                    });
+
+                    setGraphic(hBox);
+                }
+            }
+        });
     }
 }

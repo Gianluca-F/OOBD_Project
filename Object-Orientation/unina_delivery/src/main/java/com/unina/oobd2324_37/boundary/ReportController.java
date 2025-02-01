@@ -1,6 +1,8 @@
 package com.unina.oobd2324_37.boundary;
 
 import com.unina.oobd2324_37.control.ReportControl;
+import com.unina.oobd2324_37.entity.DTO.Ordine;
+import com.unina.oobd2324_37.entity.utils.PopUpOrderFormat;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -31,10 +33,10 @@ public class ReportController {
     private Label minProductsOrderLabel;
 
     @FXML
-    private Button viewDetailsMajorOrderButton;
+    private Button viewDetailsMaxProductsOrderButton;
 
     @FXML
-    private Button viewDetailsMinorOrderButton;
+    private Button viewDetailsMinProductsOrderButton;
 
     private ReportControl reportControl;
 
@@ -60,8 +62,6 @@ public class ReportController {
         String selectedMonth = monthSelector.getValue();
         Integer selectedYear = yearSelector.getValue();
 
-        System.out.println("Generating report for " + selectedMonth + "/" + selectedYear + "...");
-
         if (selectedMonth == null || selectedYear == null) {
             return;
         }
@@ -73,18 +73,74 @@ public class ReportController {
         }
     }
 
-    public void handleViewDetailsMajorOrder(ActionEvent actionEvent) {
-        System.out.println("Viewing details of the major order...");
+    public void handleViewDetailsMaxProductsOrder(ActionEvent actionEvent) {
+        String selectedMonth = monthSelector.getValue();
+        Integer selectedYear = yearSelector.getValue();
+
+        if (selectedMonth == null || selectedYear == null) {
+            return;
+        }
+
+        try {
+            reportControl.viewDetailsMajorOrder(getMonthNumber(selectedMonth), selectedYear);
+        } catch (Exception e) {
+            System.err.println("Errore nella visualizzazione dei dettagli dell'ordine maggiore: " + e.getMessage());
+        }
     }
 
-    public void handleViewDetailsMinorOrder(ActionEvent actionEvent) {
-        System.out.println("Viewing details of the minor order...");
+    public void handleViewDetailsMinProductsOrder(ActionEvent actionEvent) {
+        String selectedMonth = monthSelector.getValue();
+        Integer selectedYear = yearSelector.getValue();
+
+        if (selectedMonth == null || selectedYear == null) {
+            return;
+        }
+
+        try {
+            reportControl.viewDetailsMinorOrder(getMonthNumber(selectedMonth), selectedYear);
+        } catch (Exception e) {
+            System.err.println("Errore nella visualizzazione dei dettagli dell'ordine minore: " + e.getMessage());
+        }
     }
 
+    /**
+     * This method is used to handle the view details action.
+     * @param selectedOrder The selected order
+     */
+    public void handleViewDetails(Ordine selectedOrder) {
+        new PopUpOrderFormat().createPopUp(selectedOrder, avgOrdersLabel.getScene());
+    }
+
+    /**
+     * This method is used to set the average orders label.
+     * @param avgOrders The average orders
+     */
     public void setAvgOrdersLabel(double avgOrders) {
         avgOrdersLabel.setText(String.format("%.2f", avgOrders));
     }
 
+    /**
+     * This method is used to set the max products order label.
+     * @param maxProductsOrder The max products order
+     */
+    public void setMaxProductsOrderLabel(String maxProductsOrder) {
+        maxProductsOrderLabel.setText(maxProductsOrder == null || maxProductsOrder.isEmpty() ? "N/A" : maxProductsOrder);
+        viewDetailsMaxProductsOrderButton.setDisable(maxProductsOrder == null || maxProductsOrder.isEmpty());
+    }
+
+    /**
+     * This method is used to set the min products order label.
+     * @param minProductsOrder The min products order
+     */
+    public void setMinProductsOrderLabel(String minProductsOrder) {
+        minProductsOrderLabel.setText(minProductsOrder == null || minProductsOrder.isEmpty() ? "N/A" : minProductsOrder);
+        viewDetailsMinProductsOrderButton.setDisable(minProductsOrder == null || minProductsOrder.isEmpty());
+    }
+
+    /**
+     * This method is used to get the month number.
+     * @param month The month
+     */
     private int getMonthNumber(String month) {
         return switch (month) {
             case "Gennaio" -> 1;
@@ -101,5 +157,4 @@ public class ReportController {
             default -> 12;
         };
     }
-
 }
