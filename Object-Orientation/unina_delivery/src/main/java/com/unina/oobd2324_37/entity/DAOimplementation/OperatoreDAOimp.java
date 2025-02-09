@@ -10,7 +10,7 @@ import java.sql.*;
 public class OperatoreDAOimp implements OperatoreDAO {
 
     @Override
-    public Operatore getByEmailNPass(String username, String password) throws NullPointerException {
+    public Operatore getByUserNPass(String username, String password) throws NullPointerException {
         try {
             Connection con = DBConnection.getInstance();
             PreparedStatement ps = null;

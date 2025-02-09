@@ -49,7 +49,7 @@ public class LoginControl {
             loginController.showErrorMessage("Username e/o password\nnon possono essere vuoti!");
         } else {
             OperatoreDAO operatoreDAO = new OperatoreDAOimp();
-            Operatore operatore = operatoreDAO.getByEmailNPass(username, password);
+            Operatore operatore = operatoreDAO.getByUserNPass(username, password);
 
             if(operatore != null) {
                 DashboardControl.getInstance().setOperatore(operatore);
