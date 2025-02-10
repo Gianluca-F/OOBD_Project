@@ -9,6 +9,9 @@ import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * This class is used to interact with the database and retrieve the order composition data.
+ */
 public class CompOrdineDAOimp implements CompOrdineDAO {
 
     @Override

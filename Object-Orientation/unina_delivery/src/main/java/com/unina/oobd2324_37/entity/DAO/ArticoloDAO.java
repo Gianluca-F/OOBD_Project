@@ -4,6 +4,9 @@ import com.unina.oobd2324_37.entity.DTO.Articolo;
 
 import java.util.List;
 
+/**
+ * Interfaccia per la gestione dei dati di un articolo
+ */
 public interface ArticoloDAO {
     public List<Articolo> getAll();
 

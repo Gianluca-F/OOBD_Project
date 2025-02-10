@@ -9,6 +9,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * This class is used to interact with the database and retrieve the courier data.
+ */
 public class CorriereDAOimp implements CorriereDAO {
 
     @Override

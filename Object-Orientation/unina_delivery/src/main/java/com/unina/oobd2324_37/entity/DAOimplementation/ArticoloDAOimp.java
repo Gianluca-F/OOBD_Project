@@ -9,6 +9,9 @@ import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * This class is used to interact with the database and perform CRUD operations on the 'articoli' table.
+ */
 public class ArticoloDAOimp implements ArticoloDAO {
 
     @Override

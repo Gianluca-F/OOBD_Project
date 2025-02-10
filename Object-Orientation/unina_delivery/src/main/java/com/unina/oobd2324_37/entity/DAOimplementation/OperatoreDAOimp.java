@@ -7,6 +7,9 @@ import com.unina.oobd2324_37.entity.utils.Cryptography;
 
 import java.sql.*;
 
+/**
+ * This class is used to interact with the database and retrieve the operator data.
+ */
 public class OperatoreDAOimp implements OperatoreDAO {
 
     @Override

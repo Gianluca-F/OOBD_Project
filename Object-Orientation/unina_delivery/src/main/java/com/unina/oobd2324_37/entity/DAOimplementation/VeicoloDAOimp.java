@@ -6,6 +6,9 @@ import com.unina.oobd2324_37.entity.DTO.Veicolo;
 
 import java.sql.*;
 
+/**
+ * This class is used to interact with the database and retrieve the vehicle data.
+ */
 public class VeicoloDAOimp implements VeicoloDAO {
 
     @Override
