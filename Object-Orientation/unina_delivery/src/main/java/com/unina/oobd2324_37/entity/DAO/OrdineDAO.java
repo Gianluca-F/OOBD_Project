@@ -2,6 +2,7 @@ package com.unina.oobd2324_37.entity.DAO;
 
 import com.unina.oobd2324_37.entity.DTO.Ordine;
 
+import java.sql.Connection;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -27,9 +28,13 @@ public interface OrdineDAO {
 
     public List<Ordine> getByDate(LocalDate startDate, LocalDate endDate);
 
+    public List<Ordine> getNotDelivered();
+
     public double getAverageOrders(int month, int year);
 
     public String getMaxProductsOrder(int month, int year);
 
     public String getMinProductsOrder(int month, int year);
+
+    void updateSpedizione(Connection con, String idOrdine, String idSpedizione, int idOperatore);
 }

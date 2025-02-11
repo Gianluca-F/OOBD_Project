@@ -946,6 +946,48 @@ WHEN (NEW.consegnato = TRUE)
 EXECUTE FUNCTION update_sped_completata();
 
 
+/* --------------- DEFINIZIONE FUNZIONI PER JAVA --------------- */
+
+
+CREATE OR REPLACE FUNCTION get_id_operatore(usernameINP VARCHAR, passINP VARCHAR) 
+RETURNS INT AS $$
+DECLARE 
+    id_operatore INT;
+BEGIN
+    SELECT idoperatore INTO id_operatore 
+    FROM operatori 
+    WHERE username = usernameINP AND pass = passINP;
+
+    IF id_operatore IS NULL THEN
+        RAISE EXCEPTION 'Operatore non trovato';
+    END IF;
+
+    RETURN id_operatore;
+END;
+$$ LANGUAGE plpgsql;
+
+
+---------------------------- ALTRA FUNZIONE ----------------------------
+
+
+CREATE OR REPLACE FUNCTION get_id_corriere(nome_corriere VARCHAR, cognome_corriere VARCHAR) 
+RETURNS INT AS $$
+DECLARE 
+    id_corriere INT;
+BEGIN
+    SELECT idcorriere INTO id_corriere 
+    FROM corrieri 
+    WHERE nome = nome_corriere AND cognome = cognome_corriere;
+
+    IF id_corriere IS NULL THEN
+        RAISE EXCEPTION 'Corriere non trovato';
+    END IF;
+
+    RETURN id_corriere;
+END;
+$$ LANGUAGE plpgsql;
+
+
 ---------------------------- INSERT/UPDATE SAMPLES ----------------------------
 
 -- CLIENTE

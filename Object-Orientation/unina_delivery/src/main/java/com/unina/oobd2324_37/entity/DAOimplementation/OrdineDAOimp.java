@@ -334,6 +334,36 @@ public class OrdineDAOimp implements OrdineDAO {
     }
 
     /**
+     * This method is used to get the orders not yet delivered.
+     * @return A list of orders not yet delivered.
+     */
+    @Override
+    public List<Ordine> getNotDelivered() {
+        try {
+            Connection con = DBConnection.getInstance();
+
+            List<Ordine> ordini = new LinkedList<Ordine>();
+            Statement st = null;
+            ResultSet rs = null;
+
+            st = con.createStatement();
+            rs = st.executeQuery("SELECT * FROM ordini WHERE idspedizione is null ORDER BY idordine ASC");
+
+            while(rs.next()) {
+                ordini.add(populateOrdine(rs));
+            }
+
+            rs.close();
+            st.close();
+
+            return ordini;
+        } catch (SQLException e) {
+            System.err.println(e.getClass().getName()+": "+ e.getMessage());
+            return null;
+        }
+    }
+
+    /**
      * This method is used to get the average orders in a determined month and year.
      * @param month The month
      * @param year The year
@@ -445,6 +475,29 @@ public class OrdineDAOimp implements OrdineDAO {
         } catch (SQLException e) {
             System.err.println(e.getClass().getName()+": "+ e.getMessage());
             return null;
+        }
+    }
+
+    /**
+     * This method is used to update the shipment of an order.
+     * @param con The connection
+     * @param idOrdine The order id
+     * @param idSpedizione The shipment id
+     * @param idOperatore The operator id
+     */
+    @Override
+    public void updateSpedizione(Connection con, String idOrdine, String idSpedizione, int idOperatore) {
+        PreparedStatement ps = null;
+
+        try {
+            ps = con.prepareStatement("UPDATE ordini SET idspedizione = ?, idOperatore = ? WHERE idordine = ?");
+            ps.setString(1, idSpedizione);
+            ps.setInt(2, idOperatore);
+            ps.setString(3, idOrdine);
+            ps.executeUpdate();
+            ps.close();
+        } catch (SQLException e) {
+            System.err.println(e.getClass().getName()+": "+ e.getMessage());
         }
     }
 
