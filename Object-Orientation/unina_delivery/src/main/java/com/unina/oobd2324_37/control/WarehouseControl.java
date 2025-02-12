@@ -78,6 +78,10 @@ public class WarehouseControl {
         return articolo != null && !articolo.isEmpty();
     }
 
+    /**
+     * This method is used to edit the product quantity.
+     * @param selectedProduct The selected product
+     */
     public void editProductQuantity(Articolo selectedProduct) {
         if(new ArticoloDAOimp().update(selectedProduct)) {
             warehouseController.setEditLabel("Quantità modificata con successo!");

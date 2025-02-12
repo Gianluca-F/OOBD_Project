@@ -13,6 +13,9 @@ import com.unina.oobd2324_37.entity.DTO.Veicolo;
 
 import java.util.List;
 
+/**
+ * This class is used to manage the delivery control.
+ */
 public class DeliveryControl {
 
     private static DeliveryControl instance = null;
@@ -41,20 +44,37 @@ public class DeliveryControl {
         this.deliveryController = deliveryController;
     }
 
+    /**
+     * This method is used to update the table.
+     */
     public void updateTable() {
         OrdineDAO ordineDAO = new OrdineDAOimp();
 
         deliveryController.updateTable(ordineDAO::getNotDelivered);
     }
 
+    /**
+     * This method is used to get the available couriers.
+     * @return The list of available couriers
+     */
     public List<Corriere> getCorrieriDispobibili() {
         return new CorriereDAOimp().getDisponibili();
     }
 
+    /**
+     * This method is used to get the available vehicles.
+     * @return The list of available vehicles
+     */
     public List<Veicolo> getVeicoliDisponibili() {
         return new VeicoloDAOimp().getDisponibili();
     }
 
+    /**
+     * This method is used to generate the delivery.
+     * @param selectedOrders The list of selected orders
+     * @param corriere The courier's name and surname
+     * @param veicolo The vehicle's targa
+     */
     public void generateDelivery(List<Ordine> selectedOrders, String corriere, String veicolo) {
         SpedizioneDAO spedizioneDAO = new SpedizioneDAOimp();
 

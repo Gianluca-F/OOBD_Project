@@ -17,6 +17,9 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.function.Supplier;
 
+/**
+ * This class is used to manage the delivery controller.
+ */
 public class DeliveryController {
 
     @FXML
@@ -107,7 +110,7 @@ public class DeliveryController {
      * This method is used to show the delivery generated message.
      */
     public void showDeliveryGenerated() {
-        deliveryGeneratedLabel.setText("Delivery generata con successo!\nAggiornare la pagina.");
+        deliveryGeneratedLabel.setText("Spedizione generata con successo!\nAggiornare la pagina.");
         deliveryGeneratedLabel.setStyle("-fx-text-fill: #2e6f40");
         deliveryGeneratedLabel.setVisible(true);
     }
@@ -116,7 +119,7 @@ public class DeliveryController {
      * This method is used to show the delivery not generated message.
      */
     public void showDeliveryNotGenerated() {
-        deliveryGeneratedLabel.setText("Errore nella generazione della delivery!\nSi consiglia di aggiornare\nla pagina e riprovare.");
+        deliveryGeneratedLabel.setText("Errore nella generazione della\nspedizione.\nVeicolo non abbastanza capiente.");
         deliveryGeneratedLabel.setStyle("-fx-text-fill: #ff0000");
         deliveryGeneratedLabel.setVisible(true);
     }

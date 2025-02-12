@@ -15,6 +15,9 @@ import java.time.Month;
 import java.util.stream.IntStream;
 import java.util.Locale;
 
+/**
+ * This class is used to manage the report controller.
+ */
 public class ReportController {
 
     @FXML
@@ -40,6 +43,9 @@ public class ReportController {
 
     private ReportControl reportControl;
 
+    /**
+     * This method is used to initialize the report controller.
+     */
     @FXML
     public void initialize() {
         reportControl = ReportControl.getInstance();
@@ -57,7 +63,10 @@ public class ReportController {
         IntStream.range(firstOperativeYear, currentYear + 1).boxed().forEach(yearSelector.getItems()::add);
     }
 
-
+    /**
+     * This method is used to handle the generate report action.
+     * @param actionEvent The action event
+     */
     public void handleGenerateReport(ActionEvent actionEvent) {
         String selectedMonth = monthSelector.getValue();
         Integer selectedYear = yearSelector.getValue();
@@ -73,6 +82,10 @@ public class ReportController {
         }
     }
 
+    /**
+     * This method is used to handle the view details action.
+     * @param actionEvent The action event
+     */
     public void handleViewDetailsMaxProductsOrder(ActionEvent actionEvent) {
         String selectedMonth = monthSelector.getValue();
         Integer selectedYear = yearSelector.getValue();
@@ -88,6 +101,10 @@ public class ReportController {
         }
     }
 
+    /**
+     * This method is used to handle the view details action.
+     * @param selectedOrder The selected order
+     */
     public void handleViewDetailsMinProductsOrder(ActionEvent actionEvent) {
         String selectedMonth = monthSelector.getValue();
         Integer selectedYear = yearSelector.getValue();
