@@ -10,6 +10,8 @@
 <?import javafx.scene.layout.VBox?>
 
 <?import javafx.scene.layout.Region?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unina.oobd2324_37.boundary.DeliveryController">
     <children>
         <VBox spacing="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" AnchorPane.bottomAnchor="10.0" stylesheets="@../css/Delivery-Page.css">
@@ -18,7 +20,21 @@
                     <Region HBox.hgrow="ALWAYS" />
                 </VBox>
                 <VBox spacing="5.0">
-                    <Label text="Gestione Spedizioni" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #1F4F83;" />
+                    <HBox spacing="5.0">
+                        <Label text="Gestione Spedizioni" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #1F4F83;" />
+
+                        <Region HBox.hgrow="ALWAYS" />
+
+                        <Button fx:id="refreshButton" onAction="#handleRefreshPage">
+                            <graphic>
+                                <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/refresh.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                    </HBox>
 
                     <TableView fx:id="orderTable" prefHeight="300.0" prefWidth="810.0" >
                         <columns>
@@ -34,15 +50,16 @@
                     <HBox spacing="20.0">
                         <VBox spacing="5.0">
                             <Label text="Corriere:" />
-                            <ComboBox fx:id="corriereComboBox" promptText="Scegli un corriere" />
+                            <ComboBox fx:id="corriereComboBox" promptText="Corriere" />
                         </VBox>
 
                         <VBox spacing="5.0">
                             <Label text="Veicolo:" />
-                            <ComboBox fx:id="veicoloComboBox" promptText="Scegli una targa" />
+                            <ComboBox fx:id="veicoloComboBox" promptText="Veicolo" />
                         </VBox>
 
                         <VBox spacing="5.0">
+                            <Region prefHeight="10.0" />
                             <Button fx:id="generateDeliveryButton" disable="true" text="Genera Spedizione" onAction="#handleGenerateDelivery" />
                         </VBox>
 

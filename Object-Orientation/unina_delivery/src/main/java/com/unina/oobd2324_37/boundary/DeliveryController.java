@@ -107,6 +107,17 @@ public class DeliveryController {
     }
 
     /**
+     * This method is used to handle the refresh page button.
+     * @param actionEvent The action event
+     */
+    public void handleRefreshPage(ActionEvent actionEvent) {
+        deliveryControl.updateTable();
+        deliveryGeneratedLabel.setVisible(false);
+        corriereComboBox.setValue(null);
+        veicoloComboBox.setValue(null);
+    }
+
+    /**
      * This method is used to show the delivery generated message.
      */
     public void showDeliveryGenerated() {
